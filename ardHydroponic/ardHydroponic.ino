@@ -41,11 +41,16 @@ void setup()
   pinMode(ECPower, OUTPUT);  // sourcing current
   pinMode(ECGround, OUTPUT); // sinking current
 
-  pinMode(maintButton, INPUT);
-  pinMode(cleanPhMinusButton, INPUT);
-  pinMode(cleanPhPlusButton, INPUT);
-  pinMode(cleanNutrAButton, INPUT);
-  pinMode(cleanNutrBButton, INPUT);
+/*******************************
+    Setup FTDebouncer pins
+  *******************************/
+  pinDebouncer.addPin(maintButton, LOW); // pin has external pull-down resistor
+  pinDebouncer.addPin(cleanPhMinusButton, LOW);
+  pinDebouncer.addPin(cleanPhPlusButton, LOW);
+  pinDebouncer.addPin(cleanNutrAButton, LOW);
+  pinDebouncer.addPin(cleanNutrBButton, LOW);
+
+  pinDebouncer.init(); // initiate debouncer
 
   /**********
      EC sensor

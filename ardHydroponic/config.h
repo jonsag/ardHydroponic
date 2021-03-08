@@ -3,16 +3,33 @@ String date = "20210307";
 String author = "Jon Sagebrand";
 String email = "jonsagebrand@gmail.com";
 
+/**********
+ * Times
+ **********/
+const int nutrientsPumpTime = 500; // pump time for nutrient pumps
+const int PhPlusPumpTime = 500;       // pump time for PH+ pump
+const int PhMinusPumpTime = 500;       // pump time for PH- pump
+
+const int cleanTime = 30000; // hoses clean time
+
+const int iterationTime = 10000; // reading
+
 /***********
    Serial
  ***********/
 const int serialBaudRate = 9600;
 
+/**********
+ * Debouncing
+ **********/
+#include <FTDebouncer> // load library for debouncing buttons
+FTDebouncer pinDebouncer(30);
+
 /***********
    One Wire, DS18B20
  ***********/
 #include <OneWire.h>
-const int DS18S20_Pin = A15; // one wire pin
+const int DS18S20_Pin = A1; // one wire pin
 OneWire ds(DS18S20_Pin);     // creating a OneWire object
 
 float TemperatureSum; // average of all samples taken from one temp test
@@ -27,29 +44,28 @@ byte addr[8];         // variable to temporary hold the memory address of the re
 /**********
    LCD
  **********/
+//        Uno   Mega 
+// SDA -> A4    D20
+// SCL -> A5    D21
 #include <LiquidCrystal_I2C.h>                          // Library for LCD
 LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 20, 4); // change to (0x27, 20, 4) for 20x4 LCD
 
 /**********
    Pumps
  **********/
-const int PhPlusPump = A11;  // PH+ pump
-const int PhMinusPump = A12; // PH- pump
-const int nutrAPump = A13;   // nutrition A pump
-const int nutrBPump = A14;   // nutrition B pump
+const int PhPlusPump = 2;  // PH+ pump
+const int PhMinusPump = 3; // PH- pump
+const int nutrAPump = 4;   // nutrition A pump
+const int nutrBPump = 5;   // nutrition B pump
 
-const int nutrientsPumpTime = 500; // pump time for nutrient pumps
-const int PhPlusPumpTime = 500;       // pump time for PH+ pump
-const int PhMinusPumpTime = 500;       // pump time for PH- pump
 
-const int cleanTime = 30000; // hoses clean time
 
 /**********
    EC sensor
  **********/
-const int ECPin = A1;    // reference pin
+const int ECPin = 11;    // reference pin
 const int ECGround = A2; // ground level
-const int ECPower = A3;  // power pin
+const int ECPower = 12;  // power pin
 
 int R1 = 1000;                 // internal resistance
 int Ra = 25;                   // powering pin resistance
@@ -74,11 +90,11 @@ int buf[10], temp;          // pH reading samples
 /**********
    Buttons
  **********/
-const int maintButton = 00; // ersätt alla 00 med ingångsnummer *************************************************************************************************************************
-const int cleanPhMinusButton = 00;
-const int cleanPhPlusButton = 00;
-const int cleanNutrAButton = 00;
-const int cleanNutrBButton = 00;
+const int maintButton = 6;
+const int cleanPhMinusButton = 7;
+const int cleanPhPlusButton = 8;
+const int cleanNutrAButton = 9;
+const int cleanNutrBButton = 10;
 
 int maintenance;
 int cleanPhMinus;
@@ -87,9 +103,11 @@ int cleanNutrA;
 int cleanNutrB;
 
 /**********
-   Misc
+   Modes
  **********/
-const int iterationTime = 10000; // reading
+boolean maintMode = 1;
+
+
 
 /**********
    WiFi
