@@ -22,7 +22,7 @@ const int serialBaudRate = 9600;
 /**********
  * Debouncing
  **********/
-#include <FTDebouncer> // load library for debouncing buttons
+#include <FTDebouncer.h> // load library for debouncing buttons
 FTDebouncer pinDebouncer(30);
 
 /***********
@@ -33,6 +33,8 @@ const int DS18S20_Pin = A1; // one wire pin
 OneWire ds(DS18S20_Pin);     // creating a OneWire object
 
 float TemperatureSum; // average of all samples taken from one temp test
+float oldTemperatureSum = 0;
+
 byte data[12];        // variable to temporary hold readings
 byte addr[8];         // variable to temporary hold the memory address of the readings
 
@@ -58,8 +60,6 @@ const int PhMinusPump = 3; // PH- pump
 const int nutrAPump = 4;   // nutrition A pump
 const int nutrBPump = 5;   // nutrition B pump
 
-
-
 /**********
    EC sensor
  **********/
@@ -78,6 +78,8 @@ float Vin = 5;                 // internal voltage supply from Arduino to an ana
 float Vdrop = 0;               // voltage drop measured from an EC-reading
 float Rc = 0;                  // The voltage of the water solvent
 
+float oldEC25 = 0;
+
 /**********
    PH sensor
  **********/
@@ -86,6 +88,8 @@ const int pHpin = A0; // pH-sensor probe
 unsigned long int avgValue; // average value of the sensor feedback
 float phValue;              // calculated pH reading
 int buf[10], temp;          // pH reading samples
+
+float oldPhValue = 0;
 
 /**********
    Buttons
@@ -96,18 +100,31 @@ const int cleanPhPlusButton = 8;
 const int cleanNutrAButton = 9;
 const int cleanNutrBButton = 10;
 
-int maintenance;
+//int maintenance;
 int cleanPhMinus;
 int cleanPhPlus;
 int cleanNutrA;
 int cleanNutrB;
 
 /**********
-   Modes
- **********/
-boolean maintMode = 1;
+ * Misc
+ *********/
+int mode = 0; // 0: normal, 1: reading, 2: pumping, 3: maintenance
+int oldMode = 0;
 
+char dtostrfBuffer[5];
+int strLength;
+String valString;
+int valLength;
 
+unsigned long currentMillis;
+
+unsigned long readMillis;
+
+unsigned long PhPlusStartMillis;
+unsigned long PhMinusStartMillis;
+unsigned long nutrAStartMillis;
+unsigned long nutrBStartMillis;
 
 /**********
    WiFi
@@ -118,5 +135,5 @@ boolean maintMode = 1;
 /**********
    ThingSpeak
  **********/
-//#define IP "184.106.153.149"// ip-address for thingspeak.com
-//String msg = "GET /update?key=94IADK04DP5YY184"; // A GET parameter associated with the personal thingspeak channel
+#define IP "184.106.153.149"// ip-address for thingspeak.com
+String msg = "GET /update?key=94IADK04DP5YY184"; // a GET parameter associated with the personal thingspeak channel

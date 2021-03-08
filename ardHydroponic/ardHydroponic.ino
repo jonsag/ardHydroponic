@@ -1,3 +1,4 @@
+
 /**********
  * Include files
  **********/
@@ -5,6 +6,9 @@
 #include "read.h"
 #include "LCD.h"
 #include "clean.h"
+#include "misc.h"
+#include "buttons.h"
+#include "thingSpeak.h"
 
 void setup()
 {
@@ -41,7 +45,7 @@ void setup()
   pinMode(ECPower, OUTPUT);  // sourcing current
   pinMode(ECGround, OUTPUT); // sinking current
 
-/*******************************
+  /*******************************
     Setup FTDebouncer pins
   *******************************/
   pinDebouncer.addPin(maintButton, LOW); // pin has external pull-down resistor
@@ -68,140 +72,171 @@ void setup()
 
 void loop()
 {
+  currentMillis = millis();
+
+  if (mode != oldMode)
+  {
+    switch (mode)
+    {
+    case 0:
+      printHeaders();
+      break;
+    case 1:
+      printMode();
+      break;
+    case 2:
+      printMode();
+      break;
+    case 3:
+      printMaintenance();
+      break;
+    }
+    oldMode = mode;
+  }
   /**********
      Read buttons
    **********/
+  pinDebouncer.update();
+  /*
   maintenance = digitalRead(maintButton);
   cleanPhMinus = digitalRead(cleanPhMinusButton);
   cleanPhPlus = digitalRead(cleanPhPlusButton);
   cleanNutrA = digitalRead(cleanNutrAButton);
   cleanNutrB = digitalRead(cleanNutrBButton);
+*/
 
-  if (!maintenance)
+  if (mode != 3)
   { // normal mode
 
     /**********
        Water temperature
      **********/
-    TemperatureSum = readWaterTemp();
+    if (currentMillis - readMillis > iterationTime)
+    { // read mode
+      oldMode = mode;
+      mode = 1;
+      printMode();
 
-    Serial.println("TankTemp: " + String(TemperatureSum));
-    //lcd.setCursor(0, 0);
-    //lcd.print("TankTemp: ");
-    //lcd.print(TemperatureSum);    // temperature in Celsius
-    //lcd.print((char)223);      // ° character
-    //lcd.print("C");    // temperature in Celsius
+      TemperatureSum = readWaterTemp();
 
-    /**********
+      Serial.println("TankTemp: " + String(TemperatureSum));
+      if (TemperatureSum != oldTemperatureSum)
+      {
+        printTemp();
+      }
+
+      /**********
        Read PH value
      **********/
-    phValue = readPhValue();
+      phValue = readPhValue();
 
-    Serial.println("PH: " + String(phValue));
-    lcd.setCursor(5, 0);
-    lcd.print("PH: ");
-    lcd.print(phValue); // print PH value
+      Serial.println("PH: " + String(phValue));
+      if (phValue != oldPhValue)
+      {
+        printPhValue();
+      }
 
-    /**********
+      /**********
        Read EC level
      **********/
-    EC25 = readECLevel();
+      EC25 = readECLevel();
 
-    Serial.println("EC: " + String(EC25));
-    lcd.setCursor(5, 2);
-    lcd.print("EC: ");
-    lcd.print(EC25); // print EC value
+      Serial.println("EC: " + String(EC25));
+      if (EC25 != oldEC25)
+      {
+        printECValue();
+      }
 
-    /**********
+      mode = 2; // entering pump mode
+
+      readMillis = currentMillis;
+
+      /**********
        ThingSpeak
      **********/
-    // updateTS(); //Calling on function to update the ThingSpeak channel with new data
+      // updateThingSpeak();
+    }
 
     /**********
        Run pumps
      **********/
-    //if (EC25<1.4 && phValue>6.6) { // if the nutrient level unsufficient, and the pH value to high
+    //if (EC25<1.4 && phValue>6.6) {} // if the nutrient level unsufficient, and the pH value to high
 
-    /**********
+    if (mode == 2)
+    {
+      /**********
        Nutrient pumps
      **********/
-    if (EC25 < 3.0)
-    {                                // if the nutrient level unsufficient
-      digitalWrite(nutrAPump, HIGH); // dosing nutrition A
-      digitalWrite(nutrBPump, HIGH); // dosing nutrition B
+      if (EC25 < 3.0)
+      {                                // if the nutrient level unsufficient
+        digitalWrite(nutrAPump, HIGH); // dosing nutrition A
+        digitalWrite(nutrBPump, HIGH); // dosing nutrition B
 
-      Serial.println("Nutrientpumps ON");
-      printToLCD(1, 3, "Nutrientpumps  ON  ");
+        Serial.println("Nutrientpumps ON");
+        printToLCD(1, 3, "Nutrientpumps  ON  ");
 
-      delay(nutrientsPumpTime); // running nutrient pumps
+        delay(nutrientsPumpTime); // running nutrient pumps
 
-      digitalWrite(nutrAPump, LOW); // cutting power to pump
-      digitalWrite(nutrBPump, LOW); // cutting power to pump
+        digitalWrite(nutrAPump, LOW); // cutting power to pump
+        digitalWrite(nutrBPump, LOW); // cutting power to pump
 
-      Serial.println("Nutrientpumps OFF");
-      printToLCD(1, 3, "Nutrientpumps  OFF  ");
-    }
+        Serial.println("Nutrientpumps OFF");
+        printToLCD(1, 3, "Nutrientpumps  OFF  ");
+      }
 
-    /**********
+      /**********
        PH pumps
      **********/
-    if (phValue < 4.62)
-    {                                 // if the pH value to low
-      digitalWrite(PhPlusPump, HIGH); // dosing PH+
+      if (phValue < 4.62)
+      {                                 // if the pH value to low
+        digitalWrite(PhPlusPump, HIGH); // dosing PH+
 
-      Serial.println("Dosingpump PH+ ON");
-      printToLCD(1, 1, "Dosingpump PH+ ON   ");
+        Serial.println("Dosingpump PH+ ON");
+        printToLCD(1, 1, "Dosingpump PH+ ON   ");
 
-      delay(PhPlusPumpTime); // running pump
+        delay(PhPlusPumpTime); // running pump
 
-      digitalWrite(PhPlusPump, LOW); // cutting power to pump
+        digitalWrite(PhPlusPump, LOW); // cutting power to pump
 
-      Serial.println("Dosingpump PH+ OFF");
-      printToLCD(1, 1, "Dosingpump PH+ OFF  ");
+        Serial.println("Dosingpump PH+ OFF");
+        printToLCD(1, 1, "Dosingpump PH+ OFF  ");
+      }
+      else if (phValue > 4.63)
+      {                                  // if the pH is high
+        digitalWrite(PhMinusPump, HIGH); // dosing PH-
+
+        Serial.println("Dosingpump PH- ON");
+        printToLCD(1, 1, "Dosingpump PH- ON   ");
+
+        delay(PhMinusPumpTime); // running pump
+
+        digitalWrite(PhMinusPump, LOW); // cutting power to pump
+        Serial.println("Dosingpump PH- OFF  ");
+        printToLCD(1, 1, "Dosingpump PH- OFF");
+      }
+
+    mode = 0; // go back to normal mode
     }
-    else if (phValue > 4.63)
-    {                                  // if the pH is high
-      digitalWrite(PhMinusPump, HIGH); // dosing PH-
-
-      Serial.println("Dosingpump PH- ON");
-      printToLCD(1, 1, "Dosingpump PH- ON   ");
-
-      delay(PhMinusPumpTime); // running pump
-
-      digitalWrite(PhMinusPump, LOW); // cutting power to pump
-      Serial.println("Dosingpump PH- OFF  ");
-      printToLCD(1, 1, "Dosingpump PH- OFF");
-    }
-
-    delay(iterationTime); // wait before starting next loop iteration
   }
   else
-  {
-    // skriv på skärmen att vi är i underhållsläge ********************************************************************************************************************************
+  { // maintenance mode
+    printMode();
+
     if (cleanPhMinus)
     {
-      cleaningPhMinus();
+      flushPhMinus();
     }
     if (cleanPhPlus)
     {
-      cleaningPhPlus();
+      flushPhPlus();
     }
     if (cleanNutrA)
     {
-      cleaningNutrA();
+      flushNutrA();
     }
     if (cleanNutrB)
     {
-      cleaningNutrB();
+      flushNutrB();
     }
   }
 }
-
-//______ThingSpeak channel update function___________
-//void updateTS(){
-//String cmd = "AT+CIPSTART=\"TCP\",\""; // A serial command to instruct the WiFi chip
-// cmd += IP; //Adding the string containing the IP for ThingSpeak
-// cmd += "\",80"; // The port to communicate with ThingSpeak through
-// Serial.println(cmd); //Establishing connection with ThingSpeak
-// delay(2000); // time delay
-

@@ -1,67 +1,75 @@
-void cleaningPhMinus()
+void flushPhMinus()
 {
-  Serial.println("Spolar slang PH- under 30 sekunder");
-  digitalWrite(PhPlusPump, HIGH); // spolar slangen för PH-
-  printToLCD(0, 0, "   Spolar slangen   ");
-  printToLCD(0, 1, "   med PH-          ");
-  printToLCD(0, 2, "    i 30 sekunder   ");
+  Serial.print("Flushing PH- hose");
+  printToLCD(0, 0, "Flushing hose for   ");
+  printToLCD(0, 1, "PH-                 ");
+  printToLCD(0, 2, "for ");
+  printToLCD(4, 2, String(cleanTime / 1000));
+  printToLCD(6, 2, " seconds     ");
 
-  delay(cleanTime); // Running pump
+  digitalWrite(PhPlusPump, HIGH);
+  delay(cleanTime);
+  digitalWrite(PhPlusPump, LOW);
 
-  Serial.println("Spolning av slang är klar!");
-  digitalWrite(PhPlusPump, LOW); // stänger av pumpen
-  printToLCD(0, 0, "    Spolning av   ");
-  printToLCD(0, 1, "    slang klar!   ");
+  Serial.println("Cleaning finished");
+  printToLCD(0, 0, "Cleaning          ");
+  printToLCD(0, 1, "finished          ");
   printToLCD(0, 2, "                  ");
 }
 
-void cleaningPhPlus()
+void flushPhPlus()
 {
-  Serial.println("Spolar slang PH+ under 30 sekunder");
-  digitalWrite(PhMinusPump, HIGH); // spolar slangen för PH+
-  printToLCD(0, 0, "   Spolar slangen   ");
-  printToLCD(0, 1, "   med PH+          ");
-  printToLCD(0, 2, "    i 30 sekunder   ");
+  Serial.print("Flushing PH+ hose");
+  printToLCD(0, 0, "Flushing hose for   ");
+  printToLCD(0, 1, "PH+                 ");
+  printToLCD(0, 2, "for ");
+  printToLCD(4, 2, String(cleanTime / 1000));
+  printToLCD(6, 2, " seconds     ");
 
-  delay(cleanTime); // Running pump
+  digitalWrite(PhMinusPump, HIGH);
+  delay(cleanTime);
+  digitalWrite(PhMinusPump, LOW);
 
-  Serial.println("Spolning av slang är klar!");
-  digitalWrite(PhMinusPump, LOW); // stänger av pumpen
-  printToLCD(0, 0, "    Spolning av   ");
-  printToLCD(0, 1, "    slang klar!   ");
+  Serial.println("Cleaning finished");
+  printToLCD(0, 0, "Cleaning          ");
+  printToLCD(0, 1, "finished          ");
   printToLCD(0, 2, "                  ");
 }
 
-void cleaningNutrA()
+void flushNutrA()
 {
-  Serial.println("Spolar slang A under 30 sekunder");
-  digitalWrite(nutrAPump, HIGH); // spolar slangen nutrion: A
-  printToLCD(0, 0, "   Spolar slangen   ");
-  printToLCD(0, 1, "   med nutrion: A   ");
-  printToLCD(0, 2, "    i 30 sekunder   ");
+  Serial.print("Flushing nutrient A hose");
+  printToLCD(0, 0, "Flushing hose for   ");
+  printToLCD(0, 1, "nutrient A          ");
+  printToLCD(0, 2, "for ");
+  printToLCD(4, 2, String(cleanTime / 1000));
+  printToLCD(6, 2, " seconds     ");
 
-  delay(cleanTime); // Running pump
+  digitalWrite(nutrAPump, HIGH);
+  delay(cleanTime);
+  digitalWrite(nutrAPump, LOW);
 
-  Serial.println("Spolning av slang är klar!");
-  digitalWrite(nutrAPump, LOW); // stänger av pumpen
-  printToLCD(0, 0, "    Spolning av   ");
-  printToLCD(0, 1, "    slang klar!   ");
+  Serial.println("Cleaning finished");
+  printToLCD(0, 0, "Cleaning          ");
+  printToLCD(0, 1, "finished          ");
   printToLCD(0, 2, "                  ");
 }
 
-void cleaningNutrB()
+void flushNutrB()
 {
-  Serial.println("Spolar slang B under 30 sekunder");
-  digitalWrite(nutrBPump, HIGH); // spolar slangen nutrion: B
-  printToLCD(0, 0, "   Spolar slangen   ");
-  printToLCD(0, 1, "   med nutrion: B   ");
-  printToLCD(0, 2, "    i 30 sekunder   ");
+  Serial.print("Flushing nutrient B hose");
+  printToLCD(0, 0, "Flushing hose for   ");
+  printToLCD(0, 1, "nutrient B          ");
+  printToLCD(0, 2, "for ");
+  printToLCD(4, 2, String(cleanTime / 1000));
+  printToLCD(6, 2, " seconds     ");
 
-  delay(cleanTime); // Running pump
+  digitalWrite(nutrBPump, HIGH);
+  delay(cleanTime);
+  digitalWrite(nutrBPump, LOW);
 
-  Serial.println("Spolning av slang är klar!");
-  digitalWrite(nutrBPump, LOW); // stänger av pumpen
-  printToLCD(0, 0, "    Spolning av   ");
-  printToLCD(0, 1, "    slang klar!   ");
+  Serial.println("Cleaning finished");
+  printToLCD(0, 0, "Cleaning          ");
+  printToLCD(0, 1, "finished          ");
   printToLCD(0, 2, "                  ");
 }
