@@ -7,28 +7,85 @@ void onPinActivated(int pinNumber)
     {
     case maintButton:
         Serial.println("maintButton");
+        if (mode == 3)
+        {
+            stopPumps();
+            mode = 0;
+            checkMode(); // check if mode has changed
+        }
+        else
+        {
+            stopPumps();
+            mode = 3;
+            checkMode(); // check if mode has changed
+            maintStartMillis = currentMillis;
+        }
+        break;
+    case cleanpHPlusButton:
+        Serial.println("cleanpHPlusButton");
+        if (mode == 3)
+        {
+            if (digitalRead(pHPlusPump))
+            {
+                stoppHPlus();
+            }
+            else
+            {
+                startpHPlus();
+                pHPlusStartMillis = currentMillis;
+            }
+        }
         break;
     case cleanpHMinusButton:
         Serial.println("cleanpHMinusButton");
-        cleanpHMinus = 1;
-        break;
-    case cleanpHPlusButton:
-        Serial.println("cleanpHMinusButton");
-        cleanpHPlus = 1;
+        if (mode == 3)
+        {
+            if (digitalRead(pHMinusPump))
+            {
+                stoppHMinus();
+            }
+            else
+            {
+                startpHMinus();
+                pHMinusStartMillis = currentMillis;
+            }
+        }
         break;
     case cleanNutrAButton:
         Serial.println("cleanNutrAButton");
-        cleanNutrA = 1;
+        if (mode == 3)
+        {
+            if (digitalRead(nutrAPump))
+            {
+                stopNutrA();
+            }
+            else
+            {
+                startNutrA();
+                nutrAStartMillis = currentMillis;
+            }
+        }
         break;
     case cleanNutrBButton:
         Serial.println("cleanNutrBButton");
-        cleanNutrB = 1;
+        if (mode == 3)
+        {
+            if (digitalRead(nutrBPump))
+            {
+                stopNutrB();
+            }
+            else
+            {
+                startNutrB();
+                nutrBStartMillis = currentMillis;
+            }
+        }
         break;
     }
 }
 
 void onPinDeactivated(int pinNumber)
 {
-    Serial.print("Pin deactivated: ");
-    Serial.println(pinNumber);
+    //Serial.print("Pin deactivated: ");
+    //Serial.println(pinNumber);
 }

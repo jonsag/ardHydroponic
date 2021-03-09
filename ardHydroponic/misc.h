@@ -1,7 +1,13 @@
-int intLength(int value) {
+int intLength(long value)
+{
   int length;
-
-  if (value > 9999)
+  if (value > 9999999)
+    length = 8;
+  else if (value > 999999)
+    length = 7;
+  else if (value > 99999)
+    length = 6;
+  else if (value > 9999)
     length = 5;
   else if (value > 999)
     length = 4;
@@ -15,16 +21,14 @@ int intLength(int value) {
   return length;
 }
 
-int intToStringToLength(int val) { // returns how many numbers in integer
-  valString = String(val); // convert to string
-  valLength = valString.length(); // count number of characters in string
-
-  return valLength;
-}
-
-void checkMode() {
-    if (mode != oldMode)
+void checkMode()
+{
+  if (mode != oldMode)
   {
+    if (oldMode == 3)
+    {
+      lcd.clear();
+    }
     switch (mode)
     {
     case 0:

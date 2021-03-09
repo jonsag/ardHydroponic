@@ -46,7 +46,7 @@ void printpHValue()
   Serial.println("LCD -> Printing pH value");
 
   dtostrf(phValue, 1, 2, dtostrfBuffer);
-  
+
   printToLCD(4, 2, dtostrfBuffer);
 }
 
@@ -55,7 +55,7 @@ void printECValue()
   Serial.println("LCD -> Printing EC value");
 
   dtostrf(EC25, 1, 2, dtostrfBuffer);
-  
+
   printToLCD(4, 3, dtostrfBuffer);
 }
 
@@ -63,7 +63,7 @@ void printNormal()
 {
   Serial.println("LCD -> Normal mode");
 
-  lcd.clear();
+  //lcd.clear();
 
   printToLCD(0, 0, "Mode:");
   printMode();
@@ -80,7 +80,7 @@ void printNormal()
 
 void printMaintenance()
 {
-lcd.clear();
+  lcd.clear();
   printToLCD(0, 0, "Mode:");
-  printMode();  
+  printMode();
 }

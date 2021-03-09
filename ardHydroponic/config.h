@@ -14,6 +14,7 @@ const int cleanTime = 30000; // hoses clean time
 
 const int iterationTime = 10000; // reading
 
+const unsigned long maintTimeOut = 36000000; // 36000000 millis = 10 minutes 
 /***********
    Serial
  ***********/
@@ -100,12 +101,6 @@ const int cleanpHPlusButton = 8;
 const int cleanNutrAButton = 9;
 const int cleanNutrBButton = 10;
 
-//int maintenance;
-int cleanpHMinus;
-int cleanpHPlus;
-int cleanNutrA;
-int cleanNutrB;
-
 /**********
  * Misc
  *********/
@@ -119,12 +114,17 @@ int valLength;
 
 unsigned long currentMillis;
 
-unsigned long readMillis;
+unsigned long readMillis = 0;
 
-unsigned long pHPlusStartMillis;
-unsigned long pHMinusStartMillis;
-unsigned long nutrAStartMillis;
-unsigned long nutrBStartMillis;
+unsigned long pHPlusStartMillis = 0;
+unsigned long pHMinusStartMillis = 0;
+unsigned long nutrAStartMillis = 0;
+unsigned long nutrBStartMillis = 0;
+
+unsigned long maintStartMillis = 0;
+
+unsigned long counter;
+unsigned long oldCounter = 0;
 
 /**********
    WiFi
@@ -135,5 +135,5 @@ unsigned long nutrBStartMillis;
 /**********
    ThingSpeak
  **********/
-#define IP "184.106.153.149"// ip-address for thingspeak.com
-String msg = "GET /update?key=94IADK04DP5YY184"; // a GET parameter associated with the personal thingspeak channel
+//#define IP "184.106.153.149"// ip-address for thingspeak.com
+//String msg = "GET /update?key=94IADK04DP5YY184"; // a GET parameter associated with the personal thingspeak channel

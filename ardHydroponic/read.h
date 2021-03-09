@@ -99,7 +99,19 @@ void readSensors()
      **********/
   phValue = readpHValue();
 
+  if (phValue < 4.62)
+  { // if the pH value to low
+    startpHPlus();
+    pHPlusStartMillis = currentMillis;
+  }
+  else if (phValue > 4.63)
+  { // if the pH is too high
+    startpHMinus();
+    pHMinusStartMillis = currentMillis;
+  }
+
   Serial.println("PH: " + String(phValue));
+
   if (phValue != oldpHValue)
   {
     printpHValue();
@@ -109,6 +121,13 @@ void readSensors()
        Read EC level
      **********/
   EC25 = readECLevel();
+
+  if (EC25 < 3.0)
+  { // EC level too low
+    startNutrA();
+    startNutrB();
+    nutrAStartMillis = currentMillis;
+  }
 
   Serial.println("EC: " + String(EC25));
   if (EC25 != oldEC25)
