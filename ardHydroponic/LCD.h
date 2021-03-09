@@ -6,37 +6,34 @@ void printToLCD(int col, int row, String text)
 
 void printMode()
 {
+  Serial.print("LCD -> Printing mode: ");
   switch (mode)
   {
   case 0:
-    printToLCD(6, 0, "Normal       ");
+    Serial.println("Waiting...");
+    printToLCD(6, 0, "Waiting...   ");
     break;
   case 1:
+    Serial.println("Reading...");
     printToLCD(6, 0, "Reading...   ");
     break;
   case 2:
+    Serial.println("Pumping...");
     printToLCD(6, 0, "Pumping...   ");
     break;
   case 3:
+    Serial.println("Maintenance");
     printToLCD(6, 0, "Maintenance  ");
     break;
   }
 }
 
-void printHeaders()
-{
-  lcd.clear();
-  printToLCD(0, 0, "Mode:");
-  printMode();
-
-  printToLCD(0, 1, "Temp:");
-  printToLCD(0, 2, "Ph:");
-  printToLCD(0, 3, "EC:");
-}
-
 void printTemp()
 {
+  Serial.println("LCD -> Printing temp");
+
   dtostrf(TemperatureSum, 1, 1, dtostrfBuffer);
+
   printToLCD(6, 1, dtostrfBuffer);
 
   strLength = strlen(dtostrfBuffer);
@@ -44,16 +41,41 @@ void printTemp()
   printToLCD(6 + strLength + 1, 1, "C");
 }
 
-void printPhValue()
+void printpHValue()
 {
-  dtostrf(phValue, 1, 1, dtostrfBuffer);
+  Serial.println("LCD -> Printing pH value");
+
+  dtostrf(phValue, 1, 2, dtostrfBuffer);
+  
   printToLCD(4, 2, dtostrfBuffer);
 }
 
 void printECValue()
 {
-  dtostrf(EC25, 1, 1, dtostrfBuffer);
+  Serial.println("LCD -> Printing EC value");
+
+  dtostrf(EC25, 1, 2, dtostrfBuffer);
+  
   printToLCD(4, 3, dtostrfBuffer);
+}
+
+void printNormal()
+{
+  Serial.println("LCD -> Normal mode");
+
+  lcd.clear();
+
+  printToLCD(0, 0, "Mode:");
+  printMode();
+
+  printToLCD(0, 1, "Temp:");
+  printTemp();
+
+  printToLCD(0, 2, "pH:");
+  printpHValue();
+
+  printToLCD(0, 3, "EC:");
+  printECValue();
 }
 
 void printMaintenance()

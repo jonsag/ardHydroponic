@@ -1,5 +1,7 @@
 float readWaterTemp()
 {
+  Serial.println("Reading water temp...");
+
   if (!ds.search(addr))
   { // no more sensors on chain, reset search
     ds.reset_search();
@@ -28,8 +30,10 @@ float readWaterTemp()
   return TemperatureSum;
 }
 
-float readPhValue()
+float readpHValue()
 {
+  Serial.println("Reading pH value...");
+
   for (int i = 0; i < 10; i++)
   {                             // get 10 sample value from the sensor for smooth the value
     buf[i] = analogRead(pHpin); // read pH probe
@@ -62,6 +66,8 @@ float readPhValue()
 
 float readECLevel()
 {
+  Serial.println("Reading EC value...");
+
   digitalWrite(ECPower, HIGH); // setting the power pin for EC sensor to high
   ECRaw = analogRead(ECPin);
   ECRaw = analogRead(ECPin);  // first reading will be inconclusive due to low charge in probe
@@ -76,4 +82,37 @@ float readECLevel()
   EC25 = EC / (1 + TemperatureCoef * (TemperatureSum - 25.0)); // compensating For the temperature in the water solvent//
 
   return EC25;
+}
+
+void readSensors()
+{
+  TemperatureSum = readWaterTemp();
+
+  Serial.println("TankTemp: " + String(TemperatureSum));
+  if (TemperatureSum != oldTemperatureSum)
+  {
+    printTemp();
+  }
+
+  /**********
+       Read PH value
+     **********/
+  phValue = readpHValue();
+
+  Serial.println("PH: " + String(phValue));
+  if (phValue != oldpHValue)
+  {
+    printpHValue();
+  }
+
+  /**********
+       Read EC level
+     **********/
+  EC25 = readECLevel();
+
+  Serial.println("EC: " + String(EC25));
+  if (EC25 != oldEC25)
+  {
+    printECValue();
+  }
 }

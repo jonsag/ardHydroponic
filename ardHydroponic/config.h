@@ -7,8 +7,8 @@ String email = "jonsagebrand@gmail.com";
  * Times
  **********/
 const int nutrientsPumpTime = 500; // pump time for nutrient pumps
-const int PhPlusPumpTime = 500;       // pump time for PH+ pump
-const int PhMinusPumpTime = 500;       // pump time for PH- pump
+const int pHPlusPumpTime = 500;       // pump time for PH+ pump
+const int pHMinusPumpTime = 500;       // pump time for PH- pump
 
 const int cleanTime = 30000; // hoses clean time
 
@@ -55,8 +55,8 @@ LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 20, 4); // change to (0x27, 20, 
 /**********
    Pumps
  **********/
-const int PhPlusPump = 2;  // PH+ pump
-const int PhMinusPump = 3; // PH- pump
+const int pHPlusPump = 2;  // PH+ pump
+const int pHMinusPump = 3; // PH- pump
 const int nutrAPump = 4;   // nutrition A pump
 const int nutrBPump = 5;   // nutrition B pump
 
@@ -89,20 +89,20 @@ unsigned long int avgValue; // average value of the sensor feedback
 float phValue;              // calculated pH reading
 int buf[10], temp;          // pH reading samples
 
-float oldPhValue = 0;
+float oldpHValue = 0;
 
 /**********
    Buttons
  **********/
 const int maintButton = 6;
-const int cleanPhMinusButton = 7;
-const int cleanPhPlusButton = 8;
+const int cleanpHMinusButton = 7;
+const int cleanpHPlusButton = 8;
 const int cleanNutrAButton = 9;
 const int cleanNutrBButton = 10;
 
 //int maintenance;
-int cleanPhMinus;
-int cleanPhPlus;
+int cleanpHMinus;
+int cleanpHPlus;
 int cleanNutrA;
 int cleanNutrB;
 
@@ -110,7 +110,7 @@ int cleanNutrB;
  * Misc
  *********/
 int mode = 0; // 0: normal, 1: reading, 2: pumping, 3: maintenance
-int oldMode = 0;
+int oldMode = -1;
 
 char dtostrfBuffer[5];
 int strLength;
@@ -121,8 +121,8 @@ unsigned long currentMillis;
 
 unsigned long readMillis;
 
-unsigned long PhPlusStartMillis;
-unsigned long PhMinusStartMillis;
+unsigned long pHPlusStartMillis;
+unsigned long pHMinusStartMillis;
 unsigned long nutrAStartMillis;
 unsigned long nutrBStartMillis;
 

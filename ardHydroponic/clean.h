@@ -1,4 +1,4 @@
-void flushPhMinus()
+void flushpHMinus()
 {
   Serial.print("Flushing PH- hose");
   printToLCD(0, 0, "Flushing hose for   ");
@@ -7,9 +7,9 @@ void flushPhMinus()
   printToLCD(4, 2, String(cleanTime / 1000));
   printToLCD(6, 2, " seconds     ");
 
-  digitalWrite(PhPlusPump, HIGH);
+  digitalWrite(pHPlusPump, HIGH);
   delay(cleanTime);
-  digitalWrite(PhPlusPump, LOW);
+  digitalWrite(pHPlusPump, LOW);
 
   Serial.println("Cleaning finished");
   printToLCD(0, 0, "Cleaning          ");
@@ -17,7 +17,7 @@ void flushPhMinus()
   printToLCD(0, 2, "                  ");
 }
 
-void flushPhPlus()
+void flushpHPlus()
 {
   Serial.print("Flushing PH+ hose");
   printToLCD(0, 0, "Flushing hose for   ");
@@ -26,9 +26,9 @@ void flushPhPlus()
   printToLCD(4, 2, String(cleanTime / 1000));
   printToLCD(6, 2, " seconds     ");
 
-  digitalWrite(PhMinusPump, HIGH);
+  digitalWrite(pHMinusPump, HIGH);
   delay(cleanTime);
-  digitalWrite(PhMinusPump, LOW);
+  digitalWrite(pHMinusPump, LOW);
 
   Serial.println("Cleaning finished");
   printToLCD(0, 0, "Cleaning          ");

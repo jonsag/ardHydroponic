@@ -3,8 +3,8 @@
  * Include files
  **********/
 #include "config.h"
-#include "read.h"
 #include "LCD.h"
+#include "read.h"
 #include "clean.h"
 #include "misc.h"
 #include "buttons.h"
@@ -36,8 +36,8 @@ void setup()
   /**********
      In/Outputs
    **********/
-  pinMode(PhPlusPump, OUTPUT);
-  pinMode(PhMinusPump, OUTPUT);
+  pinMode(pHPlusPump, OUTPUT);
+  pinMode(pHMinusPump, OUTPUT);
   pinMode(nutrAPump, OUTPUT);
   pinMode(nutrBPump, OUTPUT);
 
@@ -49,8 +49,8 @@ void setup()
     Setup FTDebouncer pins
   *******************************/
   pinDebouncer.addPin(maintButton, LOW); // pin has external pull-down resistor
-  pinDebouncer.addPin(cleanPhMinusButton, LOW);
-  pinDebouncer.addPin(cleanPhPlusButton, LOW);
+  pinDebouncer.addPin(cleanpHMinusButton, LOW);
+  pinDebouncer.addPin(cleanpHPlusButton, LOW);
   pinDebouncer.addPin(cleanNutrAButton, LOW);
   pinDebouncer.addPin(cleanNutrBButton, LOW);
 
@@ -68,42 +68,24 @@ void setup()
   //Serial.println("AT"); // Hayes command call for attention
   //delay(5000); // 5000 ms delay
   // connectWiFi(); // Calling on function to connect to WiFI
+
+  /**********
+   * Initiate screen
+   **********/
+  printNormal();
+  readSensors();
 }
 
 void loop()
 {
   currentMillis = millis();
 
-  if (mode != oldMode)
-  {
-    switch (mode)
-    {
-    case 0:
-      printHeaders();
-      break;
-    case 1:
-      printMode();
-      break;
-    case 2:
-      printMode();
-      break;
-    case 3:
-      printMaintenance();
-      break;
-    }
-    oldMode = mode;
-  }
   /**********
      Read buttons
    **********/
   pinDebouncer.update();
-  /*
-  maintenance = digitalRead(maintButton);
-  cleanPhMinus = digitalRead(cleanPhMinusButton);
-  cleanPhPlus = digitalRead(cleanPhPlusButton);
-  cleanNutrA = digitalRead(cleanNutrAButton);
-  cleanNutrB = digitalRead(cleanNutrBButton);
-*/
+
+  checkMode(); // check if mode has changed
 
   if (mode != 3)
   { // normal mode
@@ -113,43 +95,13 @@ void loop()
      **********/
     if (currentMillis - readMillis > iterationTime)
     { // read mode
-      oldMode = mode;
       mode = 1;
-      printMode();
+      checkMode(); // check if mode has changed
 
-      TemperatureSum = readWaterTemp();
+      readSensors();
 
-      Serial.println("TankTemp: " + String(TemperatureSum));
-      if (TemperatureSum != oldTemperatureSum)
-      {
-        printTemp();
-      }
-
-      /**********
-       Read PH value
-     **********/
-      phValue = readPhValue();
-
-      Serial.println("PH: " + String(phValue));
-      if (phValue != oldPhValue)
-      {
-        printPhValue();
-      }
-
-      /**********
-       Read EC level
-     **********/
-      EC25 = readECLevel();
-
-      Serial.println("EC: " + String(EC25));
-      if (EC25 != oldEC25)
-      {
-        printECValue();
-      }
-
-      mode = 2; // entering pump mode
-
-      readMillis = currentMillis;
+      mode = 2;    // enabling pump mode
+      checkMode(); // check if mode has changed
 
       /**********
        ThingSpeak
@@ -157,23 +109,23 @@ void loop()
       // updateThingSpeak();
     }
 
-    /**********
-       Run pumps
-     **********/
-    //if (EC25<1.4 && phValue>6.6) {} // if the nutrient level unsufficient, and the pH value to high
-
     if (mode == 2)
     {
+      /**********
+       Run pumps
+     **********/
+      //if (EC25<1.4 && phValue>6.6) {} // if the nutrient level unsufficient, and the pH value to high
+
       /**********
        Nutrient pumps
      **********/
       if (EC25 < 3.0)
-      {                                // if the nutrient level unsufficient
+      { // if the nutrient level is unsufficient
+        Serial.println("Nutrientpumps ON");
+        //printToLCD(1, 3, "Nutrientpumps  ON  ");
+
         digitalWrite(nutrAPump, HIGH); // dosing nutrition A
         digitalWrite(nutrBPump, HIGH); // dosing nutrition B
-
-        Serial.println("Nutrientpumps ON");
-        printToLCD(1, 3, "Nutrientpumps  ON  ");
 
         delay(nutrientsPumpTime); // running nutrient pumps
 
@@ -181,54 +133,56 @@ void loop()
         digitalWrite(nutrBPump, LOW); // cutting power to pump
 
         Serial.println("Nutrientpumps OFF");
-        printToLCD(1, 3, "Nutrientpumps  OFF  ");
+        //printToLCD(1, 3, "Nutrientpumps  OFF  ");
       }
 
       /**********
        PH pumps
      **********/
       if (phValue < 4.62)
-      {                                 // if the pH value to low
-        digitalWrite(PhPlusPump, HIGH); // dosing PH+
-
+      { // if the pH value to low
         Serial.println("Dosingpump PH+ ON");
-        printToLCD(1, 1, "Dosingpump PH+ ON   ");
+        //printToLCD(1, 1, "Dosingpump PH+ ON   ");
 
-        delay(PhPlusPumpTime); // running pump
+        digitalWrite(pHPlusPump, HIGH); // dosing PH+
 
-        digitalWrite(PhPlusPump, LOW); // cutting power to pump
+        delay(pHPlusPumpTime); // running pump
+
+        digitalWrite(pHPlusPump, LOW); // cutting power to pump
 
         Serial.println("Dosingpump PH+ OFF");
-        printToLCD(1, 1, "Dosingpump PH+ OFF  ");
+        //printToLCD(1, 1, "Dosingpump PH+ OFF  ");
       }
       else if (phValue > 4.63)
-      {                                  // if the pH is high
-        digitalWrite(PhMinusPump, HIGH); // dosing PH-
-
+      { // if the pH is too high
         Serial.println("Dosingpump PH- ON");
-        printToLCD(1, 1, "Dosingpump PH- ON   ");
+        //printToLCD(1, 1, "Dosingpump PH- ON   ");
 
-        delay(PhMinusPumpTime); // running pump
+        digitalWrite(pHMinusPump, HIGH); // dosing PH-
 
-        digitalWrite(PhMinusPump, LOW); // cutting power to pump
+        delay(pHMinusPumpTime); // running pump
+
+        digitalWrite(pHMinusPump, LOW); // cutting power to pump
         Serial.println("Dosingpump PH- OFF  ");
-        printToLCD(1, 1, "Dosingpump PH- OFF");
+        //printToLCD(1, 1, "Dosingpump PH- OFF");
       }
 
-    mode = 0; // go back to normal mode
+      readMillis = millis();
+      mode = 0;    // go back to normal mode
+      checkMode(); // check if mode has changed
     }
   }
   else
   { // maintenance mode
     printMode();
 
-    if (cleanPhMinus)
+    if (cleanpHMinus)
     {
-      flushPhMinus();
+      flushpHMinus();
     }
-    if (cleanPhPlus)
+    if (cleanpHPlus)
     {
-      flushPhPlus();
+      flushpHPlus();
     }
     if (cleanNutrA)
     {

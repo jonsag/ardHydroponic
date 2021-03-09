@@ -22,6 +22,36 @@ int intToStringToLength(int val) { // returns how many numbers in integer
   return valLength;
 }
 
+void checkMode() {
+    if (mode != oldMode)
+  {
+    switch (mode)
+    {
+    case 0:
+      Serial.println();
+      Serial.println("-> Normal mode");
+      printNormal();
+      break;
+    case 1:
+      Serial.println();
+      Serial.println("-> Reading mode");
+      printMode();
+      break;
+    case 2:
+      Serial.println();
+      Serial.println("-> Pumping mode");
+      printMode();
+      break;
+    case 3:
+      Serial.println();
+      Serial.println("-> Maintenance mode");
+      printMaintenance();
+      break;
+    }
+    oldMode = mode;
+  }
+}
+
 /*
 dtostrf(floatvar, StringLengthIncDecimalPoint, numVarsAfterDecimal, charbuf);
 where

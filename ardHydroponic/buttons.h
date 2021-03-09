@@ -8,13 +8,13 @@ void onPinActivated(int pinNumber)
     case maintButton:
         Serial.println("maintButton");
         break;
-    case cleanPhMinusButton:
-        Serial.println("cleanPhMinusButton");
-        cleanPhMinus = 1;
+    case cleanpHMinusButton:
+        Serial.println("cleanpHMinusButton");
+        cleanpHMinus = 1;
         break;
-    case cleanPhPlusButton:
-        Serial.println("cleanPhMinusButton");
-        cleanPhPlus = 1;
+    case cleanpHPlusButton:
+        Serial.println("cleanpHMinusButton");
+        cleanpHPlus = 1;
         break;
     case cleanNutrAButton:
         Serial.println("cleanNutrAButton");
