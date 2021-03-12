@@ -8,7 +8,6 @@ void startpHPlus()
 void stoppHPlus()
 {
     digitalWrite(pHPlusPump, LOW); // cutting power to pump
-
     Serial.println("Dosingpump PH+ OFF");
     printToLCD(8, 2, "   ");
 }
@@ -23,7 +22,6 @@ void startpHMinus()
 void stoppHMinus()
 {
     digitalWrite(pHMinusPump, LOW); // cutting power to pump
-
     Serial.println("Dosingpump PH- OFF");
     printToLCD(14, 2, "   ");
 }
@@ -38,7 +36,6 @@ void startNutrA()
 void stopNutrA()
 {
     digitalWrite(nutrAPump, LOW); // cutting power to pump
-
     Serial.println("Nutrient A OFF");
     printToLCD(8, 3, "     ");
 }
@@ -93,24 +90,24 @@ void checkPumpStop()
 void checkCleanStop()
 {
     /**********
-       Nutrient pump A
-     **********/
+    * Nutrient pump A
+    **********/
     if ((digitalRead(nutrAPump)) && (currentMillis - nutrAStartMillis > cleanTime))
     { // time to stop the pump
         stopNutrA();
     }
 
     /**********
-       Nutrient pump B
-     **********/
+    * Nutrient pump B
+    **********/
     if ((digitalRead(nutrBPump)) && (currentMillis - nutrBStartMillis > cleanTime))
     { // time to stop the pump
         stopNutrB();
     }
 
     /**********
-       PH pumps
-     **********/
+    * PH pumps
+    **********/
     if ((digitalRead(pHPlusPump)) && (currentMillis - pHPlusStartMillis > cleanTime))
     { // time to stop the pump
         stoppHPlus();

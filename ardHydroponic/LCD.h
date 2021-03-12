@@ -33,7 +33,6 @@ void printTemp()
   Serial.println("LCD -> Printing temp");
 
   dtostrf(TemperatureSum, 1, 1, dtostrfBuffer);
-
   printToLCD(6, 1, dtostrfBuffer);
 
   strLength = strlen(dtostrfBuffer);
@@ -46,7 +45,6 @@ void printpHValue()
   Serial.println("LCD -> Printing pH value");
 
   dtostrf(phValue, 1, 2, dtostrfBuffer);
-
   printToLCD(4, 2, dtostrfBuffer);
 }
 
@@ -55,7 +53,6 @@ void printECValue()
   Serial.println("LCD -> Printing EC value");
 
   dtostrf(EC25, 1, 2, dtostrfBuffer);
-
   printToLCD(4, 3, dtostrfBuffer);
 }
 

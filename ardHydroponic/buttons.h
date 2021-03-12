@@ -7,19 +7,11 @@ void onPinActivated(int pinNumber)
     {
     case maintButton:
         Serial.println("maintButton");
-        if (mode == 3)
-        {
-            stopPumps();
-            mode = 0;
-            checkMode(); // check if mode has changed
-        }
-        else
-        {
-            stopPumps();
-            mode = 3;
-            checkMode(); // check if mode has changed
-            maintStartMillis = currentMillis;
-        }
+        stopPumps();
+        mode = 3;
+        checkMode(); // check if mode has changed
+        maintStartMillis = currentMillis;
+        break;
         break;
     case cleanpHPlusButton:
         Serial.println("cleanpHPlusButton");
@@ -86,6 +78,15 @@ void onPinActivated(int pinNumber)
 
 void onPinDeactivated(int pinNumber)
 {
-    //Serial.print("Pin deactivated: ");
-    //Serial.println(pinNumber);
+    Serial.print("Pin deactivated: ");
+    Serial.println(pinNumber);
+
+    switch (pinNumber)
+    {
+    case maintButton:
+        stopPumps();
+        mode = 0;
+        checkMode(); // check if mode has changed
+        break;
+    };
 }

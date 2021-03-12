@@ -1,7 +1,7 @@
 
 /**********
- * Include files
- **********/
+* Include files
+**********/
 #include "config.h"
 #include "LCD.h"
 #include "pumps.h"
@@ -13,13 +13,13 @@
 void setup()
 {
   /***********
-   Serial
- ***********/
+  * Serial
+  ***********/
   Serial.begin(serialBaudRate); // serial baudrate
 
   /*******************************
-      Print start information
-    *******************************/
+  * Print start information
+  *******************************/
   Serial.println(programName); // print information
   Serial.println(date);
   Serial.print("by ");
@@ -28,14 +28,13 @@ void setup()
   Serial.println();
 
   /**********
-     LCD
-   **********/
-  lcd.init();
-  lcd.backlight();
+  * LCD
+  **********/
+  lcd.begin();
 
   /**********
-     In/Outputs
-   **********/
+  * In/Outputs
+  **********/
   pinMode(pHPlusPump, OUTPUT);
   pinMode(pHMinusPump, OUTPUT);
   pinMode(nutrAPump, OUTPUT);
@@ -46,8 +45,7 @@ void setup()
   pinMode(ECGround, OUTPUT); // sinking current
 
   /**********
-    Setup FTDebouncer pins
-
+  * Setup FTDebouncer pins
   **********/
   pinDebouncer.addPin(maintButton, LOW); // pin has external pull-down resistor
   pinDebouncer.addPin(cleanpHMinusButton, LOW);
@@ -58,19 +56,19 @@ void setup()
   pinDebouncer.init(); // initiate debounce
 
   /**********
-     EC sensor
-   **********/
+  * EC sensor
+  **********/
   digitalWrite(ECGround, LOW); // ground level for the EC sensor probe
   R1 = (R1 + Ra);              // taking into account powering pin resistance
 
   /***********
-     WiFi
-   ***********/
+  * WiFi
+  ***********/
   //Serial.println("AT"); // Hayes command call for attention    }
 
   /**********
-   * Initiate screen
-   **********/
+  * Initiate screen
+  **********/
   printNormal();
   readSensors();
 }
@@ -81,8 +79,8 @@ void loop()
   currentMillis = millis();
 
   /**********
-     Read buttons
-   **********/
+  * Read buttons
+  **********/
   pinDebouncer.update();
 
   checkMode(); // check if mode has changed
@@ -100,8 +98,8 @@ void loop()
     }
 
     /**********
-       Water temperature
-     **********/
+    * Water temperature
+    **********/
     if (currentMillis - readMillis > iterationTime)
     { // read mode
       mode = 1;
@@ -113,16 +111,16 @@ void loop()
       checkMode(); // check if mode has changed
 
       /**********
-       ThingSpeak
-     **********/
+      * ThingSpeak
+      **********/
       // updateThingSpeak();
 
       readMillis = millis();
     }
 
     /**********
-       Run pumps
-     **********/
+    * Run pumps
+    **********/
     //if (EC25<1.4 && phValue>6.6) {} // if the nutrient level unsufficient, and the pH value to high
 
     checkPumpStop(); // check if it's time to stop the pumps

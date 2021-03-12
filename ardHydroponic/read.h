@@ -95,8 +95,8 @@ void readSensors()
   }
 
   /**********
-       Read PH value
-     **********/
+  * Read PH value
+  **********/
   phValue = readpHValue();
 
   if (phValue < 4.62)
@@ -118,8 +118,8 @@ void readSensors()
   }
 
   /**********
-       Read EC level
-     **********/
+  * Read EC level
+  **********/
   EC25 = readECLevel();
 
   if (EC25 < 3.0)
