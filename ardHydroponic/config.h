@@ -23,6 +23,33 @@ const float pHLow = 4.62;  //  lowest allowed pH value
 const float pHHigh = 4.63; // lowest allowed pH value
 const float eCLow = 3.0;   // lowest allowed EC value
 
+/**********
+ * Pins
+ **********/
+// LCD pins
+//        Uno   Mega
+// SDA -> A4    D20
+// SCL -> A5    D21
+
+const int DS18S20_Pin = A1; // one wire pin
+
+const int pHPlusPump = 2;  // PH+ pump
+const int pHMinusPump = 3; // PH- pump
+const int nutrAPump = 4;   // nutrition A pump
+const int nutrBPump = 5;   // nutrition B pump
+
+const int ECPin = 11;    // EC sensor reference pin
+const int ECGround = A2; // EC sensor ground level
+const int ECPower = 12;  // EC sensor power pin
+
+const int pHpin = A0; // pH-sensor probe
+
+const int maintButton = 6;
+const int cleanpHMinusButton = 7;
+const int cleanpHPlusButton = 8;
+const int cleanNutrAButton = 9;
+const int cleanNutrBButton = 10;
+
 /***********
 * Serial
 ***********/
@@ -38,7 +65,6 @@ FTDebouncer pinDebouncer(30);
 * One Wire, DS18B20
 ***********/
 #include <OneWire.h>
-const int DS18S20_Pin = A1; // one wire pin
 OneWire ds(DS18S20_Pin);    // creating a OneWire object
 
 float TemperatureSum; // average of all samples taken from one temp test
@@ -55,27 +81,12 @@ byte addr[8];  // variable to temporary hold the memory address of the readings
 /**********
 * LCD
 **********/
-//        Uno   Mega
-// SDA -> A4    D20
-// SCL -> A5    D21
 #include <LiquidCrystal_I2C.h>                          // Library for LCD
 LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 20, 4); // change to (0x27, 20, 4) for 20x4 LCD
 
 /**********
-* Pumps
-**********/
-const int pHPlusPump = 2;  // PH+ pump
-const int pHMinusPump = 3; // PH- pump
-const int nutrAPump = 4;   // nutrition A pump
-const int nutrBPump = 5;   // nutrition B pump
-
-/**********
 * EC sensor
 **********/
-const int ECPin = 11;    // reference pin
-const int ECGround = A2; // ground level
-const int ECPower = 12;  // power pin
-
 int R1 = 1000;                 // internal resistance
 int Ra = 25;                   // powering pin resistance
 float EC = 0;                  // EC-value
@@ -92,8 +103,6 @@ float oldEC25 = 0;
 /**********
 * PH sensor
 **********/
-const int pHpin = A0; // pH-sensor probe
-
 unsigned long int avgValue; // average value of the sensor feedback
 float phValue;              // calculated pH reading
 int buf[10], temp;          // pH reading samples
@@ -101,21 +110,12 @@ int buf[10], temp;          // pH reading samples
 float oldpHValue = 0;
 
 /**********
-* Buttons
-**********/
-const int maintButton = 6;
-const int cleanpHMinusButton = 7;
-const int cleanpHPlusButton = 8;
-const int cleanNutrAButton = 9;
-const int cleanNutrBButton = 10;
-
-/**********
 * Misc
 *********/
 int mode = 0; // 0: normal, 1: reading, 2: pumping, 3: maintenance
 int oldMode = -1;
 
-char dtostrfBuffer[5];
+char dtostrfBuffer[6];
 int strLength;
 String valString;
 int valLength;
@@ -132,7 +132,7 @@ unsigned long nutrBStartMillis = 0;
 unsigned long maintStartMillis = 0;
 
 unsigned long counter;
-unsigned long oldCounter = 0;
+unsigned long oldCounter = -1;
 
 /**********
 * WiFi

@@ -90,7 +90,7 @@ void loop()
 
     counter = (iterationTime - (currentMillis - readMillis)) / 1000;
 
-    if (counter != oldCounter)
+    if ((counter != oldCounter) && (counter >= 0) && (counter <= readMillis / 1000))
     {
       printToLCD(17, 0, String(counter));
       printToLCD(17 + intLength(counter), 0, " ");

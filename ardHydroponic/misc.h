@@ -34,7 +34,14 @@ void checkMode()
     case 0:
       Serial.println();
       Serial.println("-> Normal mode");
-      printNormal();
+      if (oldMode == 3)
+      {
+        printNormal();
+      }
+      else
+      {
+        printMode();
+      }
       break;
     case 1:
       Serial.println();

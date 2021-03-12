@@ -10,20 +10,20 @@ void printMode()
   switch (mode)
   {
   case 0:
-    Serial.println("Waiting...");
-    printToLCD(6, 0, "Waiting...   ");
+    Serial.println("Running...");
+    printToLCD(6, 0, "Running...  ");
     break;
   case 1:
     Serial.println("Reading...");
-    printToLCD(6, 0, "Reading...   ");
+    printToLCD(6, 0, "Reading...  ");
     break;
   case 2:
     Serial.println("Pumping...");
-    printToLCD(6, 0, "Pumping...   ");
+    printToLCD(6, 0, "Pumping...  ");
     break;
   case 3:
     Serial.println("Maintenance");
-    printToLCD(6, 0, "Maintenance  ");
+    printToLCD(6, 0, "Maintenance ");
     break;
   }
 }
@@ -44,7 +44,7 @@ void printpHValue()
 {
   Serial.println("LCD -> Printing pH value");
 
-  dtostrf(phValue, 1, 2, dtostrfBuffer);
+  dtostrf(phValue, 2, 2, dtostrfBuffer);
   printToLCD(4, 2, dtostrfBuffer);
 }
 
@@ -52,7 +52,7 @@ void printECValue()
 {
   Serial.println("LCD -> Printing EC value");
 
-  dtostrf(EC25, 1, 2, dtostrfBuffer);
+  dtostrf(EC25, 2, 2, dtostrfBuffer);
   printToLCD(4, 3, dtostrfBuffer);
 }
 
