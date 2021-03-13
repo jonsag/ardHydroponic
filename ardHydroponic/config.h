@@ -1,5 +1,5 @@
 String programName = "ardHydroponic";
-String date = "20210307";
+String date = "20210313";
 String author = "Jon Sagebrand";
 String email = "jonsagebrand@gmail.com";
 
@@ -157,6 +157,9 @@ unsigned long maintStartMillis = 0;
 
 unsigned long counter;
 unsigned long oldCounter = -1;
+
+int pumpNumber = 0;
+boolean set = 0;
 
 /**********
 * WiFi

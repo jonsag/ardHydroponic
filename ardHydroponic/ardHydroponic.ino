@@ -56,10 +56,10 @@ void setup()
   pinMode(ECPower, OUTPUT);  // sourcing current
   pinMode(ECGround, OUTPUT); // sinking current
 
+#ifndef rotaryEncoder
   /**********
   * Setup FTDebouncer pins
   **********/
-#ifndef rotaryEncoder
   Serial.println("Setting up buttons...");
 
   pinDebouncer.addPin(maintButton, LOW); // pin has external pull-down resistor
@@ -70,6 +70,9 @@ void setup()
 
   pinDebouncer.init(); // initiate debounce
 #else
+  /**********
+  * Setup rotary encoder
+  **********/
   Serial.println("Setting up rotary encoder...");
   rotary.setDebounceDelay(rotEncDebounceTime);
 #endif
