@@ -2,6 +2,12 @@
 
 An Arduino Mega managing a hydroponic plant bed.
 
+## Libraries
+
+Don't use the LiquidCrystal_I2C library from Arduino IDE's library manager.  
+
+Instead use the one from [https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library](https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library).  
+
 ## Misc
 
 ### Pettson's setup
@@ -29,5 +35,3 @@ Get serial output
 >$ cu -l /dev/ttyUSB0 -s 9600
 
 Exit with ~. (tilde dot)  
-
-Serial.println("-> Normal mode");
