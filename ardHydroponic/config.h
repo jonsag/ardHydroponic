@@ -79,7 +79,8 @@ SimpleRotary rotary(rotEncDT, rotEncCLK, rotEncSW);
 byte rotEncRot;
 byte rotEncPush;
 byte rotEncLongPush;
-boolean rotEncPushed = 0;
+
+//boolean rotEncPushed = 0;
 
 const int longPushTime = 1000; // how long is a long push of the button
 const int rotEncDebounceTime = 30;
@@ -159,6 +160,7 @@ unsigned long counter;
 unsigned long oldCounter = -1;
 
 int pumpNumber = 0;
+char *pumpNames[] = {"pH+   ", "pH-   ", "NutrA", "Nutr B"};
 boolean set = 0;
 
 /**********

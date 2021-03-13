@@ -110,7 +110,7 @@ void loop()
   rotEncRot = rotary.rotate();
   rotEncPush = rotary.push();
   rotEncLongPush = rotary.pushLong(longPushTime);
-  handleRotary();
+  handleRotaryEncoder();
 #endif
 
   checkMode(); // check if mode has changed

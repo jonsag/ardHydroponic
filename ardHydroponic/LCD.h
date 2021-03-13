@@ -79,11 +79,16 @@ void printNormal()
   printECValue();
 }
 
+void printSelectedPump() {
+  printToLCD(0, 2, pumpNames[pumpNumber]);
+}
+
 void printMaintenance()
 {
   lcd.clear();
   printToLCD(0, 0, "Mode:");
   printMode();
+  printSelectedPump();
 }
 
 void printSettings()
