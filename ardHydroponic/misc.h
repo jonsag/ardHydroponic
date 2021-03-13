@@ -34,7 +34,7 @@ void checkMode()
     case 0:
       Serial.println();
       Serial.println("-> Normal mode");
-      if (oldMode == 3)
+      if (oldMode == 3 || oldMode == 4)
       {
         printNormal();
       }
@@ -57,6 +57,11 @@ void checkMode()
       Serial.println();
       Serial.println("-> Maintenance mode");
       printMaintenance();
+      break;
+    case 4:
+      Serial.println();
+      Serial.println("-> Settings mode");
+      printSettings();
       break;
     }
     oldMode = mode;

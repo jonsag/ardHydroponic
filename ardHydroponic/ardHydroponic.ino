@@ -1,4 +1,6 @@
 
+#define rotaryEncoder ; // comment out this line if you are going to use buttons instead of a rotary encoder
+
 /**********
 * Include files
 **********/
@@ -7,7 +9,13 @@
 #include "pumps.h"
 #include "read.h"
 #include "misc.h"
+
+#ifndef rotaryEncoder
 #include "buttons.h"
+#else
+#include "rotaryEncoder.h"
+#endif
+
 //#include "thingSpeak.h"
 
 void setup()
@@ -30,11 +38,15 @@ void setup()
   /**********
   * LCD
   **********/
+  Serial.println("Starting LCD...");
+
   lcd.begin();
 
   /**********
   * In/Outputs
   **********/
+  Serial.println("Starting In/Out puts...");
+
   pinMode(pHPlusPump, OUTPUT);
   pinMode(pHMinusPump, OUTPUT);
   pinMode(nutrAPump, OUTPUT);
@@ -47,6 +59,9 @@ void setup()
   /**********
   * Setup FTDebouncer pins
   **********/
+#ifndef rotaryEncoder
+  Serial.println("Setting up buttons...");
+
   pinDebouncer.addPin(maintButton, LOW); // pin has external pull-down resistor
   pinDebouncer.addPin(cleanpHMinusButton, LOW);
   pinDebouncer.addPin(cleanpHPlusButton, LOW);
@@ -54,10 +69,16 @@ void setup()
   pinDebouncer.addPin(cleanNutrBButton, LOW);
 
   pinDebouncer.init(); // initiate debounce
+#else
+  Serial.println("Setting up rotary encoder...");
+  rotary.setDebounceDelay(rotEncDebounceTime);
+#endif
 
   /**********
   * EC sensor
   **********/
+  Serial.println("Starting EC sensor...");
+
   digitalWrite(ECGround, LOW); // ground level for the EC sensor probe
   R1 = (R1 + Ra);              // taking into account powering pin resistance
 
@@ -74,18 +95,24 @@ void setup()
 }
 
 void loop()
-
 {
   currentMillis = millis();
 
   /**********
   * Read buttons
   **********/
+#ifndef rotaryEncoder;
   pinDebouncer.update();
+#else
+  rotEncRot = rotary.rotate();
+  rotEncPush = rotary.push();
+  rotEncLongPush = rotary.pushLong(longPushTime);
+  handleRotary();
+#endif
 
   checkMode(); // check if mode has changed
 
-  if (mode != 3)
+  if (mode != 3 && mode != 4)
   { // normal mode
 
     counter = (iterationTime - (currentMillis - readMillis)) / 1000;
@@ -94,6 +121,12 @@ void loop()
     {
       printToLCD(17, 0, String(counter));
       printToLCD(17 + intLength(counter), 0, " ");
+
+      if (counter <= 1)
+      {
+        Serial.println("Powering EC sensor...");
+        digitalWrite(ECPower, HIGH); // setting the power pin for EC sensor to high
+      }
       oldCounter = counter;
     }
 
@@ -125,7 +158,7 @@ void loop()
 
     checkPumpStop(); // check if it's time to stop the pumps
   }
-  else
+  else if (mode == 3)
   { // maintenance mode
 
     checkCleanStop(); // check if pumps are running and if it's time to stop any of them
@@ -147,5 +180,9 @@ void loop()
       mode = 0;
       checkMode();
     }
+  }
+  else
+  {
+    Serial.println("We're in settings mode");
   }
 }

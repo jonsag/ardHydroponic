@@ -12,7 +12,6 @@ void onPinActivated(int pinNumber)
         checkMode(); // check if mode has changed
         maintStartMillis = currentMillis;
         break;
-        break;
     case cleanpHPlusButton:
         Serial.println("cleanpHPlusButton");
         if (mode == 3)

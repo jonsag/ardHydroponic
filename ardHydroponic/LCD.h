@@ -25,6 +25,10 @@ void printMode()
     Serial.println("Maintenance");
     printToLCD(6, 0, "Maintenance ");
     break;
+  case 4:
+    Serial.println("Settings");
+    printToLCD(6, 0, "Settings    ");
+    break;
   }
 }
 
@@ -76,6 +80,13 @@ void printNormal()
 }
 
 void printMaintenance()
+{
+  lcd.clear();
+  printToLCD(0, 0, "Mode:");
+  printMode();
+}
+
+void printSettings()
 {
   lcd.clear();
   printToLCD(0, 0, "Mode:");

@@ -68,7 +68,6 @@ float readECLevel()
 {
   Serial.println("Reading EC value...");
 
-  digitalWrite(ECPower, HIGH); // setting the power pin for EC sensor to high
   ECRaw = analogRead(ECPin);
   ECRaw = analogRead(ECPin);  // first reading will be inconclusive due to low charge in probe
   digitalWrite(ECPower, LOW); // setting the power pin for EC sensor to low

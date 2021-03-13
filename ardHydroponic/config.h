@@ -31,7 +31,7 @@ const float eCLow = 3.0;   // lowest allowed EC value
 // SDA -> A4    D20
 // SCL -> A5    D21
 
-const int DS18S20_Pin = A1; // one wire pin
+const int DS18S20Pin = A1; // one wire pin
 
 const int pHPlusPump = 2;  // PH+ pump
 const int pHMinusPump = 3; // PH- pump
@@ -44,11 +44,17 @@ const int ECPower = 12;  // EC sensor power pin
 
 const int pHpin = A0; // pH-sensor probe
 
-const int maintButton = 6;
-const int cleanpHMinusButton = 7;
+#ifndef rotaryEncoder
+const int maintButton = 6;        // if you are using buttons, connect these
+const int cleanpHMinusButton = 7; // you will loose many functions:
 const int cleanpHPlusButton = 8;
 const int cleanNutrAButton = 9;
 const int cleanNutrBButton = 10;
+#else
+const int rotEncCLK = 8;
+const int rotEncDT = 7;
+const int rotEncSW = 6; // if you are using a rotary encoder, connect these
+#endif
 
 /***********
 * Serial
@@ -58,14 +64,32 @@ const int serialBaudRate = 9600;
 /**********
 * Debouncing
 **********/
+#ifndef rotaryEncoder
 #include <FTDebouncer.h> // load library for debouncing buttons
 FTDebouncer pinDebouncer(30);
+#endif
+
+/**********
+ * Rotary encoder
+ **********/
+#ifdef rotaryEncoder
+#include <SimpleRotary.h>
+SimpleRotary rotary(rotEncDT, rotEncCLK, rotEncSW);
+
+byte rotEncRot;
+byte rotEncPush;
+byte rotEncLongPush;
+boolean rotEncPushed = 0;
+
+const int longPushTime = 1000; // how long is a long push of the button
+const int rotEncDebounceTime = 30;
+#endif
 
 /***********
 * One Wire, DS18B20
 ***********/
 #include <OneWire.h>
-OneWire ds(DS18S20_Pin);    // creating a OneWire object
+OneWire ds(DS18S20Pin); // creating a OneWire object
 
 float TemperatureSum; // average of all samples taken from one temp test
 float oldTemperatureSum = 0;
@@ -112,7 +136,7 @@ float oldpHValue = 0;
 /**********
 * Misc
 *********/
-int mode = 0; // 0: normal, 1: reading, 2: pumping, 3: maintenance
+int mode = 0; // 0: normal, 1: reading, 2: pumping, 3: maintenance, 4: settings
 int oldMode = -1;
 
 char dtostrfBuffer[6];
