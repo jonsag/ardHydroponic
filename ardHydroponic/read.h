@@ -98,12 +98,12 @@ void readSensors()
   **********/
   phValue = readpHValue();
 
-  if (phValue < 4.62)
+  if (phValue < pHLow)
   { // if the pH value to low
     startpHPlus();
     pHPlusStartMillis = currentMillis;
   }
-  else if (phValue > 4.63)
+  else if (phValue > pHHigh)
   { // if the pH is too high
     startpHMinus();
     pHMinusStartMillis = currentMillis;
@@ -121,7 +121,7 @@ void readSensors()
   **********/
   EC25 = readECLevel();
 
-  if (EC25 < 3.0)
+  if (EC25 < ECLow)
   { // EC level too low
     startNutrA();
     startNutrB();

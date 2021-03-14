@@ -16,6 +16,7 @@
 #include "rotaryEncoder.h"
 #endif
 
+#include "eeprom.h"
 //#include "thingSpeak.h"
 
 void setup()
@@ -28,6 +29,7 @@ void setup()
   /*******************************
   * Print start information
   *******************************/
+  Serial.println();
   Serial.println(programName); // print information
   Serial.println(date);
   Serial.print("by ");
@@ -35,12 +37,23 @@ void setup()
   Serial.println(email);
   Serial.println();
 
+#ifdef rotaryEncoder
+  /**********
+  * EEPROM
+  **********/
+  //clearEEPROM();
+  Serial.println("Reading EEPROM...");
+  initEEPROMCheck();
+  Serial.println();
+
+#endif
   /**********
   * LCD
   **********/
   Serial.println("Starting LCD...");
 
   lcd.begin();
+  Serial.println();
 
   /**********
   * In/Outputs
@@ -55,6 +68,7 @@ void setup()
   pinMode(ECPin, INPUT);     // EC sensor probe
   pinMode(ECPower, OUTPUT);  // sourcing current
   pinMode(ECGround, OUTPUT); // sinking current
+  Serial.println();
 
 #ifndef rotaryEncoder
   /**********
@@ -69,6 +83,7 @@ void setup()
   pinDebouncer.addPin(cleanNutrBButton, LOW);
 
   pinDebouncer.init(); // initiate debounce
+  Serial.println();
 #else
   /**********
   * Setup rotary encoder
@@ -76,6 +91,7 @@ void setup()
   Serial.println("Setting up rotary encoder...");
   rotary.setDebounceDelay(rotEncDebounceTime);
   //rotary.setTrigger(LOW);
+  Serial.println();
 #endif
 
   /**********
@@ -85,6 +101,7 @@ void setup()
 
   digitalWrite(ECGround, LOW); // ground level for the EC sensor probe
   R1 = (R1 + Ra);              // taking into account powering pin resistance
+  Serial.println();
 
   /***********
   * WiFi

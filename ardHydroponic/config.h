@@ -6,22 +6,22 @@ String email = "jonsagebrand@gmail.com";
 /**********
 * Times
 **********/
-const int nutrientsPumpTime = 500; // pump time for nutrient pumps
-const int pHPlusPumpTime = 500;    // pump time for PH+ pump
-const int pHMinusPumpTime = 500;   // pump time for PH- pump
+int nutrientsPumpTime = 500; // pump time for nutrient pumps
+int pHPlusPumpTime = 500;    // pump time for PH+ pump
+int pHMinusPumpTime = 500;   // pump time for PH- pump
 
-const int cleanTime = 30000; // hoses clean time
+int cleanTime = 30000; // hoses clean time
 
-const int iterationTime = 10000; // reading
+int iterationTime = 10000; // reading
 
-const unsigned long maintTimeOut = 36000000; // 36000000 millis = 10 minutes
+unsigned long maintTimeOut = 36000000; // 36000000 millis = 10 minutes
 
 /**********
 * Accepted values
 **********/
-const float pHLow = 4.62;  //  lowest allowed pH value
-const float pHHigh = 4.63; // lowest allowed pH value
-const float eCLow = 3.0;   // lowest allowed EC value
+float pHLow = 4.62;  //  lowest allowed pH value
+float pHHigh = 4.63; // lowest allowed pH value
+float ECLow = 3.0;   // lowest allowed EC value
 
 /**********
  * Pins
@@ -56,7 +56,48 @@ const int rotEncDT = 7;
 const int rotEncSW = 6; // if you are using a rotary encoder, connect these
 #endif
 
+#ifdef rotaryEncoder
+/**********
+* EEPROM
+**********/
+#include <EEPROM.h>
+
+//  address     variable            start value     stored as   calculation
+//  0           nutrientsPumpTime   500             5           x/100
+//  1           pHPlusPumpTime      500             5           x/100
+//  2           pHMinusPumpTime     500             5           x/100
+//  3           cleanTime           30000           30          x/1000
+//  4           iterationTime       10000           10          x/1000
+//  5           pHLow               4.62            162         x*100-300
+//  6           pHHigh              4.63            163         x*100-300
+//  7           ECLow               3.0             30          x*10
+
+char *varNames[] = {"Nutritions pump time",
+                    "pH+ pump time",
+                    "pH- pump time",
+                    "Clean pump time",
+                    "Iteration time",
+                    "pH low",
+                    "pH high",
+                    "EC low"};
+
+const int noOfVars = 8;
+
+byte nutrientsPumpTimeNew; // pump time for nutrient pumps
+byte pHPlusPumpTimeNew;    // pump time for PH+ pump
+byte pHMinusPumpTimeNew;   // pump time for PH- pump
+
+byte cleanTimeNew; // hoses clean time
+
+byte iterationTimeNew; // reading
+
+byte pHLowNew;  //  lowest allowed pH value
+byte pHHighNew; // lowest allowed pH value
+byte ECLowNew;   // lowest allowed EC value
+#endif
+
 /***********
+* 
 * Serial
 ***********/
 const int serialBaudRate = 9600;
@@ -161,7 +202,10 @@ unsigned long oldCounter = -1;
 
 int pumpNumber = 0;
 char *pumpNames[] = {"pH+   ", "pH-   ", "Nutr A", "Nutr B"};
-boolean set = 0;
+//boolean set = 0;
+
+int i; // just a counter used sometimes
+byte tempValue; // holds different bvtes
 
 /**********
 * WiFi
