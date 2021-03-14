@@ -75,6 +75,7 @@ void setup()
   **********/
   Serial.println("Setting up rotary encoder...");
   rotary.setDebounceDelay(rotEncDebounceTime);
+  //rotary.setTrigger(LOW);
 #endif
 
   /**********

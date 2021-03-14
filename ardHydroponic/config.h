@@ -83,7 +83,7 @@ byte rotEncLongPush;
 //boolean rotEncPushed = 0;
 
 const int longPushTime = 1000; // how long is a long push of the button
-const int rotEncDebounceTime = 30;
+const int rotEncDebounceTime = 5;
 #endif
 
 /***********
@@ -160,7 +160,7 @@ unsigned long counter;
 unsigned long oldCounter = -1;
 
 int pumpNumber = 0;
-char *pumpNames[] = {"pH+   ", "pH-   ", "NutrA", "Nutr B"};
+char *pumpNames[] = {"pH+   ", "pH-   ", "Nutr A", "Nutr B"};
 boolean set = 0;
 
 /**********

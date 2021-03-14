@@ -80,7 +80,9 @@ void printNormal()
 }
 
 void printSelectedPump() {
-  printToLCD(0, 2, pumpNames[pumpNumber]);
+  printToLCD(0, 2, "Pump");
+  printToLCD(5, 2, String(pumpNumber));
+  printToLCD(0, 3, pumpNames[pumpNumber]);
 }
 
 void printMaintenance()

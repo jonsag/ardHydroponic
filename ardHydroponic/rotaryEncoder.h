@@ -114,7 +114,7 @@ void checkRotaryEncoder()
     if (rotEncRot != 0)
     { // button rotated
         Serial.print("Encoder rotated ");
-        if (rotEncRot == 1)
+        if (rotEncRot == 2)
         {
             Serial.println("CW");
 
@@ -138,7 +138,7 @@ void checkRotaryEncoder()
                 break;
             }
         }
-        else if (rotEncRot == 2)
+        else if (rotEncRot == 1)
         {
             Serial.println("CCW");
 
