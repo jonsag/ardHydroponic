@@ -56,6 +56,7 @@ const int rotEncDT = 7;
 const int rotEncSW = 6; // if you are using a rotary encoder, connect these
 #endif
 
+#ifdef eeprom
 /**********
 * EEPROM
 **********/
@@ -93,6 +94,7 @@ byte iterationTimeNew; // reading
 byte pHLowNew;  //  lowest allowed pH value
 byte pHHighNew; // lowest allowed pH value
 byte ECLowNew;   // lowest allowed EC value
+#endif
 
 /***********
 * 
@@ -142,11 +144,13 @@ byte addr[8];  // variable to temporary hold the memory address of the readings
 **********/
 #include <stdlib.h>
 
+#ifdef LCD
 /**********
 * LCD
 **********/
 #include <LiquidCrystal_I2C.h>                          // Library for LCD
 LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 20, 4); // change to (0x27, 20, 4) for 20x4 LCD
+#endif
 
 /**********
 * EC sensor
@@ -193,8 +197,9 @@ unsigned long pHMinusStartMillis = 0;
 unsigned long nutrAStartMillis = 0;
 unsigned long nutrBStartMillis = 0;
 
-unsigned long button1PressMillis = 0;
-const int longPressTime = 1000;
+unsigned long button1PushMillis = 0;
+const int longPushTime = 1000;
+boolean longPush = 0;
 
 unsigned long counter;
 unsigned long oldCounter = -1;

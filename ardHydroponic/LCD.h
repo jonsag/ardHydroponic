@@ -1,7 +1,16 @@
+void clearLCD()
+{
+#ifdef LCD
+  lcd.clear();
+#endif
+}
+
 void printToLCD(int col, int row, String text)
 {
+#ifdef LCD
   lcd.setCursor(col, row);
   lcd.print(text);
+#endif
 }
 
 void printMode()
@@ -79,7 +88,8 @@ void printNormal()
   printECValue();
 }
 
-void printSelectedPump() {
+void printSelectedPump()
+{
   printToLCD(0, 2, "Pump");
   printToLCD(5, 2, String(pumpNumber));
   printToLCD(0, 3, pumpNames[pumpNumber]);
@@ -87,15 +97,17 @@ void printSelectedPump() {
 
 void printMaintenance()
 {
-  lcd.clear();
+  clearLCD();
   printToLCD(0, 0, "Mode:");
   printMode();
+#ifdef rotaryEncoder
   printSelectedPump();
+#endif
 }
 
 void printSettings()
 {
-  lcd.clear();
+  clearLCD();
   printToLCD(0, 0, "Mode:");
   printMode();
 }

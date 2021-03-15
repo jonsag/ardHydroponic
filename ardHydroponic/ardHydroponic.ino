@@ -1,5 +1,7 @@
 
 //#define rotaryEncoder ; // comment out this line if you are going to use buttons instead of a rotary encoder
+#define eeprom // store values to EEPROM
+//#define LCD // use a 20x4 I2C LCD
 
 /**********
 * Include files
@@ -16,7 +18,9 @@
 #include "rotaryEncoder.h"
 #endif
 
+#ifdef eeprom
 #include "eeprom.h"
+#endif
 
 //#include "thingSpeak.h"
 
@@ -38,6 +42,7 @@ void setup()
   Serial.println(email);
   Serial.println();
 
+#ifdef eeprom
   /**********
   * EEPROM
   **********/
@@ -45,7 +50,9 @@ void setup()
   Serial.println("Reading EEPROM...");
   initEEPROMCheck();
   Serial.println();
+#endif
 
+#ifdef LCD
   /**********
   * LCD
   **********/
@@ -53,6 +60,7 @@ void setup()
 
   lcd.begin();
   Serial.println();
+#endif
 
   /**********
   * In/Outputs
@@ -142,7 +150,6 @@ void loop()
     {
       printToLCD(17, 0, String(counter));
       printToLCD(17 + intLength(counter), 0, " ");
-
       if (counter <= 1)
       {
         Serial.println("Powering EC sensor...");
@@ -183,10 +190,11 @@ void loop()
   { // maintenance mode
 
     checkCleanStop(); // check if pumps are running and if it's time to stop any of them
-
   }
-  else
-  {
-    Serial.println("We're in settings mode");
+
+  if (button1PushMillis != 0 && currentMillis - button1PushMillis >= longPushTime) {
+    button1PushMillis = 0;
+    longPush = 1;
+    longPushButton1();
   }
 }

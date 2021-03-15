@@ -27,7 +27,7 @@ void checkMode()
   {
     if (oldMode == 3)
     {
-      lcd.clear();
+clearLCD();
     }
     switch (mode)
     {
