@@ -1,5 +1,5 @@
 
-#define rotaryEncoder ; // comment out this line if you are going to use buttons instead of a rotary encoder
+//#define rotaryEncoder ; // comment out this line if you are going to use buttons instead of a rotary encoder
 
 /**********
 * Include files
@@ -17,6 +17,7 @@
 #endif
 
 #include "eeprom.h"
+
 //#include "thingSpeak.h"
 
 void setup()
@@ -37,7 +38,6 @@ void setup()
   Serial.println(email);
   Serial.println();
 
-#ifdef rotaryEncoder
   /**********
   * EEPROM
   **********/
@@ -46,7 +46,6 @@ void setup()
   initEEPROMCheck();
   Serial.println();
 
-#endif
   /**********
   * LCD
   **********/
@@ -76,13 +75,14 @@ void setup()
   **********/
   Serial.println("Setting up buttons...");
 
-  pinDebouncer.addPin(maintButton, LOW); // pin has external pull-down resistor
-  pinDebouncer.addPin(cleanpHMinusButton, LOW);
-  pinDebouncer.addPin(cleanpHPlusButton, LOW);
-  pinDebouncer.addPin(cleanNutrAButton, LOW);
-  pinDebouncer.addPin(cleanNutrBButton, LOW);
+  pinDebouncer.addPin(button1, LOW); // pin has external pull-down resistor
+  pinDebouncer.addPin(button2, LOW);
+  pinDebouncer.addPin(button3, LOW);
+  pinDebouncer.addPin(button4, LOW);
+  pinDebouncer.addPin(button5, LOW);
 
   pinDebouncer.init(); // initiate debounce
+
   Serial.println();
 #else
   /**********
@@ -184,23 +184,6 @@ void loop()
 
     checkCleanStop(); // check if pumps are running and if it's time to stop any of them
 
-    counter = (maintTimeOut - (currentMillis - maintStartMillis)) / 1000;
-
-    if (counter != oldCounter)
-    {
-      printToLCD(0, 1, "Time out in:");
-      printToLCD(13, 1, String(counter));
-      printToLCD(13 + intLength(counter), 1, "s ");
-      oldCounter = counter;
-    }
-
-    if (currentMillis - maintStartMillis > maintTimeOut)
-    { // leaving maintenance mode
-      Serial.println("Maintenance mode time out");
-      stopPumps();
-      mode = 0;
-      checkMode();
-    }
   }
   else
   {

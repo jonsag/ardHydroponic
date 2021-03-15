@@ -17,7 +17,7 @@ int iterationTime = 10000; // reading
 unsigned long maintTimeOut = 36000000; // 36000000 millis = 10 minutes
 
 /**********
-* Accepted values
+* Sensor limits
 **********/
 float pHLow = 4.62;  //  lowest allowed pH value
 float pHHigh = 4.63; // lowest allowed pH value
@@ -45,18 +45,17 @@ const int ECPower = 12;  // EC sensor power pin
 const int pHpin = A0; // pH-sensor probe
 
 #ifndef rotaryEncoder
-const int maintButton = 6;        // if you are using buttons, connect these
-const int cleanpHMinusButton = 7; // you will loose many functions:
-const int cleanpHPlusButton = 8;
-const int cleanNutrAButton = 9;
-const int cleanNutrBButton = 10;
+const int button1 = 6;        // if you are using buttons, connect these
+const int button2 = 7; // you will loose many functions:
+const int button3 = 8;
+const int button4 = 9;
+const int button5 = 10;
 #else
 const int rotEncCLK = 8;
 const int rotEncDT = 7;
 const int rotEncSW = 6; // if you are using a rotary encoder, connect these
 #endif
 
-#ifdef rotaryEncoder
 /**********
 * EEPROM
 **********/
@@ -94,7 +93,6 @@ byte iterationTimeNew; // reading
 byte pHLowNew;  //  lowest allowed pH value
 byte pHHighNew; // lowest allowed pH value
 byte ECLowNew;   // lowest allowed EC value
-#endif
 
 /***********
 * 
@@ -195,7 +193,8 @@ unsigned long pHMinusStartMillis = 0;
 unsigned long nutrAStartMillis = 0;
 unsigned long nutrBStartMillis = 0;
 
-unsigned long maintStartMillis = 0;
+unsigned long button1PressMillis = 0;
+const int longPressTime = 1000;
 
 unsigned long counter;
 unsigned long oldCounter = -1;

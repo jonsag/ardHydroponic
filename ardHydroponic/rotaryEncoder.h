@@ -1,4 +1,4 @@
-void maintButtonPush()
+void button1Push()
 {
     Serial.print("Cleaning ");
 
@@ -70,7 +70,7 @@ void checkRotaryEncoder()
         case 2:
             break;
         case 3:
-            maintButtonPush(); // check if mode has change
+            button1Push(); // check if mode has change
             break;
         case 4:
             break;
