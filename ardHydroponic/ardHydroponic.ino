@@ -1,7 +1,7 @@
 
 //#define rotaryEncoder ; // comment out this line if you are going to use buttons instead of a rotary encoder
-#define eeprom // store values to EEPROM
-//#define LCD // use a 20x4 I2C LCD
+//#define eeprom // store values to EEPROM
+#define LCD // use a 20x4 I2C LCD
 
 /**********
 * Include files
@@ -11,6 +11,7 @@
 #include "pumps.h"
 #include "read.h"
 #include "misc.h"
+#include "settings.h"
 
 #ifndef rotaryEncoder
 #include "buttons.h"

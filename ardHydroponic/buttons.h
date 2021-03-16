@@ -1,3 +1,60 @@
+void startStopCleaning()
+{
+    Serial.print("Cleaning ");
+
+    switch (pumpNumber)
+    {
+    case 0: // pH+
+        Serial.println("pH+");
+        if (digitalRead(pHPlusPump))
+        {
+            stoppHPlus();
+        }
+        else
+        {
+            startpHPlus();
+            pHPlusStartMillis = currentMillis;
+        }
+        break;
+    case 1: // pH-
+        Serial.println("pH-");
+        if (digitalRead(pHMinusPump))
+        {
+            stoppHMinus();
+        }
+        else
+        {
+            startpHMinus();
+            pHMinusStartMillis = currentMillis;
+        }
+        break;
+    case 2: // Nutr A
+        Serial.println("Nutr A");
+        if (digitalRead(nutrAPump))
+        {
+            stopNutrA();
+        }
+        else
+        {
+            startNutrA();
+            nutrAStartMillis = currentMillis;
+        }
+        break;
+    case 3: // Nutr B
+        Serial.println("Nutr B");
+        if (digitalRead(nutrBPump))
+        {
+            stopNutrB();
+        }
+        else
+        {
+            startNutrB();
+            nutrBStartMillis = currentMillis;
+        }
+        break;
+    }
+}
+
 void onPinActivated(int pinNumber)
 {
     Serial.println();
@@ -15,15 +72,12 @@ void onPinActivated(int pinNumber)
         switch (mode)
         {
         case 3:
-            if (digitalRead(pHPlusPump))
+            pumpNumber--;
+            if (pumpNumber < 0)
             {
-                stoppHPlus();
+                pumpNumber = 3;
             }
-            else
-            {
-                startpHPlus();
-                pHPlusStartMillis = currentMillis;
-            }
+            printSelectedPump();
             break;
         }
         break;
@@ -32,15 +86,12 @@ void onPinActivated(int pinNumber)
         switch (mode)
         {
         case 3:
-            if (digitalRead(pHMinusPump))
+            pumpNumber++;
+            if (pumpNumber > 3)
             {
-                stoppHMinus();
+                pumpNumber = 0;
             }
-            else
-            {
-                startpHMinus();
-                pHMinusStartMillis = currentMillis;
-            }
+            printSelectedPump();
             break;
         }
         break;
@@ -49,15 +100,6 @@ void onPinActivated(int pinNumber)
         switch (mode)
         {
         case 3:
-            if (digitalRead(nutrAPump))
-            {
-                stopNutrA();
-            }
-            else
-            {
-                startNutrA();
-                nutrAStartMillis = currentMillis;
-            }
             break;
         }
         break;
@@ -66,15 +108,6 @@ void onPinActivated(int pinNumber)
         switch (mode)
         {
         case 3:
-            if (digitalRead(nutrBPump))
-            {
-                stopNutrB();
-            }
-            else
-            {
-                startNutrB();
-                nutrBStartMillis = currentMillis;
-            }
             break;
         }
         break;
@@ -96,10 +129,17 @@ void onPinDeactivated(int pinNumber)
         }
         else
         {
-            button1PushMillis = 0;
-            longPush = 0;
             Serial.println(" <-> button1 - short push");
+            switch (mode)
+            {
+            case 3:
+                startStopCleaning();
+                break;
+            }
         }
+        button1PushMillis = 0;
+        longPush = 0;
+        break;
     default:
         Serial.println();
         break;
@@ -118,7 +158,11 @@ void longPushButton1()
         break;
     case 3:
         stopPumps();
+        #ifdef eeprom
         mode = 4;
+        #else
+        mode = 0;
+        #endif
         checkMode(); // check if mode has changed
         break;
     case 4:

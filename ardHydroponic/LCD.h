@@ -90,6 +90,8 @@ void printNormal()
 
 void printSelectedPump()
 {
+  Serial.print(pumpNames[pumpNumber]);
+  Serial.println(" selected");
   printToLCD(0, 2, "Pump");
   printToLCD(5, 2, String(pumpNumber));
   printToLCD(0, 3, pumpNames[pumpNumber]);
@@ -100,9 +102,7 @@ void printMaintenance()
   clearLCD();
   printToLCD(0, 0, "Mode:");
   printMode();
-#ifdef rotaryEncoder
   printSelectedPump();
-#endif
 }
 
 void printSettings()
