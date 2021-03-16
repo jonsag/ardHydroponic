@@ -149,6 +149,8 @@ void onPinDeactivated(int pinNumber)
 void longPushButton1()
 {
     Serial.println("button1 long push, switching mode");
+    Serial.println();
+    
     switch (mode)
     {
     case 0:

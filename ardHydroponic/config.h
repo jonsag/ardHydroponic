@@ -1,5 +1,5 @@
 String programName = "ardHydroponic";
-String date = "20210313";
+String date = "20210316";
 String author = "Jon Sagebrand";
 String email = "jonsagebrand@gmail.com";
 
@@ -21,8 +21,7 @@ unsigned long maintTimeOut = 36000000; // 36000000 millis = 10 minutes
 **********/
 float pHLow = 4.62;  //  lowest allowed pH value
 float pHHigh = 4.63; // lowest allowed pH value
-//float ECLow = 3.0;   // lowest allowed EC value
-float ECLow = 1.0; // lowest allowed EC value
+float ECLow = 800; // lowest allowed EC value
 
 /**********
  * Pins
@@ -146,6 +145,7 @@ byte addr[8];  // variable to temporary hold the memory address of the readings
 * STD
 **********/
 #include <stdlib.h>
+
 
 #ifdef LCD
 /**********

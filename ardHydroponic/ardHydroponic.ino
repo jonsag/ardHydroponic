@@ -78,7 +78,7 @@ void setup()
   pinMode(ECPower, OUTPUT);  // sourcing current
   pinMode(ECGround, OUTPUT); // sinking current
   */
-  
+
   Serial.println();
 
 #ifndef rotaryEncoder
@@ -94,8 +94,6 @@ void setup()
   pinDebouncer.addPin(button5, LOW);
 
   pinDebouncer.init(); // initiate debounce
-
-  Serial.println();
 #else
   /**********
   * Setup rotary encoder
@@ -103,8 +101,8 @@ void setup()
   Serial.println("Setting up rotary encoder...");
   rotary.setDebounceDelay(rotEncDebounceTime);
   //rotary.setTrigger(LOW);
-  Serial.println();
 #endif
+  Serial.println();
 
   /**********
   * EC/TDS sensor
@@ -160,7 +158,7 @@ void loop()
     {
       printToLCD(17, 0, String(counter));
       printToLCD(17 + intLength(counter), 0, " ");
-      
+
       /*
       if (counter <= 1)
       {
@@ -168,7 +166,7 @@ void loop()
         digitalWrite(ECPower, HIGH); // setting the power pin for EC sensor to high
       }
       */
-     
+
       oldCounter = counter;
     }
 

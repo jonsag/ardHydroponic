@@ -52,8 +52,6 @@ void printTemp()
   strLength = strlen(dtostrfBuffer);
   printToLCD(6 + strLength, 1, String((char)223));
   printToLCD(6 + strLength + 1, 1, "C");
-
-  Serial.println();
 }
 
 void printpHValue()
@@ -62,8 +60,6 @@ void printpHValue()
 
   dtostrf(phValue, 2, 2, dtostrfBuffer);
   printToLCD(4, 2, dtostrfBuffer);
-
-  Serial.println();
 }
 
 /*
@@ -73,8 +69,6 @@ void printECValue()
 
   dtostrf(EC25, 2, 2, dtostrfBuffer);
   printToLCD(4, 3, dtostrfBuffer);
-
-  Serial.println();
 }
 */
 
@@ -83,8 +77,6 @@ void printECValue() {
 
   dtostrf(ECValue, 2, 2, dtostrfBuffer);
   printToLCD(4, 3, dtostrfBuffer);
-
-  Serial.println();
 }
 
 void printNormal()
