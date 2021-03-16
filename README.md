@@ -8,7 +8,9 @@ Don't use the LiquidCrystal_I2C library from Arduino IDE's library manager.
 
 Instead use the one from [https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library](https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library).  
 
-Install TDS library from [https://github.com/DFRobot/GravityTDS](https://github.com/DFRobot/GravityTDS).  
+Install TDS sensor library from [https://github.com/DFRobot/GravityTDS](https://github.com/DFRobot/GravityTDS).  
+
+Install pH sensor library from [https://github.com/DFRobot/DFRobot_PH](https://github.com/DFRobot/DFRobot_PH).  
 
 ## Misc
 

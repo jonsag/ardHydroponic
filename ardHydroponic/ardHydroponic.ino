@@ -115,7 +115,7 @@ void setup()
   digitalWrite(ECGround, LOW); // ground level for the EC sensor probe
   R1 = (R1 + Ra);              // taking into account powering pin resistance
   */
-  gravityTds.setPin(TdsSensorPin);
+  gravityTds.setPin(tdsSensorPin);
   gravityTds.setAref(5.0);      //reference voltage on ADC, default 5.0V on Arduino UNO
   gravityTds.setAdcRange(1024); //1024 for 10bit ADC;4096 for 12bit ADC
   gravityTds.begin();           //initialization

@@ -45,7 +45,7 @@ void printTemp()
 {
   Serial.println("LCD -> Printing temp");
 
-  dtostrf(TemperatureSum, 1, 1, dtostrfBuffer);
+  dtostrf(temperatureSum, 1, 1, dtostrfBuffer);
   printToLCD(6, 1, dtostrfBuffer);
 
   strLength = strlen(dtostrfBuffer);

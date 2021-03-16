@@ -25,9 +25,9 @@ float readWaterTemp()
   byte MSB = data[1];                  // storing the temp reading
   byte LSB = data[0];                  // storing the temp reading
   float tempRead = ((MSB << 8) | LSB); // using two's compliment
-  TemperatureSum = tempRead / 16;      // converting from hex
+  temperatureSum = tempRead / 16;      // converting from hex
 
-  return TemperatureSum;
+  return temperatureSum;
 }
 
 float readpHValue()
@@ -53,10 +53,12 @@ float readpHValue()
   }
 
   avgValue = 0; // temporary value for the pH readings
+
   for (int i = 2; i < 8; i++)
   { // take value of the 6 center samples
     avgValue += buf[i];
   }
+
   avgValue = avgValue / 6;                  // take average value of the 6 center samples
   phValue = (avgValue * 5.0) / 1024;        // convert the analog readings into volt
   phValue = 3.157895 * phValue + 0.9152632; // convert the millivolt into pH value. Floats are coefficients from sensor calibration
@@ -79,7 +81,7 @@ float readECLevel()
   Rc = Rc - Ra;                      // accounting for Digital Pin Resistance
   EC = 1000 / (Rc * K);              // the calculate EC value
 
-  EC25 = EC / (1 + TemperatureCoef * (TemperatureSum - 25.0)); // compensating For the temperature in the water solvent//
+  EC25 = EC / (1 + TemperatureCoef * (temperatureSum - 25.0)); // compensating For the temperature in the water solvent//
 
   return EC25;
 }
@@ -87,8 +89,8 @@ float readECLevel()
 
 float readTdsValue()
 {
-  gravityTds.setTemperature(TemperatureSum); // grab the temperature from sensor and execute temperature compensation
-  gravityTds.update();                       //calculation done here from gravity library
+  gravityTds.setTemperature(temperatureSum); // grab the temperature from sensor and execute temperature compensation
+  gravityTds.update();                       // calculation done here from gravity library
   tdsValue = gravityTds.getTdsValue();       // then get the TDS value
 
   return tdsValue;
@@ -96,14 +98,15 @@ float readTdsValue()
 
 void readSensors()
 {
-  TemperatureSum = readWaterTemp();
+  temperatureSum = readWaterTemp();
 
   Serial.print("Tank temp: ");
-  Serial.println(TemperatureSum);
+  Serial.println(temperatureSum);
 
-  if (TemperatureSum != oldTemperatureSum)
+  if (temperatureSum != oldTemperatureSum)
   {
     printTemp();
+    oldTemperatureSum = temperatureSum;
   }
 
   /**********
@@ -122,12 +125,13 @@ void readSensors()
     pHMinusStartMillis = currentMillis;
   }
 
-  Serial.print("PH: ");
+  Serial.print("pH: ");
   Serial.println(phValue);
 
   if (phValue != oldpHValue)
   {
     printpHValue();
+    oldpHValue = phValue;
   }
 
   /**********

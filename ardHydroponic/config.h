@@ -45,19 +45,19 @@ const int ECGround = A2; // EC sensor ground level
 const int ECPower = 12;  // EC sensor power pin
 */
 
-const int TdsSensorPin = A2; 
+const int tdsSensorPin = A2; // ec/tds sensor
 const int pHpin = A0; // pH-sensor probe
 
 #ifndef rotaryEncoder
-const int button1 = 6;        // if you are using buttons, connect these
-const int button2 = 7; // you will loose many functions:
+const int button1 = 6; // if you are using buttons, connect these
+const int button2 = 7;
 const int button3 = 8;
 const int button4 = 9;
 const int button5 = 10;
 #else
-const int rotEncCLK = 8;
+const int rotEncCLK = 8; // if you are using a rotary encoder, connect these
 const int rotEncDT = 7;
-const int rotEncSW = 6; // if you are using a rotary encoder, connect these
+const int rotEncSW = 6;
 #endif
 
 #ifdef eeprom
@@ -97,7 +97,7 @@ byte iterationTimeNew; // reading
 
 byte pHLowNew;  //  lowest allowed pH value
 byte pHHighNew; // lowest allowed pH value
-byte ECLowNew;   // lowest allowed EC value
+byte ECLowNew;  // lowest allowed EC value
 #endif
 
 /***********
@@ -137,7 +137,7 @@ const int rotEncDebounceTime = 5;
 #include <OneWire.h>
 OneWire ds(DS18S20Pin); // creating a OneWire object
 
-float TemperatureSum; // average of all samples taken from one temp test
+float temperatureSum; // average of all samples taken from one temp test
 float oldTemperatureSum = 0;
 
 byte data[12]; // variable to temporary hold readings
@@ -220,7 +220,7 @@ int pumpNumber = 0;
 char *pumpNames[] = {"pH+   ", "pH-   ", "Nutr A", "Nutr B"};
 //boolean set = 0;
 
-int i; // just a counter used sometimes
+int i;          // just a counter used sometimes
 byte tempValue; // holds different bvtes
 
 /**********
