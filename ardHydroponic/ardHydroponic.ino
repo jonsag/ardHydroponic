@@ -73,9 +73,12 @@ void setup()
   pinMode(nutrAPump, OUTPUT);
   pinMode(nutrBPump, OUTPUT);
 
+  /*
   pinMode(ECPin, INPUT);     // EC sensor probe
   pinMode(ECPower, OUTPUT);  // sourcing current
   pinMode(ECGround, OUTPUT); // sinking current
+  */
+  
   Serial.println();
 
 #ifndef rotaryEncoder
@@ -104,12 +107,18 @@ void setup()
 #endif
 
   /**********
-  * EC sensor
+  * EC/TDS sensor
   **********/
-  Serial.println("Starting EC sensor...");
+  Serial.println("Starting EC/TDS sensor...");
 
+  /*
   digitalWrite(ECGround, LOW); // ground level for the EC sensor probe
   R1 = (R1 + Ra);              // taking into account powering pin resistance
+  */
+  gravityTds.setPin(TdsSensorPin);
+  gravityTds.setAref(5.0);      //reference voltage on ADC, default 5.0V on Arduino UNO
+  gravityTds.setAdcRange(1024); //1024 for 10bit ADC;4096 for 12bit ADC
+  gravityTds.begin();           //initialization
   Serial.println();
 
   /***********
@@ -151,11 +160,15 @@ void loop()
     {
       printToLCD(17, 0, String(counter));
       printToLCD(17 + intLength(counter), 0, " ");
+      
+      /*
       if (counter <= 1)
       {
         Serial.println("Powering EC sensor...");
         digitalWrite(ECPower, HIGH); // setting the power pin for EC sensor to high
       }
+      */
+     
       oldCounter = counter;
     }
 
@@ -193,7 +206,8 @@ void loop()
     checkCleanStop(); // check if pumps are running and if it's time to stop any of them
   }
 
-  if (button1PushMillis != 0 && currentMillis - button1PushMillis >= longPushTime) {
+  if (button1PushMillis != 0 && currentMillis - button1PushMillis >= longPushTime)
+  {
     button1PushMillis = 0;
     longPush = 1;
     longPushButton1();

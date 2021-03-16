@@ -21,7 +21,8 @@ unsigned long maintTimeOut = 36000000; // 36000000 millis = 10 minutes
 **********/
 float pHLow = 4.62;  //  lowest allowed pH value
 float pHHigh = 4.63; // lowest allowed pH value
-float ECLow = 3.0;   // lowest allowed EC value
+//float ECLow = 3.0;   // lowest allowed EC value
+float tdsLow = 1.0; // lowest allowed tds value
 
 /**********
  * Pins
@@ -38,10 +39,13 @@ const int pHMinusPump = 3; // PH- pump
 const int nutrAPump = 4;   // nutrition A pump
 const int nutrBPump = 5;   // nutrition B pump
 
-const int ECPin = 11;    // EC sensor reference pin
+/*
+const int ECPin = A2;    // EC sensor reference pin
 const int ECGround = A2; // EC sensor ground level
 const int ECPower = 12;  // EC sensor power pin
+*/
 
+const int TdsSensorPin = A2; 
 const int pHpin = A0; // pH-sensor probe
 
 #ifndef rotaryEncoder
@@ -153,8 +157,9 @@ LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 20, 4); // change to (0x27, 20, 
 #endif
 
 /**********
-* EC sensor
+* EC/TDS sensor
 **********/
+/*
 int R1 = 1000;                 // internal resistance
 int Ra = 25;                   // powering pin resistance
 float EC = 0;                  // EC-value
@@ -167,6 +172,13 @@ float Vdrop = 0;               // voltage drop measured from an EC-reading
 float Rc = 0;                  // The voltage of the water solvent
 
 float oldEC25 = 0;
+*/
+
+#include "GravityTDS.h"
+GravityTDS gravityTds;
+
+float tdsValue;
+float oldTdsValue = 0;
 
 /**********
 * PH sensor

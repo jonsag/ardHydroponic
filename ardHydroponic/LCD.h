@@ -61,12 +61,21 @@ void printpHValue()
   printToLCD(4, 2, dtostrfBuffer);
 }
 
+/*
 void printECValue()
 {
   Serial.println("LCD -> Printing EC value");
 
   dtostrf(EC25, 2, 2, dtostrfBuffer);
   printToLCD(4, 3, dtostrfBuffer);
+}
+*/
+
+void printTdsValue() {
+  Serial.println("LCD -> Printing tds value");
+
+  dtostrf(tdsValue, 2, 2, dtostrfBuffer);
+  printToLCD(5, 3, dtostrfBuffer);
 }
 
 void printNormal()
@@ -84,8 +93,13 @@ void printNormal()
   printToLCD(0, 2, "pH:");
   printpHValue();
 
+/*
   printToLCD(0, 3, "EC:");
   printECValue();
+  */
+
+ printToLCD(0, 3, "tds:");
+  printTdsValue();
 }
 
 void printSelectedPump()

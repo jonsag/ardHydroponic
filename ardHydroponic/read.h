@@ -64,6 +64,7 @@ float readpHValue()
   return phValue;
 }
 
+/*
 float readECLevel()
 {
   Serial.println("Reading EC value...");
@@ -82,12 +83,24 @@ float readECLevel()
 
   return EC25;
 }
+*/
+
+float readTdsValue()
+{
+  gravityTds.setTemperature(TemperatureSum); // grab the temperature from sensor and execute temperature compensation
+  gravityTds.update();                       //calculation done here from gravity library
+  tdsValue = gravityTds.getTdsValue();       // then get the TDS value
+
+  return tdsValue;
+}
 
 void readSensors()
 {
   TemperatureSum = readWaterTemp();
 
-  Serial.println("TankTemp: " + String(TemperatureSum));
+  Serial.print("Tank temp: ");
+  Serial.println(TemperatureSum);
+
   if (TemperatureSum != oldTemperatureSum)
   {
     printTemp();
@@ -109,7 +122,8 @@ void readSensors()
     pHMinusStartMillis = currentMillis;
   }
 
-  Serial.println("PH: " + String(phValue));
+  Serial.print("PH: ");
+  Serial.println(phValue);
 
   if (phValue != oldpHValue)
   {
@@ -117,8 +131,9 @@ void readSensors()
   }
 
   /**********
-  * Read EC level
+  * Read EC/TDS level
   **********/
+  /*
   EC25 = readECLevel();
 
   if (EC25 < ECLow)
@@ -128,9 +143,32 @@ void readSensors()
     nutrAStartMillis = currentMillis;
   }
 
-  Serial.println("EC: " + String(EC25));
+  Serial.print("EC: ");
+  Serial.println(EC25);
+  
   if (EC25 != oldEC25)
   {
     printECValue();
+    oldEC25 = EC25;
+  }
+  */
+
+  tdsValue = readTdsValue();
+
+  if (tdsValue < tdsLow)
+  { // EC level too low
+    startNutrA();
+    startNutrB();
+    nutrAStartMillis = currentMillis;
+  }
+
+  Serial.print("TDS value is:");
+  Serial.print(tdsValue, 0);
+  Serial.println(" ppm");
+
+  if (tdsValue != oldTdsValue)
+  {
+    printTdsValue();
+    oldTdsValue = tdsValue;
   }
 }
