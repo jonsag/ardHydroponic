@@ -22,7 +22,7 @@ unsigned long maintTimeOut = 36000000; // 36000000 millis = 10 minutes
 float pHLow = 4.62;  //  lowest allowed pH value
 float pHHigh = 4.63; // lowest allowed pH value
 //float ECLow = 3.0;   // lowest allowed EC value
-float tdsLow = 1.0; // lowest allowed tds value
+float ECLow = 1.0; // lowest allowed EC value
 
 /**********
  * Pins
@@ -32,8 +32,6 @@ float tdsLow = 1.0; // lowest allowed tds value
 // SDA -> A4    D20
 // SCL -> A5    D21
 
-const int DS18S20Pin = A1; // one wire pin
-
 const int pHPlusPump = 2;  // PH+ pump
 const int pHMinusPump = 3; // PH- pump
 const int nutrAPump = 4;   // nutrition A pump
@@ -41,12 +39,13 @@ const int nutrBPump = 5;   // nutrition B pump
 
 /*
 const int ECPin = A2;    // EC sensor reference pin
-const int ECGround = A2; // EC sensor ground level
+const int ECGround = 11; // EC sensor ground level
 const int ECPower = 12;  // EC sensor power pin
 */
 
-const int tdsSensorPin = A2; // ec/tds sensor
 const int pHpin = A0; // pH-sensor probe
+const int DS18S20Pin = A1; // one wire pin
+const int ECSensorPin = A2; // ec/EC sensor
 
 #ifndef rotaryEncoder
 const int button1 = 6; // if you are using buttons, connect these
@@ -177,8 +176,8 @@ float oldEC25 = 0;
 #include "GravityTDS.h"
 GravityTDS gravityTds;
 
-float tdsValue;
-float oldTdsValue = 0;
+float ECValue;
+float oldECValue = 0;
 
 /**********
 * PH sensor

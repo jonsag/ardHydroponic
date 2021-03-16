@@ -39,6 +39,7 @@ void printMode()
     printToLCD(6, 0, "Settings    ");
     break;
   }
+  Serial.println();
 }
 
 void printTemp()
@@ -51,6 +52,8 @@ void printTemp()
   strLength = strlen(dtostrfBuffer);
   printToLCD(6 + strLength, 1, String((char)223));
   printToLCD(6 + strLength + 1, 1, "C");
+
+  Serial.println();
 }
 
 void printpHValue()
@@ -59,6 +62,8 @@ void printpHValue()
 
   dtostrf(phValue, 2, 2, dtostrfBuffer);
   printToLCD(4, 2, dtostrfBuffer);
+
+  Serial.println();
 }
 
 /*
@@ -68,14 +73,18 @@ void printECValue()
 
   dtostrf(EC25, 2, 2, dtostrfBuffer);
   printToLCD(4, 3, dtostrfBuffer);
+
+  Serial.println();
 }
 */
 
-void printTdsValue() {
-  Serial.println("LCD -> Printing tds value");
+void printECValue() {
+  Serial.println("LCD -> Printing EC value");
 
-  dtostrf(tdsValue, 2, 2, dtostrfBuffer);
-  printToLCD(5, 3, dtostrfBuffer);
+  dtostrf(ECValue, 2, 2, dtostrfBuffer);
+  printToLCD(4, 3, dtostrfBuffer);
+
+  Serial.println();
 }
 
 void printNormal()
@@ -98,8 +107,8 @@ void printNormal()
   printECValue();
   */
 
- printToLCD(0, 3, "tds:");
-  printTdsValue();
+ printToLCD(0, 3, "EC:");
+  printECValue();
 }
 
 void printSelectedPump()
