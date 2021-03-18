@@ -2,7 +2,7 @@ void button1Push()
 {
     Serial.print("Cleaning ");
 
-    switch (pumpNumber)
+    switch (outputNumber)
     {
     case 0: // pH+
         Serial.println("pH+");
@@ -84,27 +84,27 @@ void checkRotaryEncoder()
         switch (mode)
         {
         case 0:
-            stopPumps();
+            stopOutputs();
             mode = 3;
             checkMode(); // check if mode has change
             break;
         case 1:
-            stopPumps();
+            stopOutputs();
             mode = 3;
             checkMode(); // check if mode has change
             break;
         case 2:
-            stopPumps();
+            stopOutputs();
             mode = 3;
             checkMode(); // check if mode has change
             break;
         case 3:
-            stopPumps();
+            stopOutputs();
             mode = 4;
             checkMode(); // check if mode has change
             break;
         case 4:
-            stopPumps();
+            stopOutputs();
             mode = 0;
             checkMode();
             break;
@@ -127,10 +127,10 @@ void checkRotaryEncoder()
             case 2:
                 break;
             case 3:
-                pumpNumber++;
-                if (pumpNumber > 3)
+                outputNumber++;
+                if (outputNumber > 3)
                 {
-                    pumpNumber = 3;
+                    outputNumber = 3;
                 }
                 printSelectedPump();
                 break;
@@ -151,10 +151,10 @@ void checkRotaryEncoder()
             case 2:
                 break;
             case 3:
-                pumpNumber--;
-                if (pumpNumber < 0)
+                outputNumber--;
+                if (outputNumber < 0)
                 {
-                    pumpNumber = 0;
+                    outputNumber = 0;
                 }
                 printSelectedPump();
                 break;

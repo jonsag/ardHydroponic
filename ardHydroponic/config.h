@@ -14,7 +14,10 @@ int cleanTime = 30000; // hoses clean time
 
 unsigned long iterationTime = 40000; // reading
 
-unsigned long maintTimeOut = 36000000; // 36000000 millis = 10 minutes
+int stirTime = 10000; // how long to stir each time
+unsigned long stirInterval = 60000; // how long between stirs
+
+//unsigned long maintTimeOut = 36000000; // 36000000 millis = 10 minutes
 
 /**********
 * Sensor limits
@@ -218,9 +221,12 @@ boolean longPush = 0;
 unsigned long counter;
 unsigned long oldCounter = -1;
 
-int pumpNumber = 0;
-char *pumpNames[] = {"pH+   ", "pH-   ", "Nutr A", "Nutr B"};
+int outputNumber = 0;
+char *outputNames[] = {"pH+    ", "pH-    ", "Nutr A ", "Nutr B ", "Stirrer"};
 //boolean set = 0;
+
+unsigned long stirStartMillis = 0; // when was the stirrer started
+unsigned long stirStopMillis = 0; // when did the stirrer stop
 
 int i;          // just a counter used sometimes
 byte tempValue; // holds different bvtes

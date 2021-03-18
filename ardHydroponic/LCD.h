@@ -105,11 +105,10 @@ void printNormal()
 
 void printSelectedPump()
 {
-  Serial.print(pumpNames[pumpNumber]);
+  Serial.print(outputNames[outputNumber]);
   Serial.println(" selected");
-  printToLCD(0, 2, "Pump");
-  printToLCD(5, 2, String(pumpNumber));
-  printToLCD(0, 3, pumpNames[pumpNumber]);
+  printToLCD(0, 2, String(outputNumber));
+  printToLCD(0, 3, outputNames[outputNumber]);
 }
 
 void printMaintenance()

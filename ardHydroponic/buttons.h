@@ -2,7 +2,7 @@ void startStopCleaning()
 {
     Serial.print("Cleaning ");
 
-    switch (pumpNumber)
+    switch (outputNumber)
     {
     case 0: // pH+
         Serial.println("pH+");
@@ -52,6 +52,18 @@ void startStopCleaning()
             nutrBStartMillis = currentMillis;
         }
         break;
+        case 4: // stirrer
+        Serial.println("Stir");
+        if (digitalRead(stirrer))
+        {
+            stopStirrer();
+        }
+        else
+        {
+            startStirrer();
+            stirStartMillis = currentMillis;
+        }
+        break;
     }
 }
 
@@ -72,10 +84,10 @@ void onPinActivated(int pinNumber)
         switch (mode)
         {
         case 3:
-            pumpNumber--;
-            if (pumpNumber < 0)
+            outputNumber--;
+            if (outputNumber < 0)
             {
-                pumpNumber = 3;
+                outputNumber = 3;
             }
             printSelectedPump();
             break;
@@ -86,10 +98,10 @@ void onPinActivated(int pinNumber)
         switch (mode)
         {
         case 3:
-            pumpNumber++;
-            if (pumpNumber > 3)
+            outputNumber++;
+            if (outputNumber > 3)
             {
-                pumpNumber = 0;
+                outputNumber = 0;
             }
             printSelectedPump();
             break;
@@ -154,12 +166,12 @@ void longPushButton1()
     switch (mode)
     {
     case 0:
-        stopPumps();
+        stopOutputs();
         mode = 3;
         checkMode(); // check if mode has changed
         break;
     case 3:
-        stopPumps();
+        stopOutputs();
         #ifdef eeprom
         mode = 4;
         #else
@@ -168,7 +180,7 @@ void longPushButton1()
         checkMode(); // check if mode has changed
         break;
     case 4:
-        stopPumps();
+        stopOutputs();
         mode = 0;
         checkMode(); // check if mode has changed
         break;

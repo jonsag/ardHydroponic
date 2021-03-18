@@ -54,15 +54,31 @@ void stopNutrB()
     printToLCD(14, 3, "     ");
 }
 
-void stopPumps()
+void startStirrer()
+{
+    Serial.println("Stirrer ON");
+    //printToLCD(14, 3, "NutrB");
+    digitalWrite(stirrer, HIGH); // dosing nutrition B
+}
+
+void stopStirrer()
+{
+    digitalWrite(stirrer, LOW); // cutting power to pump
+    Serial.println("Stirrer OFF");
+    //printToLCD(14, 3, "     ");
+    stirStopMillis = currentMillis;
+}
+
+void stopOutputs()
 {
     stoppHPlus();
     stoppHMinus();
     stopNutrA();
     stopNutrB();
+    stopStirrer();
 }
 
-void checkPumpStop()
+void checkOutputStop()
 {
     /**********
        Nutrient pumps
@@ -85,9 +101,17 @@ void checkPumpStop()
     { // time to stop the pump
         stoppHMinus();
     }
+
+    /**********
+       Stirrer
+     **********/
+    if ((digitalRead(stirrer)) && (currentMillis - stirStartMillis > stirTime))
+    { // time to stop the pump
+        stopStirrer();
+    }
 }
 
-void checkCleanStop()
+void checkMaintStop()
 {
     /**********
     * Nutrient pump A
@@ -116,5 +140,13 @@ void checkCleanStop()
     if ((digitalRead(pHMinusPump)) && (currentMillis - pHMinusStartMillis > cleanTime))
     { // time to stop the pump
         stoppHMinus();
+    }
+
+    /**********
+       Stirrer
+     **********/
+    if ((digitalRead(stirrer)) && (currentMillis - stirStartMillis > cleanTime))
+    { // time to stop the pump
+        stopStirrer();
     }
 }

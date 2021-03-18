@@ -8,7 +8,7 @@
 **********/
 #include "config.h"
 #include "LCD.h"
-#include "pumps.h"
+#include "outputs.h"
 #include "read.h"
 #include "misc.h"
 #include "settings.h"
@@ -172,7 +172,7 @@ void loop()
     }
 
     /**********
-    * Water temperature
+    * Read loop
     **********/
     if (currentMillis - readMillis > iterationTime)
     { // read mode
@@ -193,16 +193,25 @@ void loop()
     }
 
     /**********
+    * Stirrer
+    **********/
+    if (currentMillis - stirStopMillis > stirInterval)
+    { // time to stir
+      startStirrer();
+      stirStartMillis = currentMillis;
+    }
+
+    /**********
     * Run pumps
     **********/
     //if (EC25<1.4 && phValue>6.6) {} // if the nutrient level unsufficient, and the pH value to high
 
-    checkPumpStop(); // check if it's time to stop the pumps
+    checkOutputStop(); // check if it's time to stop the pumps
   }
   else if (mode == 3)
   { // maintenance mode
 
-    checkCleanStop(); // check if pumps are running and if it's time to stop any of them
+    checkMaintStop(); // check if pumps are running and if it's time to stop any of them
   }
   else if (mode == 4)
   {
