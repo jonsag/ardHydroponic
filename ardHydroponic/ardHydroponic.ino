@@ -116,6 +116,7 @@ void setup()
   gravityTds.setPin(ECSensorPin);
   gravityTds.setAref(5.0);      //reference voltage on ADC, default 5.0V on Arduino UNO
   gravityTds.setAdcRange(1024); //1024 for 10bit ADC;4096 for 12bit ADC
+  gravityTds.setKvalueAddress(kValueAddress);
   gravityTds.begin();           //initialization
   Serial.println();
 
@@ -202,6 +203,18 @@ void loop()
   { // maintenance mode
 
     checkCleanStop(); // check if pumps are running and if it's time to stop any of them
+  }
+  else if (mode == 4)
+  {
+    gravityTds.update(); // calculation done here from gravity library
+    Serial.print("TDS value: ");
+    Serial.println(gravityTds.getTdsValue());
+
+    Serial.print("K value: ");
+    Serial.println(gravityTds.getKvalue());
+    Serial.println();
+
+    Serial.println();
   }
 
   if (button1PushMillis != 0 && currentMillis - button1PushMillis >= longPushTime)

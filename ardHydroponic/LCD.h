@@ -72,11 +72,11 @@ void printECValue()
 }
 */
 
-void printECValue() {
-  Serial.println("LCD -> Printing EC value");
+void printTDSValue() {
+  Serial.println("LCD -> Printing TDS value");
 
-  dtostrf(ECValue, 2, 2, dtostrfBuffer);
-  printToLCD(4, 3, dtostrfBuffer);
+  dtostrf(TDSValue, 2, 2, dtostrfBuffer);
+  printToLCD(5, 3, dtostrfBuffer);
 }
 
 void printNormal()
@@ -99,8 +99,8 @@ void printNormal()
   printECValue();
   */
 
- printToLCD(0, 3, "EC:");
-  printECValue();
+ printToLCD(0, 3, "TDS:");
+  printTDSValue();
 }
 
 void printSelectedPump()

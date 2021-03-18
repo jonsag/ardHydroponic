@@ -63,3 +63,8 @@ float realValueToStored(int i, float value)
 void printSelectedVariable() {
     
 }
+
+void printKValue() {
+    
+    Serial.print("");
+}

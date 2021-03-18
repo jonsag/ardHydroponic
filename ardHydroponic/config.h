@@ -21,7 +21,7 @@ unsigned long maintTimeOut = 36000000; // 36000000 millis = 10 minutes
 **********/
 float pHLow = 4.62;  //  lowest allowed pH value
 float pHHigh = 4.63; // lowest allowed pH value
-float ECLow = 800; // lowest allowed EC value
+float TDSLow = 800; // lowest allowed EC value
 
 /**********
  * Pins
@@ -176,8 +176,10 @@ float oldEC25 = 0;
 #include "GravityTDS.h"
 GravityTDS gravityTds;
 
-float ECValue;
-float oldECValue = 0;
+const byte kValueAddress = 20; // where to store the k value
+
+float TDSValue;
+float oldTDSValue = 0;
 
 /**********
 * PH sensor

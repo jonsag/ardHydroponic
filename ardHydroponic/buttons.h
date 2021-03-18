@@ -163,7 +163,7 @@ void longPushButton1()
         #ifdef eeprom
         mode = 4;
         #else
-        mode = 0;
+        mode = 4;
         #endif
         checkMode(); // check if mode has changed
         break;

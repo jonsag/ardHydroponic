@@ -87,15 +87,15 @@ float readECLevel()
 }
 */
 
-float readECValue()
+float readTDSValue()
 {
-  Serial.println("Reading EC value...");
+  Serial.println("Reading TDS value...");
 
   gravityTds.setTemperature(temperatureSum); // grab the temperature from sensor and execute temperature compensation
   gravityTds.update();                       // calculation done here from gravity library
-  ECValue = gravityTds.getTdsValue();        // then get the TDS value
+  TDSValue = gravityTds.getTdsValue();        // then get the TDS value
 
-  return ECValue;
+  return TDSValue;
 }
 
 void readSensors()
@@ -162,19 +162,19 @@ void readSensors()
   }
   */
 
-  ECValue = readECValue();
+  TDSValue = readTDSValue();
 
-  Serial.print("EC: ");
-  Serial.print(ECValue, 0);
+  Serial.print("TDS: ");
+  Serial.print(TDSValue, 0);
   Serial.println(" ppm");
 
-  if (ECValue != oldECValue)
+  if (TDSValue != oldTDSValue)
   {
-    printECValue();
-    oldECValue = ECValue;
+    printTDSValue();
+    oldTDSValue = TDSValue;
   }
 
-  if (ECValue < ECLow)
+  if (TDSValue < TDSLow)
   { // EC level too low
     startNutrA();
     startNutrB();
