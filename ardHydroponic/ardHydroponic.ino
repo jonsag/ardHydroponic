@@ -117,7 +117,7 @@ void setup()
   gravityTds.setAref(5.0);      //reference voltage on ADC, default 5.0V on Arduino UNO
   gravityTds.setAdcRange(1024); //1024 for 10bit ADC;4096 for 12bit ADC
   gravityTds.setKvalueAddress(kValueAddress);
-  gravityTds.begin();           //initialization
+  gravityTds.begin(); //initialization
   Serial.println();
 
   /***********

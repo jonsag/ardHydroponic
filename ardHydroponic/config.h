@@ -12,7 +12,7 @@ int pHMinusPumpTime = 500;   // pump time for PH- pump
 
 int cleanTime = 30000; // hoses clean time
 
-int iterationTime = 10000; // reading
+unsigned long iterationTime = 40000; // reading
 
 unsigned long maintTimeOut = 36000000; // 36000000 millis = 10 minutes
 
@@ -35,6 +35,7 @@ const int pHPlusPump = 2;  // PH+ pump
 const int pHMinusPump = 3; // PH- pump
 const int nutrAPump = 4;   // nutrition A pump
 const int nutrBPump = 5;   // nutrition B pump
+const int stirrer = 11;
 
 /*
 const int ECPin = A2;    // EC sensor reference pin
