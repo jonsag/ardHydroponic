@@ -1,7 +1,7 @@
 
 //#define rotaryEncoder ; // comment out this line if you are going to use buttons instead of a rotary encoder
-//#define eeprom // store values to EEPROM
-#define LCD // use a 20x4 I2C LCD
+#define eeprom // store values to EEPROM
+//#define LCD // use a 20x4 I2C LCD
 
 /**********
 * Include files
@@ -215,15 +215,7 @@ void loop()
   }
   else if (mode == 4)
   {
-    gravityTds.update(); // calculation done here from gravity library
-    Serial.print("TDS value: ");
-    Serial.println(gravityTds.getTdsValue());
-
-    Serial.print("K value: ");
-    Serial.println(gravityTds.getKvalue());
-    Serial.println();
-
-    Serial.println();
+    setVar();
   }
 
   if (button1PushMillis != 0 && currentMillis - button1PushMillis >= longPushTime)

@@ -1,71 +1,69 @@
-#define EEPROM_write(address, p)        \
-  {                                     \
-    int i = 0;                          \
-    byte *pp = (byte *)&(p);            \
-    for (; i < sizeof(p); i++)          \
-      EEPROM.write(address + i, pp[i]); \
-  }
-  
-#define EEPROM_read(address, p)         \
-  {                                     \
-    int i = 0;                          \
-    byte *pp = (byte *)&(p);            \
-    for (; i < sizeof(p); i++)          \
-      pp[i] = EEPROM.read(address + i); \
-  }
+#define EEPROM_write(address, p)              \
+    {                                         \
+        int i = 0;                            \
+        byte *pp = (byte *)&(p);              \
+        for (; i < sizeof(p); i++)            \
+            EEPROM.write(address + i, pp[i]); \
+    }
 
-byte readEEPROMAddress(byte address)
-{
-    return EEPROM.read(address);
-}
+#define EEPROM_read(address, p)               \
+    {                                         \
+        int i = 0;                            \
+        byte *pp = (byte *)&(p);              \
+        for (; i < sizeof(p); i++)            \
+            pp[i] = EEPROM.read(address + i); \
+    }
 
-void writeValue(byte address, byte value)
-{
-    EEPROM.write(address, value);
-}
-
-void useValue(byte address, byte value)
+void useValue(byte address, float value)
 {
     Serial.print(varNames[i]);
     Serial.print(" = ");
     switch (address)
     {
     case 0:
-        nutrientsPumpTime = storedValueToReal(address, value);
+        nutrientsPumpTime = value;
         Serial.println(nutrientsPumpTime);
         break;
     case 1:
-        pHPlusPumpTime = storedValueToReal(address, value);
+        pHPlusPumpTime = value;
         Serial.println(pHPlusPumpTime);
         break;
     case 2:
-        pHMinusPumpTime = storedValueToReal(address, value);
+        pHMinusPumpTime = value;
         Serial.println(pHMinusPumpTime);
         break;
     case 3:
-        cleanTime = storedValueToReal(address, value);
+        cleanTime = value;
         Serial.println(cleanTime);
         break;
     case 4:
-        iterationTime = storedValueToReal(address, value);
+        iterationTime = value;
         Serial.println(iterationTime);
         break;
     case 5:
-        pHLow = storedValueToReal(address, value);
+        pHLow = value;
         Serial.println(pHLow);
         break;
     case 6:
-        pHHigh = storedValueToReal(address, value);
+        pHHigh = value;
         Serial.println(pHHigh);
         break;
     case 7:
-        ECLow = storedValueToReal(address, value);
-        Serial.println(ECLow);
+        tdsLow = value;
+        Serial.println(tdsLow);
+        break;
+    case 8:
+        kValue = value;
+        Serial.println(kValue);
+        break;
+    case 9:
+        tdsFactor = value;
+        Serial.println(tdsFactor);
         break;
     }
 }
 
-void setValue(byte address, byte value)
+void setValue(byte address, float value)
 {
     Serial.print(varNames[i]);
     Serial.print(" = ");
@@ -73,59 +71,44 @@ void setValue(byte address, byte value)
     {
     case 0:
         Serial.println(nutrientsPumpTime);
-        writeValue(address, realValueToStored(address, nutrientsPumpTime));
+        EEPROM_write(address, value);
         break;
     case 1:
         Serial.println(pHPlusPumpTime);
-        writeValue(address, realValueToStored(address, pHPlusPumpTime));
+        EEPROM_write(address, value);
         break;
     case 2:
         Serial.println(pHMinusPumpTime);
-        writeValue(address, realValueToStored(address, pHMinusPumpTime));
+        EEPROM_write(address, value);
         break;
     case 3:
         Serial.println(cleanTime);
-        writeValue(address, realValueToStored(address, cleanTime));
+        EEPROM_write(address, value);
         break;
     case 4:
         Serial.println(iterationTime);
-        writeValue(address, realValueToStored(address, iterationTime));
+        EEPROM_write(address, value);
         break;
     case 5:
         Serial.println(pHLow);
-        writeValue(address, realValueToStored(address, pHLow));
+        EEPROM_write(address, value);
         break;
     case 6:
         Serial.println(pHHigh);
-        writeValue(address, realValueToStored(address, pHHigh));
+        EEPROM_write(address, value);
         break;
     case 7:
-        Serial.println(ECLow);
-        writeValue(address, realValueToStored(address, ECLow));
+        Serial.println(tdsLow);
+        EEPROM_write(address, value);
         break;
-    }
-}
-
-void readAllEEPROM()
-{
-    for (i = 0; i < noOfVars; i++)
-    {
-        Serial.print(varNames[i]);
-        Serial.print(": ");
-        //Serial.println(storedValueToReal(i, readEEPROMAddress(i)));
-        Serial.println(readEEPROMAddress(i));
-    }
-}
-
-boolean hasValueStored(byte address)
-{
-    if (readEEPROMAddress(address) == 255 || readEEPROMAddress(address) == 0)
-    {
-        return 0;
-    }
-    else
-    {
-        return 1;
+    case 8:
+        Serial.println(kValue);
+        EEPROM_write(address, value);
+        break;
+    case 9:
+        Serial.println(tdsFactor);
+        EEPROM_write(address, value);
+        break;
     }
 }
 
@@ -137,7 +120,7 @@ void initEEPROMCheck()
         Serial.print(varNames[i]);
         Serial.println("...");
 
-        EEPROM_read(i * 10, tempValue);;
+        EEPROM_read(i * 10, tempValue);
         Serial.println(tempValue);
         if (tempValue != 0 && tempValue != 255)
         {
@@ -157,6 +140,6 @@ void clearEEPROM()
     Serial.println("Clearing EEPROM...");
     for (i = 0; i < EEPROM.length(); i++)
     {
-        EEPROM.write(i, 0);
+        EEPROM.write(i, 0xFF);
     }
 }

@@ -24,7 +24,13 @@ unsigned long stirInterval = 60000; // how long between stirs
 **********/
 float pHLow = 4.62;  //  lowest allowed pH value
 float pHHigh = 4.63; // lowest allowed pH value
-float TDSLow = 800; // lowest allowed EC value
+float tdsLow = 800; // lowest allowed EC value
+
+/**********
+* EC/TDS
+**********/
+float kValue = 0.6;
+float tdsFactor = 0.5;
 
 /**********
  * Pins
@@ -76,7 +82,9 @@ const int rotEncSW = 6;
 //  4           iterationTime       10000           10          x/1000
 //  5           pHLow               4.62            162         x*100-300
 //  6           pHHigh              4.63            163         x*100-300
-//  7           ECLow               3.0             30          x*10
+//  7           tdsLow              800             80          x/10
+//  8           kValue              0.6             0.6         x
+//  9           tdsFactor           0.5             0.5         x
 
 char *varNames[] = {"Nutritions pump time",
                     "pH+ pump time",
@@ -91,17 +99,23 @@ char *varNames[] = {"Nutritions pump time",
 
 const int noOfVars = 10;
 
-byte nutrientsPumpTimeNew; // pump time for nutrient pumps
-byte pHPlusPumpTimeNew;    // pump time for PH+ pump
-byte pHMinusPumpTimeNew;   // pump time for PH- pump
+byte varNumber = 0;
+byte oldVarNumber = 0;
 
-byte cleanTimeNew; // hoses clean time
+float nutrientsPumpTimeNew; // pump time for nutrient pumps
+float pHPlusPumpTimeNew;    // pump time for PH+ pump
+float pHMinusPumpTimeNew;   // pump time for PH- pump
 
-byte iterationTimeNew; // reading
+float cleanTimeNew; // hoses clean time
 
-byte pHLowNew;  //  lowest allowed pH value
-byte pHHighNew; // lowest allowed pH value
-byte ECLowNew;  // lowest allowed EC value
+float iterationTimeNew; // reading
+
+float pHLowNew;  //  lowest allowed pH value
+float pHHighNew; // lowest allowed pH value
+float tdsLowNew;  // lowest allowed EC value
+
+float kValueNew;
+float tdsFactorNew;
 #endif
 
 /***********
@@ -231,7 +245,7 @@ unsigned long stirStartMillis = 0; // when was the stirrer started
 unsigned long stirStopMillis = 0; // when did the stirrer stop
 
 int i;          // just a counter used sometimes
-byte tempValue; // holds different bvtes
+float tempValue; // holds different bvtes
 
 /**********
 * WiFi

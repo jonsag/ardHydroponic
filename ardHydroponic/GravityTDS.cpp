@@ -77,7 +77,7 @@ void GravityTDS::setKvalueAddress(int address)
 void GravityTDS::begin()
 {
   pinMode(this->pin, INPUT);
-  readKValues();
+  //readKValues();
 }
 
 float GravityTDS::getKvalue()
@@ -89,13 +89,16 @@ void GravityTDS::update()
 {
   this->analogValue = analogRead(this->pin);
   this->voltage = this->analogValue / this->adcRange * this->aref;
-  this->ecValue = (133.42 * this->voltage * this->voltage * this->voltage - 255.86 * this->voltage * this->voltage + 857.39 * this->voltage) * this->kValue;
+  //this->ecValue = (133.42 * this->voltage * this->voltage * this->voltage - 255.86 * this->voltage * this->voltage + 857.39 * this->voltage) * this->kValue;
+  this->ecValue = (133.42 * this->voltage * this->voltage * this->voltage - 255.86 * this->voltage * this->voltage + 857.39 * this->voltage) * kValue;
   this->ecValue25 = this->ecValue / (1.0 + 0.02 * (this->temperature - 25.0)); //temperature compensation
   this->tdsValue = ecValue25 * TdsFactor;
+/*
   if (cmdSerialDataAvailable() > 0)
   {
     ecCalibration(cmdParse()); // if received serial cmd from the serial monitor, enter into the calibration mode
   }
+  */
 }
 
 float GravityTDS::getTdsValue()
@@ -108,6 +111,7 @@ float GravityTDS::getEcValue()
   return ecValue25;
 }
 
+/*
 void GravityTDS::readKValues()
 {
   EEPROM_read(this->kValueAddress, this->kValue);
@@ -230,3 +234,4 @@ void GravityTDS::ecCalibration(byte mode)
     break;
   }
 }
+*/

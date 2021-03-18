@@ -174,7 +174,7 @@ void readSensors()
     oldTDSValue = TDSValue;
   }
 
-  if (TDSValue < TDSLow)
+  if (TDSValue < tdsLow)
   { // EC level too low
     startNutrA();
     startNutrB();

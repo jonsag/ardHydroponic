@@ -72,7 +72,8 @@ void printECValue()
 }
 */
 
-void printTDSValue() {
+void printTDSValue()
+{
   Serial.println("LCD -> Printing TDS value");
 
   dtostrf(TDSValue, 2, 2, dtostrfBuffer);
@@ -94,12 +95,12 @@ void printNormal()
   printToLCD(0, 2, "pH:");
   printpHValue();
 
-/*
+  /*
   printToLCD(0, 3, "EC:");
   printECValue();
   */
 
- printToLCD(0, 3, "TDS:");
+  printToLCD(0, 3, "TDS:");
   printTDSValue();
 }
 
@@ -109,6 +110,46 @@ void printSelectedPump()
   Serial.println(" selected");
   printToLCD(0, 2, String(outputNumber));
   printToLCD(0, 3, outputNames[outputNumber]);
+}
+
+void printSelectedVar()
+{
+  Serial.print(varNames[i]);
+  Serial.print(" = ");
+  switch (varNumber)
+  {
+  case 0:
+    Serial.println(nutrientsPumpTime);
+    break;
+  case 1:
+    Serial.println(pHPlusPumpTime);
+    break;
+  case 2:
+    Serial.println(pHMinusPumpTime);
+    break;
+  case 3:
+    Serial.println(cleanTime);
+    break;
+  case 4:
+    Serial.println(iterationTime);
+    break;
+  case 5:
+    Serial.println(pHLow);
+    break;
+  case 6:
+    Serial.println(pHHigh);
+    break;
+  case 7:
+    Serial.println(tdsLow);
+    break;
+  case 8:
+    Serial.println(kValue);
+    break;
+  case 9:
+    Serial.println(tdsFactor);
+    break;
+  }
+  Serial.println();
 }
 
 void printMaintenance()

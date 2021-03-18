@@ -52,7 +52,7 @@ void startStopCleaning()
             nutrBStartMillis = currentMillis;
         }
         break;
-        case 4: // stirrer
+    case 4: // stirrer
         Serial.println("Stir");
         if (digitalRead(stirrer))
         {
@@ -87,9 +87,17 @@ void onPinActivated(int pinNumber)
             outputNumber--;
             if (outputNumber < 0)
             {
-                outputNumber = 3;
+                outputNumber = 4;
             }
             printSelectedPump();
+            break;
+        case 4:
+            varNumber--;
+            if (varNumber < 0)
+            {
+                varNumber = 9;
+            }
+            printSelectedVar();
             break;
         }
         break;
@@ -104,6 +112,14 @@ void onPinActivated(int pinNumber)
                 outputNumber = 0;
             }
             printSelectedPump();
+            break;
+        case 4:
+            varNumber++;
+            if (varNumber > 9)
+            {
+                varNumber = 0;
+            }
+            printSelectedVar();
             break;
         }
         break;
@@ -162,7 +178,7 @@ void longPushButton1()
 {
     Serial.println("button1 long push, switching mode");
     Serial.println();
-    
+
     switch (mode)
     {
     case 0:
@@ -172,12 +188,14 @@ void longPushButton1()
         break;
     case 3:
         stopOutputs();
-        #ifdef eeprom
+#ifdef eeprom
         mode = 4;
-        #else
-        mode = 4;
-        #endif
-        checkMode(); // check if mode has changed
+        checkMode();
+        printSelectedVar();
+#else
+        mode = 0;
+        checkMode();
+#endif
         break;
     case 4:
         stopOutputs();
