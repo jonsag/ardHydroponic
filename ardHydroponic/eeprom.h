@@ -1,3 +1,19 @@
+#define EEPROM_write(address, p)        \
+  {                                     \
+    int i = 0;                          \
+    byte *pp = (byte *)&(p);            \
+    for (; i < sizeof(p); i++)          \
+      EEPROM.write(address + i, pp[i]); \
+  }
+  
+#define EEPROM_read(address, p)         \
+  {                                     \
+    int i = 0;                          \
+    byte *pp = (byte *)&(p);            \
+    for (; i < sizeof(p); i++)          \
+      pp[i] = EEPROM.read(address + i); \
+  }
+
 byte readEEPROMAddress(byte address)
 {
     return EEPROM.read(address);
@@ -121,7 +137,7 @@ void initEEPROMCheck()
         Serial.print(varNames[i]);
         Serial.println("...");
 
-        tempValue = readEEPROMAddress(i);
+        EEPROM_read(i * 10, tempValue);;
         Serial.println(tempValue);
         if (tempValue != 0 && tempValue != 255)
         {

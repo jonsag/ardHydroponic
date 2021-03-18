@@ -85,9 +85,11 @@ char *varNames[] = {"Nutritions pump time",
                     "Iteration time",
                     "pH low",
                     "pH high",
-                    "EC low"};
+                    "TDS low",
+                    "k value",
+                    "TDS factor"};
 
-const int noOfVars = 8;
+const int noOfVars = 10;
 
 byte nutrientsPumpTimeNew; // pump time for nutrient pumps
 byte pHPlusPumpTimeNew;    // pump time for PH+ pump

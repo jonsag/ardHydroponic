@@ -17,6 +17,7 @@
 #include <EEPROM.h>
 #include "GravityTDS.h"
 
+/*
 #define EEPROM_write(address, p)        \
   {                                     \
     int i = 0;                          \
@@ -24,6 +25,7 @@
     for (; i < sizeof(p); i++)          \
       EEPROM.write(address + i, pp[i]); \
   }
+
 #define EEPROM_read(address, p)         \
   {                                     \
     int i = 0;                          \
@@ -31,6 +33,7 @@
     for (; i < sizeof(p); i++)          \
       pp[i] = EEPROM.read(address + i); \
   }
+*/
 
 GravityTDS::GravityTDS()
 {
