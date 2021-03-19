@@ -1,7 +1,8 @@
 
 //#define rotaryEncoder ; // comment out this line if you are going to use buttons instead of a rotary encoder
 #define eeprom // store values to EEPROM
-#define LCD // use a 20x4 I2C LCD
+#define LCD    // use a 20x4 I2C LCD
+#define myTds  // use own function to measure tds
 
 /**********
 * Include files
@@ -11,6 +12,7 @@
 #include "outputs.h"
 #include "read.h"
 #include "misc.h"
+float analogValue;
 #include "settings.h"
 
 #ifndef rotaryEncoder
@@ -47,7 +49,7 @@ void setup()
   /**********
   * EEPROM
   **********/
-  //clearEEPROM();
+  clearEEPROM();
   Serial.println("Reading EEPROM...");
   initEEPROMCheck();
   Serial.println();
@@ -108,6 +110,7 @@ void setup()
   /**********
   * EC/TDS sensor
   **********/
+#ifndef myTds
   Serial.println("Starting EC/TDS sensor...");
 
   /*
@@ -119,7 +122,9 @@ void setup()
   gravityTds.setAdcRange(1024); //1024 for 10bit ADC;4096 for 12bit ADC
   gravityTds.setKvalueAddress(kValueAddress);
   gravityTds.begin(); //initialization
+
   Serial.println();
+#endif
 
   /***********
   * WiFi

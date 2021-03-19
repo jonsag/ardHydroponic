@@ -14,7 +14,7 @@ float cleanTime = 30000; // hoses clean time
 
 float iterationTime = 10000; // reading
 
-float stirTime = 5000; // how long to stir each time
+float stirTime = 5000;      // how long to stir each time
 float stirInterval = 15000; // how long between stirs
 
 //unsigned long maintTimeOut = 36000000; // 36000000 millis = 10 minutes
@@ -24,13 +24,13 @@ float stirInterval = 15000; // how long between stirs
 **********/
 float pHLow = 4.62;  //  lowest allowed pH value
 float pHHigh = 4.63; // lowest allowed pH value
-float tdsLow = 800; // lowest allowed EC value
+float tdsLow = 800;  // lowest allowed EC value
 
 /**********
 * EC/TDS
 **********/
 float kValue = 0.6;
-float tdsFactor = 1;
+float tdsFactor = 0.5;
 
 /**********
  * Pins
@@ -50,10 +50,10 @@ const int stirrer = 11;
 const int ECPin = A2;    // EC sensor reference pin
 const int ECGround = 11; // EC sensor ground level
 const int ECPower = 12;  // EC sensor power pin
-*/unsigned
+*/
 
-const int pHpin = A0; // pH-sensor probe
-const int DS18S20Pin = A1; // one wire pin
+const int pHSensorPin = A0; // pH-sensor probe
+const int DS18S20Pin = A1;  // one wire pin
 const int ECSensorPin = A2; // ec/EC sensor
 
 #ifndef rotaryEncoder
@@ -103,16 +103,16 @@ byte varNumber = 0;
 byte oldVarNumber = 0;
 
 float nutrientsPumpTimeNew = nutrientsPumpTime; // pump time for nutrient pumps
-float pHPlusPumpTimeNew = pHPlusPumpTime;    // pump time for PH+ pump
-float pHMinusPumpTimeNew = pHMinusPumpTime;   // pump time for PH- pump
+float pHPlusPumpTimeNew = pHPlusPumpTime;       // pump time for PH+ pump
+float pHMinusPumpTimeNew = pHMinusPumpTime;     // pump time for PH- pump
 
 float cleanTimeNew = cleanTime; // hoses clean time
 
 float iterationTimeNew = iterationTime; // reading
 
-float pHLowNew = pHLow;  //  lowest allowed pH value
+float pHLowNew = pHLow;   //  lowest allowed pH value
 float pHHighNew = pHHigh; // lowest allowed pH value
-float tdsLowNew = tdsLow;  // lowest allowed EC value
+float tdsLowNew = tdsLow; // lowest allowed EC value
 
 float kValueNew = kValue;
 float tdsFactorNew = tdsFactorNew;
@@ -166,7 +166,6 @@ byte addr[8];  // variable to temporary hold the memory address of the readings
 **********/
 #include <stdlib.h>
 
-
 #ifdef LCD
 /**********
 * LCD
@@ -193,10 +192,20 @@ float Rc = 0;                  // The voltage of the water solvent
 float oldEC25 = 0;
 */
 
+#ifdef myTds
+float voltage;
+float ecValue;   //before temperature compensation
+float ecValue25; //after temperature compensation
+float tdsValue;
+
+const float aref = 5.0;
+const int adcRange = 1024;
+#else
 #include "GravityTDS.h"
 GravityTDS gravityTds;
 
 const byte kValueAddress = 20; // where to store the k value
+#endif
 
 float TDSValue;
 float oldTDSValue = 0;
@@ -242,9 +251,9 @@ char *outputNames[] = {"pH+    ", "pH-    ", "Nutr A ", "Nutr B ", "Stirrer"};
 //boolean set = 0;
 
 unsigned long stirStartMillis = 0; // when was the stirrer started
-unsigned long stirStopMillis = 0; // when did the stirrer stop
+unsigned long stirStopMillis = 0;  // when did the stirrer stop
 
-int i;          // just a counter used sometimes
+int i;           // just a counter used sometimes
 float tempValue; // holds different bvtes
 
 /**********

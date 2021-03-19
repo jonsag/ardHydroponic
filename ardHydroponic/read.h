@@ -35,9 +35,9 @@ float readpHValue()
   Serial.println("Reading pH value...");
 
   for (int i = 0; i < 10; i++)
-  {                             // get 10 sample value from the sensor for smooth the value
-    buf[i] = analogRead(pHpin); // read pH probe
-    delay(10);                  // 10 ms delay
+  {                                   // get 10 sample value from the sensor for smooth the value
+    buf[i] = analogRead(pHSensorPin); // read pH probe
+    delay(10);                        // 10 ms delay
   }
   for (int i = 0; i < 9; i++)
   { // sort the 10 analog readings from small to large
@@ -90,12 +90,18 @@ float readECLevel()
 float readTDSValue()
 {
   Serial.println("Reading TDS value...");
-
+#ifdef myTds
+  voltage = analogRead(ECSensorPin) / adcRange * aref;
+  ecValue = (133.42 * voltage * voltage * voltage - 255.86 * voltage * voltage + 857.39 * voltage) * kValue;
+  ecValue25 = ecValue / (1.0 + 0.02 * (temperatureSum - 25.0)); //temperature compensation
+  TDSValue = ecValue25 * tdsFactor;
+#else
   gravityTds.setTemperature(temperatureSum); // grab the temperature from sensor and execute temperature compensation
   gravityTds.update();                       // calculation done here from gravity library
-  TDSValue = gravityTds.getTdsValue();        // then get the TDS value
+  TDSValue = gravityTds.getTdsValue();       // then get the TDS value
+#endif
 
-  return TDSValue;
+      return TDSValue;
 }
 
 void readSensors()

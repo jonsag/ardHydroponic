@@ -116,7 +116,9 @@ void printSelectedOutput()
 
 void printSelectedVar()
 {
-  Serial.print(varNames[i]);
+  Serial.print(varNumber);
+  Serial.print(": ");
+  Serial.print(varNames[varNumber]);
   Serial.print(" = ");
   switch (varNumber)
   {
