@@ -4,33 +4,36 @@ String author = "Jon Sagebrand";
 String email = "jonsagebrand@gmail.com";
 
 /**********
-* Times
+* Configurable variables
 **********/
-float nutrientsPumpTime = 500; // pump time for nutrient pumps
-float pHPlusPumpTime = 500;    // pump time for PH+ pump
-float pHMinusPumpTime = 500;   // pump time for PH- pump
+char *varNames[] = {"Nutritions pump time",
+                    "pH+ pump time",
+                    "pH- pump time",
+                    "Clean pumps time",
+                    "Iteration time",
+                    "Stir time", 
+                    "Stir interval", 
+                    "pH low",
+                    "pH high",
+                    "TDS low",
+                    "k value",
+                    "TDS factor",
+                    };
 
-float cleanTime = 30000; // hoses clean time
+float vars[] = {500.00,
+                 500.00,
+                 500.00,
+                 30000.00,
+                 10000.00,
+                 5000.00, 
+                 15000.00,
+                 4.62, 
+                 4.63, 
+                 800.00, 
+                 0.60, 
+                 0.50};
 
-float iterationTime = 10000; // reading
-
-float stirTime = 5000;      // how long to stir each time
-float stirInterval = 15000; // how long between stirs
-
-//unsigned long maintTimeOut = 36000000; // 36000000 millis = 10 minutes
-
-/**********
-* Sensor limits
-**********/
-float pHLow = 4.62;  //  lowest allowed pH value
-float pHHigh = 4.63; // lowest allowed pH value
-float tdsLow = 800;  // lowest allowed EC value
-
-/**********
-* EC/TDS
-**********/
-float kValue = 0.6;
-float tdsFactor = 0.5;
+const int noOfVars = 12;
 
 /**********
  * Pins
@@ -45,12 +48,6 @@ const int pHMinusPump = 3; // PH- pump
 const int nutrAPump = 4;   // nutrition A pump
 const int nutrBPump = 5;   // nutrition B pump
 const int stirrer = 11;
-
-/*
-const int ECPin = A2;    // EC sensor reference pin
-const int ECGround = 11; // EC sensor ground level
-const int ECPower = 12;  // EC sensor power pin
-*/
 
 const int pHSensorPin = A0; // pH-sensor probe
 const int DS18S20Pin = A1;  // one wire pin
@@ -73,48 +70,25 @@ const int rotEncSW = 6;
 **********/
 #include <EEPROM.h>
 
-//  address     variable            start value     stored as   calculation     4byte hex
-//  0           nutrientsPumpTime   500             5           x/100           0000FA43    Float - Little Endian (DCBA)
-//  1           pHPlusPumpTime      500             5           x/100
-//  2           pHMinusPumpTime     500             5           x/100
-//  3           cleanTime           30000           30          x/1000
-//  4           iterationTime       10000           10          x/1000
-//  5           pHLow               4.62            162         x*100-300
-//  6           pHHigh              4.63            163         x*100-300
-//  7           tdsLow              800             80          x/10
-//  8           kValue              0.6             0.6         x
-//  9           tdsFactor           0.5             0.5         x
-
-char *varNames[] = {"Nutritions pump time",
-                    "pH+ pump time",
-                    "pH- pump time",
-                    "Clean pump time",
-                    "Iteration time",
-                    "pH low",
-                    "pH high",
-                    "TDS low",
-                    "k value",
-                    "TDS factor"};
-
-const int noOfVars = 10;
-
 byte varNumber = 0;
 byte oldVarNumber = 0;
 
-float nutrientsPumpTimeNew = nutrientsPumpTime; // pump time for nutrient pumps
-float pHPlusPumpTimeNew = pHPlusPumpTime;       // pump time for PH+ pump
-float pHMinusPumpTimeNew = pHMinusPumpTime;     // pump time for PH- pump
+/*
+float nutrientsPumpTimeNew = vars[0]; // pump time for nutrient pumps
+float pHPlusPumpTimeNew = vars[1];       // pump time for PH+ pump
+float pHMinusPumpTimeNew = vars[2];     // pump time for PH- pump
 
-float cleanTimeNew = cleanTime; // hoses clean time
+float cleanTimeNew = vars[3]; // hoses clean time
 
-float iterationTimeNew = iterationTime; // reading
+float iterationTimeNew = vars[4]; // reading
 
-float pHLowNew = pHLow;   //  lowest allowed pH value
-float pHHighNew = pHHigh; // lowest allowed pH value
-float tdsLowNew = tdsLow; // lowest allowed EC value
+float pHLowNew = vars[7];   //  lowest allowed pH value
+float pHHighNew = vars[8]; // lowest allowed pH value
+float tdsLowNew = vars[9]; // lowest allowed EC value
 
-float kValueNew = kValue;
+float kValueNew = vars[10];
 float tdsFactorNew = tdsFactorNew;
+*/
 
 /***********
 * Serial

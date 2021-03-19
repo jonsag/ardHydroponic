@@ -82,7 +82,7 @@ void checkOutputStop()
     /**********
        Nutrient pumps
      **********/
-    if ((digitalRead(nutrAPump)) && (currentMillis - nutrAStartMillis >= nutrientsPumpTime))
+    if ((digitalRead(nutrAPump)) && (currentMillis - nutrAStartMillis >= vars[0]))
     { // time to stop the pumps
         stopNutrA();
         stopNutrB();
@@ -91,12 +91,12 @@ void checkOutputStop()
     /**********
        PH pumps
      **********/
-    if ((digitalRead(pHPlusPump)) && (currentMillis - pHPlusStartMillis >= pHPlusPumpTime))
+    if ((digitalRead(pHPlusPump)) && (currentMillis - pHPlusStartMillis >= vars[1]))
     { // time to stop the pump
         stoppHPlus();
     }
 
-    if ((digitalRead(pHMinusPump)) && (currentMillis - pHMinusStartMillis >= pHMinusPumpTime))
+    if ((digitalRead(pHMinusPump)) && (currentMillis - pHMinusStartMillis >= vars[2]))
     { // time to stop the pump
         stoppHMinus();
     }
@@ -104,7 +104,7 @@ void checkOutputStop()
     /**********
        Stirrer
      **********/
-    if ((digitalRead(stirrer)) && (currentMillis - stirStartMillis >= stirTime))
+    if ((digitalRead(stirrer)) && (currentMillis - stirStartMillis >= vars[5]))
     { // time to stop the pump
         stopStirrer();
         stirStopMillis = currentMillis;
@@ -116,7 +116,7 @@ void checkMaintStop()
     /**********
     * Nutrient pump A
     **********/
-    if ((digitalRead(nutrAPump)) && (currentMillis - nutrAStartMillis >= cleanTime))
+    if ((digitalRead(nutrAPump)) && (currentMillis - nutrAStartMillis >= vars[3]))
     { // time to stop the pump
         stopNutrA();
     }
@@ -124,7 +124,7 @@ void checkMaintStop()
     /**********
     * Nutrient pump B
     **********/
-    if ((digitalRead(nutrBPump)) && (currentMillis - nutrBStartMillis >= cleanTime))
+    if ((digitalRead(nutrBPump)) && (currentMillis - nutrBStartMillis >= vars[3]))
     { // time to stop the pump
         stopNutrB();
     }
@@ -132,12 +132,12 @@ void checkMaintStop()
     /**********
     * PH pumps
     **********/
-    if ((digitalRead(pHPlusPump)) && (currentMillis - pHPlusStartMillis >= cleanTime))
+    if ((digitalRead(pHPlusPump)) && (currentMillis - pHPlusStartMillis >= vars[3]))
     { // time to stop the pump
         stoppHPlus();
     }
 
-    if ((digitalRead(pHMinusPump)) && (currentMillis - pHMinusStartMillis >= cleanTime))
+    if ((digitalRead(pHMinusPump)) && (currentMillis - pHMinusStartMillis >= vars[3]))
     { // time to stop the pump
         stoppHMinus();
     }
@@ -145,7 +145,7 @@ void checkMaintStop()
     /**********
        Stirrer
      **********/
-    if ((digitalRead(stirrer)) && (currentMillis - stirStartMillis >= cleanTime))
+    if ((digitalRead(stirrer)) && (currentMillis - stirStartMillis >= vars[3]))
     { // time to stop the pump
         stopStirrer();
     }

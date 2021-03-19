@@ -1,22 +1,4 @@
 
-/*
-#define EEPROM_write(address, p)              \
-    {                                         \
-        int i = 0;                            \
-        byte *pp = (byte *)&(p);              \
-        for (; i < sizeof(p); i++)            \
-            EEPROM.write(address + i, pp[i]); \
-    }
-
-#define EEPROM_read(address, p)               \
-    {                                         \
-        int i = 0;                            \
-        byte *pp = (byte *)&(p);              \
-        for (; i < sizeof(p); i++)            \
-            pp[i] = EEPROM.read(address + i); \
-    }
-*/
-
 void putEEPROM(byte address, float value) {
      EEPROM.put(address, value);
 }
@@ -33,54 +15,54 @@ void useValue(byte address, float value)
     switch (address / 10)
     {
     case 0:
-        nutrientsPumpTime = value;
-        nutrientsPumpTimeNew = nutrientsPumpTime;
-        Serial.println(nutrientsPumpTime);
+        vars[0] = value;
+        //nutrientsPumpTimeNew = vars[0];
+        Serial.println(vars[0]);
         break;
     case 1:
-        pHPlusPumpTime = value;
-        pHPlusPumpTimeNew = pHPlusPumpTime;
-        Serial.println(pHPlusPumpTime);
+        vars[1] = value;
+        //pHPlusPumpTimeNew = vars[1];
+        Serial.println(vars[1]);
         break;
     case 2:
-        pHMinusPumpTime = value;
-        pHMinusPumpTimeNew = pHMinusPumpTime;
-        Serial.println(pHMinusPumpTime);
+        vars[2] = value;
+        //pHMinusPumpTimeNew = vars[2];
+        Serial.println(vars[2]);
         break;
     case 3:
-        cleanTime = value;
-        cleanTimeNew = cleanTime;
-        Serial.println(cleanTime);
+        vars[3] = value;
+        //cleanTimeNew = vars[3];
+        Serial.println(vars[3]);
         break;
     case 4:
-        iterationTime = value;
-        iterationTimeNew = iterationTime;
-        Serial.println(iterationTime);
+        vars[4] = value;
+        //iterationTimeNew = vars[4];
+        Serial.println(vars[4]);
         break;
     case 5:
-        pHLow = value;
-        pHLowNew = pHLow;
-        Serial.println(pHLow);
+        vars[7] = value;
+        //pHLowNew = vars[7];
+        Serial.println(vars[7]);
         break;
     case 6:
-        pHHigh = value;
-        pHHighNew = pHHigh;
-        Serial.println(pHHigh);
+        vars[8] = value;
+        //pHHighNew = vars[8];
+        Serial.println(vars[8]);
         break;
     case 7:
-        tdsLow = value;
-        tdsLowNew = tdsLow;
-        Serial.println(tdsLow);
+        vars[9] = value;
+        //tdsLowNew = vars[9];
+        Serial.println(vars[9]);
         break;
     case 8:
-        kValue = value;
-        kValueNew = kValue;
-        Serial.println(kValue);
+        vars[10] = value;
+        //kValueNew = vars[10];
+        Serial.println(vars[10]);
         break;
     case 9:
-        tdsFactor = value;
-        tdsFactorNew = tdsFactor;
-        Serial.println(tdsFactor);
+        vars[11] = value;
+        //tdsFactorNew = vars[11];
+        Serial.println(vars[11]);
         break;
     }
 }
@@ -92,54 +74,54 @@ void writeValue(byte address)
     switch (address / 10)
     {
     case 0:
-        Serial.println(nutrientsPumpTime);
-        //EEPROM_write(address, nutrientsPumpTime);
-        putEEPROM(address, nutrientsPumpTime);
+        Serial.println(vars[0]);
+        //EEPROM_write(address, vars[0]);
+        putEEPROM(address, vars[0]);
         break;
     case 1:
-        Serial.println(pHPlusPumpTime);
-        //EEPROM_write(address, pHPlusPumpTime);
-        putEEPROM(address, pHPlusPumpTime);
+        Serial.println(vars[1]);
+        //EEPROM_write(address, vars[1]);
+        putEEPROM(address, vars[1]);
         break;
     case 2:
-        Serial.println(pHMinusPumpTime);
-        //EEPROM_write(address, pHMinusPumpTime);
-        putEEPROM(address, pHMinusPumpTime);
+        Serial.println(vars[2]);
+        //EEPROM_write(address, vars[2]);
+        putEEPROM(address, vars[2]);
         break;
     case 3:
-        Serial.println(cleanTime);
-        //EEPROM_write(address, cleanTime);
-        putEEPROM(address, cleanTime);
+        Serial.println(vars[3]);
+        //EEPROM_write(address, vars[3]);
+        putEEPROM(address, vars[3]);
         break;
     case 4:
-        Serial.println(iterationTime);
-        //EEPROM_write(address, iterationTime);
-        putEEPROM(address, iterationTime);
+        Serial.println(vars[4]);
+        //EEPROM_write(address, vars[4]);
+        putEEPROM(address, vars[4]);
         break;
     case 5:
-        Serial.println(pHLow);
-        //EEPROM_write(address, pHLow);
-        putEEPROM(address, pHLow);
+        Serial.println(vars[7]);
+        //EEPROM_write(address, vars[7]);
+        putEEPROM(address, vars[7]);
         break;
     case 6:
-        Serial.println(pHHigh);
-        //EEPROM_write(address, pHHigh);
-        putEEPROM(address, pHHigh);
+        Serial.println(vars[8]);
+        //EEPROM_write(address, vars[8]);
+        putEEPROM(address, vars[8]);
         break;
     case 7:
-        Serial.println(tdsLow);
-        //EEPROM_write(address, tdsLow);
-        putEEPROM(address, tdsLow);
+        Serial.println(vars[9]);
+        //EEPROM_write(address, vars[9]);
+        putEEPROM(address, vars[9]);
         break;
     case 8:
-        Serial.println(kValue);
-        //EEPROM_write(address, kValue);
-        putEEPROM(address, kValue);
+        Serial.println(vars[10]);
+        //EEPROM_write(address, vars[10]);
+        putEEPROM(address, vars[10]);
         break;
     case 9:
-        Serial.println(tdsFactor);
-        //EEPROM_write(address, tdsFactor);
-        putEEPROM(address, tdsFactor);
+        Serial.println(vars[11]);
+        //EEPROM_write(address, vars[11]);
+        putEEPROM(address, vars[11]);
         break;
     }
 }

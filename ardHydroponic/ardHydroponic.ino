@@ -153,7 +153,7 @@ void loop()
   if (mode != 3 && mode != 4)
   { // normal mode
 
-    counter = (iterationTime - (currentMillis - readMillis)) / 1000;
+    counter = (vars[4] - (currentMillis - readMillis)) / 1000;
 
     if ((counter != oldCounter) && (counter >= 0) && (counter <= readMillis / 1000))
     {
@@ -174,7 +174,7 @@ void loop()
     /**********
     * Read loop
     **********/
-    if (currentMillis - readMillis >= iterationTime)
+    if (currentMillis - readMillis >= vars[4])
     { // read mode
       mode = 1;
       checkMode(); // check if mode has changed
@@ -195,7 +195,7 @@ void loop()
     /**********
     * Stirrer
     **********/
-    if (currentMillis - stirStopMillis >= stirInterval && !digitalRead(stirrer))
+    if (currentMillis - stirStopMillis >= vars[6] && !digitalRead(stirrer))
     { // time to stir
       startStirrer();
       stirStartMillis = currentMillis;

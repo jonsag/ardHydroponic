@@ -92,9 +92,9 @@ float readTDSValue()
   Serial.println("Reading TDS value...");
 #ifdef myTds
   voltage = analogRead(ECSensorPin) / adcRange * aref;
-  //ecValue = (133.42 * voltage * voltage * voltage - 255.86 * voltage * voltage + 857.39 * voltage) * kValue;
-  ecValue25 =((133.42 * voltage * voltage * voltage - 255.86 * voltage * voltage + 857.39 * voltage) * kValue) / (1.0 + 0.02 * (temperatureSum - 25.0)); //temperature compensation
-  TDSValue = ecValue25 * tdsFactor;
+  //ecValue = (133.42 * voltage * voltage * voltage - 255.86 * voltage * voltage + 857.39 * voltage) * vars[10];
+  ecValue25 =((133.42 * voltage * voltage * voltage - 255.86 * voltage * voltage + 857.39 * voltage) * vars[10]) / (1.0 + 0.02 * (temperatureSum - 25.0)); //temperature compensation
+  TDSValue = ecValue25 * vars[11];
 #else
   gravityTds.setTemperature(temperatureSum); // grab the temperature from sensor and execute temperature compensation
   gravityTds.update();                       // calculation done here from gravity library
@@ -132,12 +132,12 @@ void readSensors()
     oldpHValue = phValue;
   }
 
-  if (phValue < pHLow)
+  if (phValue < vars[7])
   { // if the pH value to low
     startpHPlus();
     pHPlusStartMillis = currentMillis;
   }
-  else if (phValue > pHHigh)
+  else if (phValue > vars[8])
   { // if the pH is too high
     startpHMinus();
     pHMinusStartMillis = currentMillis;
@@ -180,7 +180,7 @@ void readSensors()
     oldTDSValue = TDSValue;
   }
 
-  if (TDSValue < tdsLow)
+  if (TDSValue < vars[9])
   { // EC level too low
     startNutrA();
     startNutrB();

@@ -119,40 +119,10 @@ void printSelectedVar()
   Serial.print(varNumber);
   Serial.print(": ");
   Serial.print(varNames[varNumber]);
-  Serial.print(" = ");
-  switch (varNumber)
-  {
-  case 0:
-    Serial.println(nutrientsPumpTime);
-    break;
-  case 1:
-    Serial.println(pHPlusPumpTime);
-    break;
-  case 2:
-    Serial.println(pHMinusPumpTime);
-    break;
-  case 3:
-    Serial.println(cleanTime);
-    break;
-  case 4:
-    Serial.println(iterationTime);
-    break;
-  case 5:
-    Serial.println(pHLow);
-    break;
-  case 6:
-    Serial.println(pHHigh);
-    break;
-  case 7:
-    Serial.println(tdsLow);
-    break;
-  case 8:
-    Serial.println(kValue);
-    break;
-  case 9:
-    Serial.println(tdsFactor);
-    break;
-  }
+  Serial.print("\tOld value: ");
+  Serial.print(vars[varNumber]);
+  Serial.print("\tNew value: ");
+  Serial.print(tempValue);
   Serial.println();
 }
 
