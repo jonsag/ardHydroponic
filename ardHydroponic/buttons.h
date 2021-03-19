@@ -89,7 +89,7 @@ void onPinActivated(int pinNumber)
             {
                 outputNumber = 4;
             }
-            printSelectedPump();
+            printSelectedOutput();
             break;
         case 4:
             varNumber--;
@@ -111,7 +111,7 @@ void onPinActivated(int pinNumber)
             {
                 outputNumber = 0;
             }
-            printSelectedPump();
+            printSelectedOutput();
             break;
         case 4:
             varNumber++;

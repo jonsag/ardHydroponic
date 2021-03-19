@@ -132,7 +132,7 @@ void checkRotaryEncoder()
                 {
                     outputNumber = 3;
                 }
-                printSelectedPump();
+                printSelectedOutput();
                 break;
             case 4:
                 break;
@@ -156,7 +156,7 @@ void checkRotaryEncoder()
                 {
                     outputNumber = 0;
                 }
-                printSelectedPump();
+                printSelectedOutput();
                 break;
             case 4:
                 break;

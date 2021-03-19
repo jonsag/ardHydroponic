@@ -104,8 +104,10 @@ void printNormal()
   printTDSValue();
 }
 
-void printSelectedPump()
+void printSelectedOutput()
 {
+  Serial.print(outputNumber);
+  Serial.print(": ");
   Serial.print(outputNames[outputNumber]);
   Serial.println(" selected");
   printToLCD(0, 2, String(outputNumber));
@@ -157,7 +159,7 @@ void printMaintenance()
   clearLCD();
   printToLCD(0, 0, "Mode:");
   printMode();
-  printSelectedPump();
+  printSelectedOutput();
 }
 
 void printSettings()

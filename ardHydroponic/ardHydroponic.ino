@@ -1,7 +1,7 @@
 
 //#define rotaryEncoder ; // comment out this line if you are going to use buttons instead of a rotary encoder
 #define eeprom // store values to EEPROM
-//#define LCD // use a 20x4 I2C LCD
+#define LCD // use a 20x4 I2C LCD
 
 /**********
 * Include files
@@ -196,7 +196,7 @@ void loop()
     /**********
     * Stirrer
     **********/
-    if (currentMillis - stirStopMillis >= stirInterval)
+    if (currentMillis - stirStopMillis >= stirInterval && !digitalRead(stirrer))
     { // time to stir
       startStirrer();
       stirStartMillis = currentMillis;
@@ -207,7 +207,7 @@ void loop()
     **********/
     //if (EC25<1.4 && phValue>6.6) {} // if the nutrient level unsufficient, and the pH value to high
 
-    checkOutputStop(); // check if it's time to stop the pumps
+    checkOutputStop(); // check if it's time to stop the pumps or stirrer
   }
   else if (mode == 3)
   { // maintenance mode

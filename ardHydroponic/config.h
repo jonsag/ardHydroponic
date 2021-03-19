@@ -12,10 +12,10 @@ float pHMinusPumpTime = 500;   // pump time for PH- pump
 
 float cleanTime = 30000; // hoses clean time
 
-float iterationTime = 40000; // reading
+float iterationTime = 10000; // reading
 
-float stirTime = 10000; // how long to stir each time
-float stirInterval = 60000; // how long between stirs
+float stirTime = 5000; // how long to stir each time
+float stirInterval = 15000; // how long between stirs
 
 //unsigned long maintTimeOut = 36000000; // 36000000 millis = 10 minutes
 
@@ -30,7 +30,7 @@ float tdsLow = 800; // lowest allowed EC value
 * EC/TDS
 **********/
 float kValue = 0.6;
-float tdsFactor = 0.5;
+float tdsFactor = 1;
 
 /**********
  * Pins
