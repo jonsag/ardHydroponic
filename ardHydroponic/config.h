@@ -73,6 +73,8 @@ const int rotEncSW = 6;
 byte varNumber = 0;
 byte oldVarNumber = 0;
 
+const byte addressMultiplicator = 4;
+
 /*
 float nutrientsPumpTimeNew = vars[0]; // pump time for nutrient pumps
 float pHPlusPumpTimeNew = vars[1];       // pump time for PH+ pump
