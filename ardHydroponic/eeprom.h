@@ -68,4 +68,6 @@ void clearEEPROM()
     {
         EEPROM.write(i, 0xFF);
     }
+    Serial.println("Finished!");
+    Serial.println();
 }
