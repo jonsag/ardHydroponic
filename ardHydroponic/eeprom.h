@@ -18,96 +18,106 @@ void useValue(byte address, float value)
 {
     Serial.print(varNames[i]);
     Serial.print(" = ");
-    switch (address)
+    switch (address / 10)
     {
     case 0:
         nutrientsPumpTime = value;
+        nutrientsPumpTimeNew = nutrientsPumpTime;
         Serial.println(nutrientsPumpTime);
         break;
     case 1:
         pHPlusPumpTime = value;
+        pHPlusPumpTimeNew = pHPlusPumpTime;
         Serial.println(pHPlusPumpTime);
         break;
     case 2:
         pHMinusPumpTime = value;
+        pHMinusPumpTimeNew = pHMinusPumpTime;
         Serial.println(pHMinusPumpTime);
         break;
     case 3:
         cleanTime = value;
+        cleanTimeNew = cleanTime;
         Serial.println(cleanTime);
         break;
     case 4:
         iterationTime = value;
+        iterationTimeNew = iterationTime;
         Serial.println(iterationTime);
         break;
     case 5:
         pHLow = value;
+        pHLowNew = pHLow;
         Serial.println(pHLow);
         break;
     case 6:
         pHHigh = value;
+        pHHighNew = pHHigh;
         Serial.println(pHHigh);
         break;
     case 7:
         tdsLow = value;
+        tdsLowNew = tdsLow;
         Serial.println(tdsLow);
         break;
     case 8:
         kValue = value;
+        kValueNew = kValue;
         Serial.println(kValue);
         break;
     case 9:
         tdsFactor = value;
+        tdsFactorNew = tdsFactor;
         Serial.println(tdsFactor);
         break;
     }
 }
 
-void setValue(byte address, float value)
+void writeValue(byte address)
 {
     Serial.print(varNames[i]);
     Serial.print(" = ");
-    switch (address)
+    switch (address / 10)
     {
     case 0:
         Serial.println(nutrientsPumpTime);
-        EEPROM_write(address, value);
+        EEPROM_write(address, nutrientsPumpTime);
         break;
     case 1:
         Serial.println(pHPlusPumpTime);
-        EEPROM_write(address, value);
+        EEPROM_write(address, pHPlusPumpTime);
         break;
     case 2:
         Serial.println(pHMinusPumpTime);
-        EEPROM_write(address, value);
+        EEPROM_write(address, pHMinusPumpTime);
         break;
     case 3:
         Serial.println(cleanTime);
-        EEPROM_write(address, value);
+        EEPROM_write(address, cleanTime);
         break;
     case 4:
         Serial.println(iterationTime);
-        EEPROM_write(address, value);
+        EEPROM_write(address, iterationTime);
         break;
     case 5:
         Serial.println(pHLow);
-        EEPROM_write(address, value);
+        EEPROM_write(address, pHLow);
         break;
     case 6:
         Serial.println(pHHigh);
-        EEPROM_write(address, value);
+        EEPROM_write(address, pHHigh);
         break;
     case 7:
         Serial.println(tdsLow);
-        EEPROM_write(address, value);
+        EEPROM_write(address, tdsLow);
         break;
     case 8:
         Serial.println(kValue);
-        EEPROM_write(address, value);
+        EEPROM_write(address, kValue);
         break;
     case 9:
         Serial.println(tdsFactor);
-        EEPROM_write(address, value);
+        EEPROM_write(address, tdsFactor);
         break;
     }
 }
@@ -116,22 +126,31 @@ void initEEPROMCheck()
 {
     for (i = 0; i < noOfVars; i++)
     {
-        Serial.print("Checking if there's a value stored for ");
+        Serial.print("Checking if there's a value stored in eeprom for ");
         Serial.print(varNames[i]);
+        Serial.print(" at address ");
+        Serial.print(i * 10);
         Serial.println("...");
 
         EEPROM_read(i * 10, tempValue);
-        Serial.println(tempValue);
-        if (tempValue != 0 && tempValue != 255)
+
+        if (tempValue != 0 && tempValue != 32000.00 && !isnan(tempValue))
         {
-            Serial.println("Had a value, using it!");
+            Serial.println("Had a value: ");
+            Serial.println(tempValue);
+            Serial.println("Using it!");
             useValue(i, tempValue);
         }
         else
         {
-            Serial.println("Had no value, writing it...");
-            setValue(i, tempValue);
+            Serial.println("Had no value: ");
+            Serial.println(tempValue);
+            Serial.print("Writing it to eeprom at address ");
+            Serial.print(i * 10);
+            Serial.println("...");
+            writeValue(i * 10);
         }
+        Serial.println();
     }
 }
 

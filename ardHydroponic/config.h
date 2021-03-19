@@ -6,16 +6,16 @@ String email = "jonsagebrand@gmail.com";
 /**********
 * Times
 **********/
-int nutrientsPumpTime = 500; // pump time for nutrient pumps
-int pHPlusPumpTime = 500;    // pump time for PH+ pump
-int pHMinusPumpTime = 500;   // pump time for PH- pump
+float nutrientsPumpTime = 500; // pump time for nutrient pumps
+float pHPlusPumpTime = 500;    // pump time for PH+ pump
+float pHMinusPumpTime = 500;   // pump time for PH- pump
 
-int cleanTime = 30000; // hoses clean time
+float cleanTime = 30000; // hoses clean time
 
-unsigned long iterationTime = 40000; // reading
+float iterationTime = 40000; // reading
 
-int stirTime = 10000; // how long to stir each time
-unsigned long stirInterval = 60000; // how long between stirs
+float stirTime = 10000; // how long to stir each time
+float stirInterval = 60000; // how long between stirs
 
 //unsigned long maintTimeOut = 36000000; // 36000000 millis = 10 minutes
 
@@ -50,7 +50,7 @@ const int stirrer = 11;
 const int ECPin = A2;    // EC sensor reference pin
 const int ECGround = 11; // EC sensor ground level
 const int ECPower = 12;  // EC sensor power pin
-*/
+*/unsigned
 
 const int pHpin = A0; // pH-sensor probe
 const int DS18S20Pin = A1; // one wire pin
@@ -74,8 +74,8 @@ const int rotEncSW = 6;
 **********/
 #include <EEPROM.h>
 
-//  address     variable            start value     stored as   calculation
-//  0           nutrientsPumpTime   500             5           x/100
+//  address     variable            start value     stored as   calculation     4byte hex
+//  0           nutrientsPumpTime   500             5           x/100           0000FA43    Float - Little Endian (DCBA)
 //  1           pHPlusPumpTime      500             5           x/100
 //  2           pHMinusPumpTime     500             5           x/100
 //  3           cleanTime           30000           30          x/1000
@@ -102,20 +102,20 @@ const int noOfVars = 10;
 byte varNumber = 0;
 byte oldVarNumber = 0;
 
-float nutrientsPumpTimeNew; // pump time for nutrient pumps
-float pHPlusPumpTimeNew;    // pump time for PH+ pump
-float pHMinusPumpTimeNew;   // pump time for PH- pump
+float nutrientsPumpTimeNew = nutrientsPumpTime; // pump time for nutrient pumps
+float pHPlusPumpTimeNew = pHPlusPumpTime;    // pump time for PH+ pump
+float pHMinusPumpTimeNew = pHMinusPumpTime;   // pump time for PH- pump
 
-float cleanTimeNew; // hoses clean time
+float cleanTimeNew = cleanTime; // hoses clean time
 
-float iterationTimeNew; // reading
+float iterationTimeNew = iterationTime; // reading
 
-float pHLowNew;  //  lowest allowed pH value
-float pHHighNew; // lowest allowed pH value
-float tdsLowNew;  // lowest allowed EC value
+float pHLowNew = pHLow;  //  lowest allowed pH value
+float pHHighNew = pHHigh; // lowest allowed pH value
+float tdsLowNew = tdsLow;  // lowest allowed EC value
 
-float kValueNew;
-float tdsFactorNew;
+float kValueNew = kValue;
+float tdsFactorNew = tdsFactorNew;
 #endif
 
 /***********
