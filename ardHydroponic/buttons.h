@@ -188,14 +188,9 @@ void longPushButton1()
         break;
     case 3:
         stopOutputs();
-#ifdef eeprom
         mode = 4;
         checkMode();
         printSelectedVar();
-#else
-        mode = 0;
-        checkMode();
-#endif
         break;
     case 4:
         stopOutputs();
