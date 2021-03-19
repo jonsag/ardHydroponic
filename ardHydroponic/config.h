@@ -6,32 +6,33 @@ String email = "jonsagebrand@gmail.com";
 /**********
 * Configurable variables
 **********/
-char *varNames[] = {"Nutritions pump time",
-                    "pH+ pump time",
-                    "pH- pump time",
-                    "Clean pumps time",
-                    "Iteration time",
-                    "Stir time", 
-                    "Stir interval", 
-                    "pH low",
-                    "pH high",
-                    "TDS low",
-                    "k value",
-                    "TDS factor",
-                    };
+char *varNames[] = {
+    "Nutritions pump time",
+    "pH+ pump time",
+    "pH- pump time",
+    "Clean pumps time",
+    "Iteration time",
+    "Stir time",
+    "Stir interval",
+    "pH low",
+    "pH high",
+    "TDS low",
+    "k value",
+    "TDS factor",
+};
 
 float vars[] = {500.00,
-                 500.00,
-                 500.00,
-                 30000.00,
-                 10000.00,
-                 5000.00, 
-                 15000.00,
-                 4.62, 
-                 4.63, 
-                 800.00, 
-                 0.60, 
-                 0.50};
+                500.00,
+                500.00,
+                30000.00,
+                10000.00,
+                5000.00,
+                15000.00,
+                4.62,
+                4.63,
+                800.00,
+                0.60,
+                0.50};
 
 const int noOfVars = 12;
 
@@ -49,8 +50,9 @@ const int nutrAPump = 4;   // nutrition A pump
 const int nutrBPump = 5;   // nutrition B pump
 const int stirrer = 11;
 
+const int DS18S20Pin = 12; // one wire pin
+
 const int pHSensorPin = A0; // pH-sensor probe
-const int DS18S20Pin = A1;  // one wire pin
 const int ECSensorPin = A2; // ec/EC sensor
 
 #ifndef rotaryEncoder
@@ -60,9 +62,10 @@ const int button3 = 8;
 const int button4 = 9;
 const int button5 = 10;
 #else
-const int rotEncCLK = 8; // if you are using a rotary encoder, connect these
+const int rotEncSW = 6; // if you are using a rotary encoder, connect thes
 const int rotEncDT = 7;
-const int rotEncSW = 6;
+const int rotEncCLK = 8;
+e
 #endif
 
 /**********
