@@ -68,7 +68,6 @@ const int rotEncDT = 7;
 const int rotEncSW = 6;
 #endif
 
-#ifdef eeprom
 /**********
 * EEPROM
 **********/
@@ -116,7 +115,6 @@ float tdsLowNew = tdsLow;  // lowest allowed EC value
 
 float kValueNew = kValue;
 float tdsFactorNew = tdsFactorNew;
-#endif
 
 /***********
 * 

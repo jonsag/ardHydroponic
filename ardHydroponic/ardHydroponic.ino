@@ -1,6 +1,5 @@
 
 //#define rotaryEncoder ; // comment out this line if you are going to use buttons instead of a rotary encoder
-#define eeprom // store values to EEPROM
 #define LCD // use a 20x4 I2C LCD
 
 /**********
@@ -19,9 +18,7 @@
 #include "rotaryEncoder.h"
 #endif
 
-#ifdef eeprom
 #include "eeprom.h"
-#endif
 
 //#include "thingSpeak.h"
 
@@ -43,7 +40,6 @@ void setup()
   Serial.println(email);
   Serial.println();
 
-#ifdef eeprom
   /**********
   * EEPROM
   **********/
@@ -51,7 +47,6 @@ void setup()
   Serial.println("Reading EEPROM...");
   initEEPROMCheck();
   Serial.println();
-#endif
 
 #ifdef LCD
   /**********
