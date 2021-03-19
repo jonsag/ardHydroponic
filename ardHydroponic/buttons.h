@@ -127,7 +127,9 @@ void onPinActivated(int pinNumber)
         Serial.println(" <-> button4");
         switch (mode)
         {
-        case 3:
+        case 4:
+            tempValue -= 1;
+            printSelectedVar();
             break;
         }
         break;
@@ -135,7 +137,9 @@ void onPinActivated(int pinNumber)
         Serial.println(" <-> button5");
         switch (mode)
         {
-        case 3:
+        case 4:
+            tempValue += 1;
+            printSelectedVar;
             break;
         }
         break;
@@ -163,6 +167,19 @@ void onPinDeactivated(int pinNumber)
             case 3:
                 startStopCleaning();
                 break;
+            case 4:
+                Serial.print("Saving value ");
+                Serial.print(tempValue);
+                Serial.print(" to EEPROM at address ");
+                Serial.print(varNumber * addressMultiplicator);
+                Serial.println(", ");
+                Serial.print("and setting ");
+                Serial.print(varNames[varNumber]);
+                Serial.print(" = ");
+                Serial.println(tempValue);
+
+                putEEPROM(varNumber * addressMultiplicator, tempValue);
+                vars[varNumber] = tempValue;
             }
         }
         button1PushMillis = 0;

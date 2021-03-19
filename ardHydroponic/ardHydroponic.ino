@@ -12,14 +12,13 @@
 #include "read.h"
 #include "misc.h"
 #include "settings.h"
+#include "eeprom.h"
 
 #ifndef rotaryEncoder
 #include "buttons.h"
 #else
 #include "rotaryEncoder.h"
 #endif
-
-#include "eeprom.h"
 
 //#include "thingSpeak.h"
 
