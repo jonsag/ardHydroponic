@@ -11,7 +11,6 @@
 #include "outputs.h"
 #include "read.h"
 #include "misc.h"
-float analogValue;
 #include "settings.h"
 
 #ifndef rotaryEncoder

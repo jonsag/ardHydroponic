@@ -117,7 +117,6 @@ float kValueNew = kValue;
 float tdsFactorNew = tdsFactorNew;
 
 /***********
-* 
 * Serial
 ***********/
 const int serialBaudRate = 9600;
@@ -192,7 +191,7 @@ float oldEC25 = 0;
 
 #ifdef myTds
 float voltage;
-float ecValue;   //before temperature compensation
+//float ecValue;   //before temperature compensation
 float ecValue25; //after temperature compensation
 float tdsValue;
 
@@ -225,7 +224,7 @@ int oldMode = -1;
 
 char dtostrfBuffer[6];
 int strLength;
-String valString;
+//String valString;
 int valLength;
 
 unsigned long currentMillis;

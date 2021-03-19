@@ -92,8 +92,8 @@ float readTDSValue()
   Serial.println("Reading TDS value...");
 #ifdef myTds
   voltage = analogRead(ECSensorPin) / adcRange * aref;
-  ecValue = (133.42 * voltage * voltage * voltage - 255.86 * voltage * voltage + 857.39 * voltage) * kValue;
-  ecValue25 = ecValue / (1.0 + 0.02 * (temperatureSum - 25.0)); //temperature compensation
+  //ecValue = (133.42 * voltage * voltage * voltage - 255.86 * voltage * voltage + 857.39 * voltage) * kValue;
+  ecValue25 =((133.42 * voltage * voltage * voltage - 255.86 * voltage * voltage + 857.39 * voltage) * kValue) / (1.0 + 0.02 * (temperatureSum - 25.0)); //temperature compensation
   TDSValue = ecValue25 * tdsFactor;
 #else
   gravityTds.setTemperature(temperatureSum); // grab the temperature from sensor and execute temperature compensation
