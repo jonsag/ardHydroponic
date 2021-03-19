@@ -72,6 +72,7 @@ void setup()
   pinMode(pHMinusPump, OUTPUT);
   pinMode(nutrAPump, OUTPUT);
   pinMode(nutrBPump, OUTPUT);
+  pinMode(stirrer, OUTPUT);
 
   /*
   pinMode(ECPin, INPUT);     // EC sensor probe
@@ -174,7 +175,7 @@ void loop()
     /**********
     * Read loop
     **********/
-    if (currentMillis - readMillis > iterationTime)
+    if (currentMillis - readMillis >= iterationTime)
     { // read mode
       mode = 1;
       checkMode(); // check if mode has changed
@@ -195,7 +196,7 @@ void loop()
     /**********
     * Stirrer
     **********/
-    if (currentMillis - stirStopMillis > stirInterval)
+    if (currentMillis - stirStopMillis >= stirInterval)
     { // time to stir
       startStirrer();
       stirStartMillis = currentMillis;
