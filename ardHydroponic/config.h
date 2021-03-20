@@ -48,19 +48,19 @@ const int pHPlusPump = 2;  // PH+ pump
 const int pHMinusPump = 3; // PH- pump
 const int nutrAPump = 4;   // nutrition A pump
 const int nutrBPump = 5;   // nutrition B pump
-const int stirrer = 11;
+const int stirrer = 6;
 
-const int DS18S20Pin = 12; // one wire pin
+const int DS18S20Pin = 32; // one wire pin
 
 const int pHSensorPin = A0; // pH-sensor probe
-const int ECSensorPin = A2; // ec/EC sensor
+const int ECSensorPin = A1; // ec/EC sensor
 
 #ifndef rotaryEncoder
-const int button1 = 6; // if you are using buttons, connect these
-const int button2 = 7;
-const int button3 = 8;
-const int button4 = 9;
-const int button5 = 10;
+const int button1 = 22; // if you are using buttons, connect these
+const int button2 = 24;
+const int button3 = 26;
+const int button4 = 28;
+const int button5 = 30;
 #else
 const int rotEncSW = 6; // if you are using a rotary encoder, connect thes
 const int rotEncDT = 7;
