@@ -65,7 +65,7 @@ const int button5 = 30;
 const int rotEncSW = 6; // if you are using a rotary encoder, connect thes
 const int rotEncDT = 7;
 const int rotEncCLK = 8;
-e
+
 #endif
 
 /**********
