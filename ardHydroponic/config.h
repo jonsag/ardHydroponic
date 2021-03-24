@@ -31,8 +31,21 @@ float vars[] = {500.00,
                 4.62,
                 4.63,
                 800.00,
-                0.60,
-                0.50};
+                1.08,
+                1.0};
+
+float incs[] = {100.00,
+                100.00,
+                100.00,
+                1000.00,
+                1000.00,
+                1000.00,
+                1000.00,
+                0.01,
+                0.01,
+                1.00,
+                0.01,
+                0.1};
 
 const int noOfVars = 12;
 
@@ -50,17 +63,16 @@ const int nutrAPump = 4;   // nutrition A pump
 const int nutrBPump = 5;   // nutrition B pump
 const int stirrer = 6;
 
-const int DS18S20Pin = 32; // one wire pin
-
 const int pHSensorPin = A0; // pH-sensor probe
 const int ECSensorPin = A1; // ec/EC sensor
+const int DS18S20Pin = A2;  // one wire pin
 
 #ifndef rotaryEncoder
-const int button1 = 22; // if you are using buttons, connect these
-const int button2 = 24;
-const int button3 = 26;
-const int button4 = 28;
-const int button5 = 30;
+const int button1 = 7; // if you are using buttons, connect these
+const int button2 = 8;
+const int button3 = 9;
+const int button4 = 10;
+const int button5 = 11;
 #else
 const int rotEncSW = 6; // if you are using a rotary encoder, connect thes
 const int rotEncDT = 7;
@@ -175,7 +187,7 @@ float ecValue25; //after temperature compensation
 float tdsValue;
 
 const float aref = 5.0;
-const int adcRange = 1024;
+const float adcRange = 1024.0;
 #else
 #include "GravityTDS.h"
 GravityTDS gravityTds;
@@ -222,7 +234,7 @@ boolean longPush = 0;
 unsigned long counter;
 unsigned long oldCounter = -1;
 
-int outputNumber = 0;
+byte outputNumber = 0;
 char *outputNames[] = {"pH+    ", "pH-    ", "Nutr A ", "Nutr B ", "Stirrer"};
 //boolean set = 0;
 

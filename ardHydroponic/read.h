@@ -95,6 +95,17 @@ float readTDSValue()
   //ecValue = (133.42 * voltage * voltage * voltage - 255.86 * voltage * voltage + 857.39 * voltage) * vars[10];
   ecValue25 =((133.42 * voltage * voltage * voltage - 255.86 * voltage * voltage + 857.39 * voltage) * vars[10]) / (1.0 + 0.02 * (temperatureSum - 25.0)); //temperature compensation
   TDSValue = ecValue25 * vars[11];
+
+  Serial.print("adc range: ");
+  Serial.println(adcRange);
+  Serial.print("aref: ");
+  Serial.println(aref);
+  Serial.print("Voltage: ");
+  Serial.println(voltage);
+  Serial.print("ec25: ");
+  Serial.println(ecValue25);
+  Serial.print("TDS value: ");
+  Serial.println(TDSValue);
 #else
   gravityTds.setTemperature(temperatureSum); // grab the temperature from sensor and execute temperature compensation
   gravityTds.update();                       // calculation done here from gravity library

@@ -67,6 +67,107 @@ void startStopCleaning()
     }
 }
 
+void checkSanity()
+{
+    switch (varNumber)
+    {
+    case 0:
+        if (tempValue < 0)
+        {
+            Serial.println("Can't decrease more");
+            tempValue = 0;
+        }
+        break;
+    case 1:
+        if (tempValue < 0)
+        {
+            Serial.println("Can't decrease more");
+            tempValue = 0;
+        }
+        break;
+    case 2:
+        if (tempValue < 0)
+        {
+            Serial.println("Can't decrease more");
+            tempValue = 0;
+        }
+        break;
+    case 3:
+        if (tempValue < 0)
+        {
+            Serial.println("Can't decrease more");
+            tempValue = 0;
+        }
+        break;
+    case 4:
+        if (tempValue < 0)
+        {
+            Serial.println("Can't decrease more");
+            tempValue = 0;
+        }
+        break;
+    case 5:
+        if (tempValue < 0)
+        {
+            Serial.println("Can't decrease more");
+            tempValue = 0;
+        }
+        break;
+    case 6:
+        if (tempValue < 0)
+        {
+            Serial.println("Can't decrease more");
+            tempValue = 0;
+        }
+        break;
+    case 7: // pH low
+        if (tempValue < 0)
+        {
+            Serial.println("Can't decrease more");
+            tempValue = 0;
+        }
+        else if (tempValue >= vars[8])
+        {
+            Serial.println("Can't increase more. Conflicting with pH high");
+            tempValue -= incs[7];
+        }
+        break;
+    case 8: //pH high
+        if (tempValue <= vars[7])
+        {
+            Serial.println("Can't decrease more. Conflicting with pH low");
+            tempValue += incs[8];
+        }
+        else if (tempValue >= 15)
+        {
+            Serial.println("Can't increase more. Not sane value");
+            tempValue = 15 - incs[8];
+        }
+        break;
+    case 9:
+        if (tempValue < 0)
+        {
+            Serial.println("Can't decrease more");
+            tempValue = 0;
+        }
+        break;
+    case 10:
+        if (tempValue < 0)
+        {
+            Serial.println("Can't decrease more");
+            tempValue = 0;
+        }
+        break;
+    case 11:
+        if (tempValue < 0)
+        {
+            Serial.println("Can't decrease more");
+            tempValue = 0;
+        }
+        break;
+    }
+}
+
 void onPinActivated(int pinNumber)
 {
     Serial.println();
@@ -85,7 +186,7 @@ void onPinActivated(int pinNumber)
         {
         case 3:
             outputNumber--;
-            if (outputNumber < 0)
+            if (outputNumber < 0 || outputNumber == 255)
             {
                 outputNumber = 4;
             }
@@ -93,10 +194,11 @@ void onPinActivated(int pinNumber)
             break;
         case 4:
             varNumber--;
-            if (varNumber < 0)
+            if (varNumber < 0 || varNumber == 255)
             {
-                varNumber = 9;
+                varNumber = noOfVars - 1;
             }
+            tempValue = vars[varNumber];
             printSelectedVar();
             break;
         }
@@ -107,7 +209,7 @@ void onPinActivated(int pinNumber)
         {
         case 3:
             outputNumber++;
-            if (outputNumber > 3)
+            if (outputNumber > 4)
             {
                 outputNumber = 0;
             }
@@ -115,10 +217,11 @@ void onPinActivated(int pinNumber)
             break;
         case 4:
             varNumber++;
-            if (varNumber > 9)
+            if (varNumber > noOfVars - 1)
             {
                 varNumber = 0;
             }
+            tempValue = vars[varNumber];
             printSelectedVar();
             break;
         }
@@ -128,7 +231,8 @@ void onPinActivated(int pinNumber)
         switch (mode)
         {
         case 4:
-            tempValue -= 1;
+            tempValue -= incs[varNumber];
+            checkSanity();
             printSelectedVar();
             break;
         }
@@ -138,8 +242,9 @@ void onPinActivated(int pinNumber)
         switch (mode)
         {
         case 4:
-            tempValue += 1;
-            printSelectedVar;
+            tempValue += incs[varNumber];
+            checkSanity();
+            printSelectedVar();
             break;
         }
         break;
@@ -207,6 +312,7 @@ void longPushButton1()
         stopOutputs();
         mode = 4;
         checkMode();
+        tempValue = vars[varNumber];
         printSelectedVar();
         break;
     case 4:

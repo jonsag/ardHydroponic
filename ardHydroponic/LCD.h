@@ -60,6 +60,9 @@ void printpHValue()
 
   dtostrf(phValue, 2, 2, dtostrfBuffer);
   printToLCD(4, 2, dtostrfBuffer);
+
+  strLength = strlen(dtostrfBuffer);
+  printToLCD(4 + strLength, 2, "   ");
 }
 
 /*
@@ -76,8 +79,11 @@ void printTDSValue()
 {
   Serial.println("LCD -> Printing TDS value");
 
-  dtostrf(TDSValue, 2, 2, dtostrfBuffer);
+  dtostrf(TDSValue, 2, 0, dtostrfBuffer);
   printToLCD(5, 3, dtostrfBuffer);
+
+  strLength = strlen(dtostrfBuffer);
+  printToLCD(5 + strLength, 3, "   ");
 }
 
 void printNormal()
@@ -121,6 +127,8 @@ void printSelectedVar()
   Serial.print(varNames[varNumber]);
   Serial.print("\tOld value: ");
   Serial.print(vars[varNumber]);
+  Serial.print("\t+-: ");
+  Serial.print(incs[varNumber]);
   Serial.print("\tNew value: ");
   Serial.print(tempValue);
   Serial.println();
