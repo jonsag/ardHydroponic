@@ -27,13 +27,13 @@ $EndComp
 $Comp
 L Sensor_Temperature:DS18B20 U1
 U 1 1 60465402
-P 6500 5000
-F 0 "U1" H 6270 5046 50  0000 R CNN
-F 1 "DS18B20" H 6270 4955 50  0000 R CNN
-F 2 "My_Parts:3-pole_DS18B20_screw_terminal" H 5500 4750 50  0001 C CNN
-F 3 "http://datasheets.maximintegrated.com/en/ds/DS18B20.pdf" H 6350 5250 50  0001 C CNN
-	1    6500 5000
-	-1   0    0    -1  
+P 1050 4750
+F 0 "U1" H 820 4796 50  0000 R CNN
+F 1 "DS18B20" H 820 4705 50  0000 R CNN
+F 2 "My_Parts:3-pole_DS18B20_screw_terminal" H 50  4500 50  0001 C CNN
+F 3 "http://datasheets.maximintegrated.com/en/ds/DS18B20.pdf" H 900 5000 50  0001 C CNN
+	1    1050 4750
+	1    0    0    -1  
 $EndComp
 $Comp
 L My_Parts:HCMODU0083_IRF520_MOSFET_module U5
@@ -397,54 +397,17 @@ Connection ~ 8350 5700
 Wire Wire Line
 	8450 2400 8450 800 
 Connection ~ 8450 2400
-Wire Wire Line
-	6500 4700 6500 4500
-$Comp
-L power:+5V #PWR0105
-U 1 1 606F8C9A
-P 6500 800
-F 0 "#PWR0105" H 6500 650 50  0001 C CNN
-F 1 "+5V" H 6515 973 50  0000 C CNN
-F 2 "" H 6500 800 50  0001 C CNN
-F 3 "" H 6500 800 50  0001 C CNN
-	1    6500 800 
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0106
-U 1 1 606FE80C
-P 6500 5400
-F 0 "#PWR0106" H 6500 5150 50  0001 C CNN
-F 1 "GND" H 6505 5227 50  0000 C CNN
-F 2 "" H 6500 5400 50  0001 C CNN
-F 3 "" H 6500 5400 50  0001 C CNN
-	1    6500 5400
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6500 5400 6500 5300
-Wire Wire Line
-	6100 5000 6200 5000
 $Comp
 L Device:R R1
 U 1 1 6070C8C3
-P 6300 4500
-F 0 "R1" V 6093 4500 50  0000 C CNN
-F 1 "4.7k" V 6184 4500 50  0000 C CNN
-F 2 "My_Misc:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal_larger_pads" V 6230 4500 50  0001 C CNN
-F 3 "~" H 6300 4500 50  0001 C CNN
-	1    6300 4500
-	0    1    1    0   
+P 1600 4550
+F 0 "R1" V 1393 4550 50  0000 C CNN
+F 1 "4.7k" V 1484 4550 50  0000 C CNN
+F 2 "My_Misc:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal_larger_pads" V 1530 4550 50  0001 C CNN
+F 3 "~" H 1600 4550 50  0001 C CNN
+	1    1600 4550
+	-1   0    0    1   
 $EndComp
-Wire Wire Line
-	6450 4500 6500 4500
-Connection ~ 6500 4500
-Wire Wire Line
-	6500 4500 6500 800 
-Wire Wire Line
-	6150 4500 6100 4500
-Wire Wire Line
-	6100 4500 6100 5000
 Wire Wire Line
 	1400 2000 2900 2000
 Wire Wire Line
@@ -467,12 +430,12 @@ $EndComp
 $Comp
 L power:GND #PWR0108
 U 1 1 60744827
-P 1500 4100
-F 0 "#PWR0108" H 1500 3850 50  0001 C CNN
-F 1 "GND" H 1505 3927 50  0000 C CNN
-F 2 "" H 1500 4100 50  0001 C CNN
-F 3 "" H 1500 4100 50  0001 C CNN
-	1    1500 4100
+P 1050 5300
+F 0 "#PWR0108" H 1050 5050 50  0001 C CNN
+F 1 "GND" H 1055 5127 50  0000 C CNN
+F 2 "" H 1050 5300 50  0001 C CNN
+F 3 "" H 1050 5300 50  0001 C CNN
+	1    1050 5300
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -493,12 +456,12 @@ $EndComp
 $Comp
 L power:GND #PWR0110
 U 1 1 60752EDB
-P 2000 5850
-F 0 "#PWR0110" H 2000 5600 50  0001 C CNN
-F 1 "GND" H 2005 5677 50  0000 C CNN
-F 2 "" H 2000 5850 50  0001 C CNN
-F 3 "" H 2000 5850 50  0001 C CNN
-	1    2000 5850
+P 2600 5850
+F 0 "#PWR0110" H 2600 5600 50  0001 C CNN
+F 1 "GND" H 2605 5677 50  0000 C CNN
+F 2 "" H 2600 5850 50  0001 C CNN
+F 3 "" H 2600 5850 50  0001 C CNN
+	1    2600 5850
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -508,34 +471,32 @@ Wire Wire Line
 $Comp
 L My_Parts:2-pole_power_in_screw_terminal U4
 U 1 1 607870A4
-P 1400 5500
-F 0 "U4" H 1803 5501 50  0000 L CNN
-F 1 "Power in" H 1803 5410 50  0000 L CNN
-F 2 "My_Parts:2-pole_power_in_screw_terminal" H 1575 5625 50  0001 C CNN
-F 3 "" H 1575 5625 50  0001 C CNN
-	1    1400 5500
+P 2000 5500
+F 0 "U4" H 2403 5501 50  0000 L CNN
+F 1 "Power in" H 2403 5410 50  0000 L CNN
+F 2 "My_Parts:2-pole_power_in_screw_terminal" H 2175 5625 50  0001 C CNN
+F 3 "" H 2175 5625 50  0001 C CNN
+	1    2000 5500
 	-1   0    0    -1  
 $EndComp
 $Comp
 L power:+6V #PWR0112
 U 1 1 6078A76B
-P 1500 4900
-F 0 "#PWR0112" H 1500 4750 50  0001 C CNN
-F 1 "+6V" H 1515 5073 50  0000 C CNN
-F 2 "" H 1500 4900 50  0001 C CNN
-F 3 "" H 1500 4900 50  0001 C CNN
-	1    1500 4900
+P 2100 4900
+F 0 "#PWR0112" H 2100 4750 50  0001 C CNN
+F 1 "+6V" H 2115 5073 50  0000 C CNN
+F 2 "" H 2100 4900 50  0001 C CNN
+F 3 "" H 2100 4900 50  0001 C CNN
+	1    2100 4900
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	1400 5500 1500 5500
+	2000 5500 2100 5500
 Wire Wire Line
-	1500 5500 1500 4900
+	2100 5500 2100 4900
 Wire Wire Line
 	1400 3950 1500 3950
 Connection ~ 1500 3950
-Wire Wire Line
-	1500 3950 1500 4100
 Wire Wire Line
 	1400 3150 1500 3150
 Connection ~ 1500 3150
@@ -597,68 +558,31 @@ Connection ~ 7600 4650
 Wire Wire Line
 	7600 5400 7200 5400
 Connection ~ 7600 5400
-Wire Wire Line
-	5500 2600 7500 2600
-Wire Wire Line
-	7500 2600 7500 3150
-Wire Wire Line
-	5500 2400 7600 2400
 Connection ~ 7600 2400
 Wire Wire Line
-	5500 2800 7400 2800
+	2000 5600 2600 5600
 Wire Wire Line
-	7400 2800 7400 3900
+	2100 5500 2900 5500
+Connection ~ 2100 5500
 Wire Wire Line
-	7300 4650 7300 3000
+	2600 4800 2900 4800
 Wire Wire Line
-	7300 3000 5500 3000
-Wire Wire Line
-	7200 5400 7200 3200
-Wire Wire Line
-	7200 3200 5500 3200
-Wire Wire Line
-	6100 4500 6100 3400
-Wire Wire Line
-	6100 3400 5500 3400
-Connection ~ 6100 4500
-Wire Wire Line
-	1400 5600 2000 5600
-Wire Wire Line
-	1500 5500 2900 5500
-Connection ~ 1500 5500
-Wire Wire Line
-	2000 4800 2900 4800
-Wire Wire Line
-	2000 4800 2000 5600
+	2600 4800 2600 5600
 Wire Wire Line
 	8750 1600 8750 5000
 Wire Wire Line
-	2000 5850 2000 5600
-Connection ~ 2000 5600
-Text GLabel 7600 2300 1    50   Input ~ 0
+	2600 5850 2600 5600
+Connection ~ 2600 5600
+Text GLabel 7050 2400 0    50   Input ~ 0
 button1
-Text GLabel 7500 2300 1    50   Input ~ 0
+Text GLabel 7050 3150 0    50   Input ~ 0
 button2
-Text GLabel 7400 2300 1    50   Input ~ 0
+Text GLabel 7050 3900 0    50   Input ~ 0
 button3
-Text GLabel 7300 2300 1    50   Input ~ 0
+Text GLabel 7050 4650 0    50   Input ~ 0
 button4
-Text GLabel 7200 2300 1    50   Input ~ 0
+Text GLabel 7050 5400 0    50   Input ~ 0
 button5
-Wire Wire Line
-	7600 2400 7600 2300
-Wire Wire Line
-	7500 2600 7500 2300
-Connection ~ 7500 2600
-Wire Wire Line
-	7400 2800 7400 2300
-Connection ~ 7400 2800
-Wire Wire Line
-	7300 2300 7300 3000
-Connection ~ 7300 3000
-Wire Wire Line
-	7200 3200 7200 2300
-Connection ~ 7200 3200
 $Comp
 L Connector:Screw_Terminal_01x06 J2
 U 1 1 607CA2CB
@@ -809,4 +733,68 @@ F 3 "" H 1900 6400 50  0001 C CNN
 	1    1900 6400
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	1500 5200 1050 5200
+Wire Wire Line
+	1500 3950 1500 5200
+Wire Wire Line
+	1050 5300 1050 5200
+Connection ~ 1050 5200
+Wire Wire Line
+	1050 5200 1050 5050
+Wire Wire Line
+	1600 3850 1600 4350
+Wire Wire Line
+	1600 4350 1050 4350
+Wire Wire Line
+	1050 4350 1050 4450
+Connection ~ 1600 3850
+Wire Wire Line
+	1350 4750 1600 4750
+Wire Wire Line
+	1900 4750 1900 2700
+Wire Wire Line
+	1900 2700 2900 2700
+Wire Wire Line
+	1600 4400 1600 4350
+Connection ~ 1600 4350
+Wire Wire Line
+	1600 4700 1600 4750
+Connection ~ 1600 4750
+Wire Wire Line
+	1600 4750 1900 4750
+Wire Wire Line
+	7600 1700 5500 1700
+Wire Wire Line
+	7600 1700 7600 2400
+Wire Wire Line
+	7500 1800 5500 1800
+Wire Wire Line
+	7500 1800 7500 3150
+Wire Wire Line
+	7400 1900 5500 1900
+Wire Wire Line
+	7400 1900 7400 3900
+Wire Wire Line
+	7300 2000 5500 2000
+Wire Wire Line
+	7300 2000 7300 4650
+Wire Wire Line
+	7200 2100 5500 2100
+Wire Wire Line
+	7200 2100 7200 5400
+Wire Wire Line
+	7050 5400 7200 5400
+Connection ~ 7200 5400
+Wire Wire Line
+	7050 4650 7300 4650
+Connection ~ 7300 4650
+Wire Wire Line
+	7050 3900 7400 3900
+Connection ~ 7400 3900
+Wire Wire Line
+	7050 3150 7500 3150
+Connection ~ 7500 3150
+Wire Wire Line
+	7050 2400 7600 2400
 $EndSCHEMATC
