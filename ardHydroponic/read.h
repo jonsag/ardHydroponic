@@ -92,7 +92,7 @@ float readTDSValue(float tmpKValue, float tmpTdsFactor)
   Serial.println("Reading TDS value...");
   voltage = analogRead(ECSensorPin) / adcRange * aref;
   //ecValue = (133.42 * voltage * voltage * voltage - 255.86 * voltage * voltage + 857.39 * voltage) * vars[10];
-  ecValue25 =((133.42 * voltage * voltage * voltage - 255.86 * voltage * voltage + 857.39 * voltage) * tmpKValue) / (1.0 + 0.02 * (temperatureSum - 25.0)); //temperature compensation
+  ecValue25 = ((133.42 * voltage * voltage * voltage - 255.86 * voltage * voltage + 857.39 * voltage) * tmpKValue) / (1.0 + 0.02 * (temperatureSum - 25.0)); //temperature compensation
   TDSValue = ecValue25 * tmpTdsFactor;
 
   Serial.print("adc range: ");
@@ -106,7 +106,7 @@ float readTDSValue(float tmpKValue, float tmpTdsFactor)
   Serial.print("TDS value: ");
   Serial.println(TDSValue);
 
-      return TDSValue;
+  return TDSValue;
 }
 
 void readSensors()
@@ -195,10 +195,15 @@ void readSensors()
   Serial.println();
 }
 
-void settingsCheckIfRead() {
-    if (varNumber == 10 || varNumber == 11)
+void settingsCheckIfRead()
+{
+  if (varNumber == 10 || varNumber == 11)
   { // setting variables connected to TDS reading
+
+    temperatureSum = readWaterTemp();
+
     printToLCD(0, 3, "TDS: ");
+
     switch (varNumber)
     {
     case 10:
