@@ -1,8 +1,4 @@
 
-//#define rotaryEncoder ; // comment out this line if you are going to use buttons instead of a rotary encoder
-#define LCD    // use a 20x4 I2C LCD
-#define myTds  // use own function to measure tds
-
 /**********
 * Include files
 **********/
@@ -13,12 +9,7 @@
 #include "misc.h"
 #include "settings.h"
 #include "eeprom.h"
-
-#ifndef rotaryEncoder
 #include "buttons.h"
-#else
-#include "rotaryEncoder.h"
-#endif
 
 //#include "thingSpeak.h"
 
@@ -48,7 +39,6 @@ void setup()
   initEEPROMCheck();
   Serial.println();
 
-#ifdef LCD
   /**********
   * LCD
   **********/
@@ -56,7 +46,6 @@ void setup()
 
   lcd.begin();
   Serial.println();
-#endif
 
   /**********
   * In/Outputs
@@ -77,7 +66,6 @@ void setup()
 
   Serial.println();
 
-#ifndef rotaryEncoder
   /**********
   * Setup FTDebouncer pins
   **********/
@@ -90,34 +78,8 @@ void setup()
   pinDebouncer.addPin(button5, LOW);
 
   pinDebouncer.init(); // initiate debounce
-#else
-  /**********
-  * Setup rotary encoder
-  **********/
-  Serial.println("Setting up rotary encoder...");
-  rotary.setDebounceDelay(rotEncDebounceTime);
-  //rotary.setTrigger(LOW);
-#endif
-  Serial.println();
-
-  /**********
-  * EC/TDS sensor
-  **********/
-#ifndef myTds
-  Serial.println("Starting EC/TDS sensor...");
-
-  /*
-  digitalWrite(ECGround, LOW); // ground level for the EC sensor probe
-  R1 = (R1 + Ra);              // taking into account powering pin resistance
-  */
-  gravityTds.setPin(ECSensorPin);
-  gravityTds.setAref(5.0);      //reference voltage on ADC, default 5.0V on Arduino UNO
-  gravityTds.setAdcRange(1024); //1024 for 10bit ADC;4096 for 12bit ADC
-  gravityTds.setKvalueAddress(kValueAddress);
-  gravityTds.begin(); //initialization
 
   Serial.println();
-#endif
 
   /***********
   * WiFi
@@ -138,14 +100,7 @@ void loop()
   /**********
   * Read buttons
   **********/
-#ifndef rotaryEncoder;
   pinDebouncer.update();
-#else
-  rotEncRot = rotary.rotate();
-  rotEncPush = rotary.push();
-  rotEncLongPush = rotary.pushLong(longPushTime);
-  handleRotaryEncoder();
-#endif
 
   checkMode(); // check if mode has changed
 

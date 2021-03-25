@@ -69,18 +69,11 @@ const int pHSensorPin = A0; // pH-sensor probe
 const int ECSensorPin = A1; // ec/EC sensor
 const int DS18S20Pin = A2;  // one wire pin
 
-#ifndef rotaryEncoder
 const int button1 = 7; // if you are using buttons, connect these
 const int button2 = 8;
 const int button3 = 9;
 const int button4 = 10;
 const int button5 = 11;
-#else
-const int rotEncSW = 6; // if you are using a rotary encoder, connect thes
-const int rotEncDT = 7;
-const int rotEncCLK = 8;
-
-#endif
 
 /**********
 * EEPROM
@@ -117,27 +110,8 @@ const int serialBaudRate = 9600;
 /**********
 * Debouncing
 **********/
-#ifndef rotaryEncoder
 #include <FTDebouncer.h> // load library for debouncing buttons
 FTDebouncer pinDebouncer(30);
-#endif
-
-/**********
- * Rotary encoder
- **********/
-#ifdef rotaryEncoder
-#include <SimpleRotary.h>
-SimpleRotary rotary(rotEncDT, rotEncCLK, rotEncSW);
-
-byte rotEncRot;
-byte rotEncPush;
-byte rotEncLongPush;
-
-//boolean rotEncPushed = 0;
-
-const int longPushTime = 1000; // how long is a long push of the button
-const int rotEncDebounceTime = 5;
-#endif
 
 /***********
 * One Wire, DS18B20
@@ -156,13 +130,11 @@ byte addr[8];  // variable to temporary hold the memory address of the readings
 **********/
 #include <stdlib.h>
 
-#ifdef LCD
 /**********
 * LCD
 **********/
 #include <LiquidCrystal_I2C.h>                          // Library for LCD
 LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 20, 4); // change to (0x27, 20, 4) for 20x4 LCD
-#endif
 
 /**********
 * EC/TDS sensor
@@ -182,7 +154,6 @@ float Rc = 0;                  // The voltage of the water solvent
 float oldEC25 = 0;
 */
 
-#ifdef myTds
 float voltage;
 //float ecValue;   //before temperature compensation
 float ecValue25; //after temperature compensation
@@ -190,12 +161,6 @@ float tdsValue;
 
 const float aref = 5.0;
 const float adcRange = 1024.0;
-#else
-#include "GravityTDS.h"
-GravityTDS gravityTds;
-
-const byte kValueAddress = 20; // where to store the k value
-#endif
 
 float TDSValue;
 float oldTDSValue = 0;

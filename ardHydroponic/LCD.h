@@ -1,16 +1,12 @@
 void clearLCD()
 {
-#ifdef LCD
   lcd.clear();
-#endif
 }
 
 void printToLCD(int col, int row, String text)
 {
-#ifdef LCD
   lcd.setCursor(col, row);
   lcd.print(text);
-#endif
 }
 
 void printMode()
