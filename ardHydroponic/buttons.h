@@ -200,6 +200,7 @@ void onPinActivated(int pinNumber)
             }
             tempValue = vars[varNumber];
             printSelectedVar();
+            settingsCheckIfRead();
             break;
         }
         break;
@@ -223,6 +224,7 @@ void onPinActivated(int pinNumber)
             }
             tempValue = vars[varNumber];
             printSelectedVar();
+            settingsCheckIfRead();
             break;
         }
         break;
@@ -234,6 +236,7 @@ void onPinActivated(int pinNumber)
             tempValue -= incs[varNumber];
             checkSanity();
             printSelectedVar();
+            settingsCheckIfRead();
             break;
         }
         break;
@@ -245,6 +248,7 @@ void onPinActivated(int pinNumber)
             tempValue += incs[varNumber];
             checkSanity();
             printSelectedVar();
+            settingsCheckIfRead();
             break;
         }
         break;
@@ -285,6 +289,8 @@ void onPinDeactivated(int pinNumber)
 
                 putEEPROM(varNumber * addressMultiplicator, tempValue);
                 vars[varNumber] = tempValue;
+
+                printSelectedVar();
             }
         }
         button1PushMillis = 0;
@@ -314,6 +320,7 @@ void longPushButton1()
         checkMode();
         tempValue = vars[varNumber];
         printSelectedVar();
+        settingsCheckIfRead();
         break;
     case 4:
         stopOutputs();

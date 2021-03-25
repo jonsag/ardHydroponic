@@ -112,16 +112,19 @@ void printNormal()
 
 void printSelectedOutput()
 {
+  Serial.println("LCD -> Printing selected output");
   Serial.print(outputNumber);
   Serial.print(": ");
   Serial.print(outputNames[outputNumber]);
   Serial.println(" selected");
+
   printToLCD(0, 2, String(outputNumber));
   printToLCD(0, 3, outputNames[outputNumber]);
 }
 
 void printSelectedVar()
 {
+  Serial.println("LCD -> Printing selected variable");
   Serial.print(varNumber);
   Serial.print(": ");
   Serial.print(varNames[varNumber]);
@@ -132,6 +135,38 @@ void printSelectedVar()
   Serial.print("\tNew value: ");
   Serial.print(tempValue);
   Serial.println();
+
+  printToLCD(0, 1, varNames[varNumber]);
+
+  if (varNumber <= 6 || varNumber == 9)
+  {
+    dtostrf(vars[varNumber], 2, 0, dtostrfBuffer);
+  }
+  else
+  {
+    dtostrf(vars[varNumber], 2, 2, dtostrfBuffer);
+  }
+  printToLCD(12, 2, dtostrfBuffer);
+  strLength = strlen(dtostrfBuffer);
+  for (i = 12 + strLength; i < 20; i++)
+  {
+    printToLCD(i, 2, " ");
+  }
+
+  if (varNumber <= 6 || varNumber == 9)
+  {
+    dtostrf(tempValue, 2, 0, dtostrfBuffer);
+  }
+  else
+  {
+    dtostrf(tempValue, 2, 2, dtostrfBuffer);
+  }
+  printToLCD(12, 3, dtostrfBuffer);
+  strLength = strlen(dtostrfBuffer);
+  for (i = 12 + strLength; i < 20; i++)
+  {
+    printToLCD(i, 3, " ");
+  }
 }
 
 void printMaintenance()

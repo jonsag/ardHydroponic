@@ -7,32 +7,34 @@ String email = "jonsagebrand@gmail.com";
 * Configurable variables
 **********/
 char *varNames[] = {
-    "Nutritions pump time",
-    "pH+ pump time",
-    "pH- pump time",
-    "Clean pumps time",
-    "Iteration time",
-    "Stir time",
-    "Stir interval",
-    "pH low",
-    "pH high",
-    "TDS low",
-    "k value",
-    "TDS factor",
+    "Nutr pump time, ms  ",
+    "pH+ pump time, ms   ",
+    "pH- pump time, ms   ",
+    "Clean pumps time, ms",
+    "Iteration time, ms  ",
+    "Stir time, ms       ",
+    "Stir interval, ms   ",
+    "pH low, pH          ",
+    "pH high, pH         ",
+    "TDS low, ppm        ",
+    "k value, factor     ",
+    "TDS factor, factor  ",
 };
 
-float vars[] = {500.00,
-                500.00,
-                500.00,
-                30000.00,
-                10000.00,
-                5000.00,
-                15000.00,
-                4.62,
-                4.63,
-                800.00,
-                1.08,
-                1.0};
+float vars[] = {
+    500.00,   /* 0, Nutr pump time, ms */
+    500.00,   /* 1, pH+ pump time, ms */
+    500.00,   /* 2, pH- pump time, ms */
+    30000.00, /* 3, Clean pumps time */
+    10000.00, /* 4, Iteration time, ms */
+    5000.00,  /* 5, Stir time, ms */
+    15000.00, /* 6, Stir interval, ms */
+    4.62,     /* 7, pH low, pH */
+    4.63,     /* 8, pH high, pH */
+    800.00,   /* 9, TDS low, ppm */
+    1.08,     /* 10, k value, factor */
+    1.0       /* 11, TDS factor, factor */
+};
 
 float incs[] = {100.00,
                 100.00,

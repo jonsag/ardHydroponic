@@ -43,7 +43,7 @@ void setup()
   /**********
   * EEPROM
   **********/
-  clearEEPROM();
+  //clearEEPROM();
   Serial.println("Reading EEPROM...");
   initEEPROMCheck();
   Serial.println();
@@ -211,10 +211,6 @@ void loop()
   { // maintenance mode
 
     checkMaintStop(); // check if pumps are running and if it's time to stop any of them
-  }
-  else if (mode == 4)
-  {
-    setVar();
   }
 
   if (button1PushMillis != 0 && currentMillis - button1PushMillis >= longPushTime)

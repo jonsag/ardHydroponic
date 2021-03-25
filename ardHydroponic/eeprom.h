@@ -10,22 +10,22 @@ float getEEPROM(byte address, float value)
     return value;
 }
 
-void useValue(byte address, float value)
+void useValue(byte varNo, float value)
 {
-    Serial.print(varNames[address / addressMultiplicator]);
+    Serial.print(varNames[varNo]);
     Serial.print(" = ");
-    vars[address / addressMultiplicator] = value;
+    vars[varNo] = value;
     //nutrientsPumpTimeNew = vars[address / addressMultiplicator];
-    Serial.println(vars[address / addressMultiplicator]);
+    Serial.println(vars[varNo]);
 }
 
-void writeValue(byte address)
+void writeValue(byte varNo)
 {
-    Serial.print(varNames[address / addressMultiplicator]);
+    Serial.print(varNames[varNo]);
     Serial.print(" = ");
-    Serial.println(vars[address / addressMultiplicator]);
+    Serial.println(vars[varNo]);
     //EEPROM_write(address, vars[address / addressMultiplicator]);
-    putEEPROM(address, vars[address / addressMultiplicator]);
+    putEEPROM(varNo * addressMultiplicator, vars[varNo]);
 }
 
 void initEEPROMCheck()
@@ -50,12 +50,12 @@ void initEEPROMCheck()
         }
         else
         {
-            Serial.println("Had no value: ");
+            Serial.print("Had no value: ");
             Serial.println(tempValue);
             Serial.print("Writing it to eeprom at address ");
             Serial.print(i * addressMultiplicator);
             Serial.println("...");
-            writeValue(i * addressMultiplicator);
+            writeValue(i);
         }
         Serial.println();
     }

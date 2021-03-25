@@ -25,7 +25,7 @@ void checkMode()
 {
   if (mode != oldMode)
   {
-    if (oldMode == 3)
+    if (oldMode == 3 || oldMode == 4)
     {
 clearLCD();
     }
