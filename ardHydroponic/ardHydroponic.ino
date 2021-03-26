@@ -158,7 +158,7 @@ void loop()
     /**********
     * Run pumps
     **********/
-    //if (EC25<1.4 && phValue>6.6) {} // if the nutrient level unsufficient, and the pH value to high
+    //if (EC25<1.4 && pHValue>6.6) {} // if the nutrient level unsufficient, and the pH value to high
 
     checkOutputStop(); // check if it's time to stop the pumps or stirrer
   }

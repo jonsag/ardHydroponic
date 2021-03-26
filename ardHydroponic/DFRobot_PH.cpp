@@ -40,7 +40,7 @@
 DFRobot_PH::DFRobot_PH()
 {
     this->_temperature = 25.0;
-    this->_phValue = 7.0;
+    this->_pHValue = 7.0;
     this->_acidVoltage = 2032.44;   //buffer solution 4.0 at 25C
     this->_neutralVoltage = 1500.0; //buffer solution 7.0 at 25C
     this->_voltage = 1500.0;
@@ -83,8 +83,8 @@ float DFRobot_PH::readPH(float voltage, float temperature)
     //Serial.print(slope);
     //Serial.print(",intercept:");
     //Serial.println(intercept);
-    this->_phValue = slope * (voltage - 1500.0) / 3.0 + intercept; //y = k*x + b
-    return _phValue;
+    this->_pHValue = slope * (voltage - 1500.0) / 3.0 + intercept; //y = k*x + b
+    return _pHValue;
 }
 
 void DFRobot_PH::calibration(float voltage, float temperature, char *cmd)

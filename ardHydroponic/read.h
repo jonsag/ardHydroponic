@@ -30,6 +30,36 @@ float readWaterTemp()
   return temperatureSum;
 }
 
+float readpHValue(float neutralPH, float acidPH, float neutralVoltage, float acidVoltage)
+{
+  pHVoltage = analogRead(pHSensorPin) / adcRange * aref * 1000;
+
+  slope = (neutralPH - acidPH) / ((neutralVoltage * 1000 - vars[16] * 1000) / 3.0 - (acidVoltage * 1000 - vars[16] * 1000) / 3.0);
+  //slope = (7.0     - 4.0   ) / ((this->_neutralVoltage - 1500.0         ) / 3.0 - (this->_acidVoltage - 1500.0         ) / 3.0);
+  
+  intercept = neutralPH - slope * (neutralVoltage * 1000 - vars[16] * 1000) / 3.0;
+  //intercept = 7.0     - slope * (this->_neutralVoltage - 1500.0         ) / 3.0;
+  
+  pHValue = slope * (pHVoltage - vars[16] * 1000) / 3.0 + intercept; //y = k*x + b
+  //pHValue = slope * (voltage - 1500.0         ) / 3.0 + intercept;
+
+  Serial.print("adc range: ");
+  Serial.println(adcRange);
+  Serial.print("aref: ");
+  Serial.println(aref);
+  Serial.print("pH voltage: ");
+  Serial.println(pHVoltage);
+  Serial.print("slope: ");
+  Serial.println(slope);
+  Serial.print("intercept: ");
+  Serial.println(intercept);
+  Serial.print("pH value: ");
+  Serial.println(pHValue);
+
+  return pHValue;
+}
+
+/*
 float readpHValue()
 {
   Serial.println("Reading pH value...");
@@ -60,11 +90,12 @@ float readpHValue()
   }
 
   avgValue = avgValue / 6;                  // take average value of the 6 center samples
-  phValue = (avgValue * 5.0) / 1024;        // convert the analog readings into volt
-  phValue = 3.157895 * phValue + 0.9152632; // convert the millivolt into pH value. Floats are coefficients from sensor calibration
+  pHValue = (avgValue * 5.0) / 1024;        // convert the analog readings into volt
+  pHValue = 3.157895 * pHValue + 0.9152632; // convert the millivolt into pH value. Floats are coefficients from sensor calibration
 
-  return phValue;
+  return pHValue;
 }
+*/
 
 /*
 float readECLevel()
@@ -126,23 +157,23 @@ void readSensors()
   /**********
   * Read PH value
   **********/
-  phValue = readpHValue();
+  pHValue = readpHValue(vars[12], vars[13], vars[14], vars[15]);
 
   Serial.print("pH: ");
-  Serial.println(phValue);
+  Serial.println(pHValue);
 
-  if (phValue != oldpHValue)
+  if (pHValue != oldpHValue)
   {
     printpHValue();
-    oldpHValue = phValue;
+    oldpHValue = pHValue;
   }
 
-  if (phValue < vars[7])
+  if (pHValue < vars[7])
   { // if the pH value to low
     startpHPlus();
     pHPlusStartMillis = currentMillis;
   }
-  else if (phValue > vars[8])
+  else if (pHValue > vars[8])
   { // if the pH is too high
     startpHMinus();
     pHMinusStartMillis = currentMillis;

@@ -32,7 +32,7 @@ public:
     void begin();                                   //initialization
 
 private:
-    float _phValue;
+    float _pHValue;
     float _acidVoltage;
     float _neutralVoltage;
     float _voltage;

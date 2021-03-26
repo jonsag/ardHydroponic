@@ -22,7 +22,7 @@
 
 #define PH_PIN A1
 float voltage;
-float phValue;
+float pHValue;
 float temperature = 25;
 
 DFRobot_PH ph;
@@ -42,12 +42,12 @@ void loop()
         timepoint = millis();
 
         voltage = analogRead(PH_PIN) / 1024.0 * 5000; // read the voltage
-        phValue = ph.readPH(voltage, temperature);    // convert voltage to pH with temperature compensation
+        pHValue = ph.readPH(voltage, temperature);    // convert voltage to pH with temperature compensation
 
         Serial.print("temperature:");
         Serial.print(temperature, 1);
         Serial.print("^C  pH:");
-        Serial.println(phValue, 2);
+        Serial.println(pHValue, 2);
     }
     ph.calibration(voltage, temperature); // calibration process by Serail CMD
 }

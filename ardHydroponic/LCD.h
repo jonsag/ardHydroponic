@@ -54,7 +54,7 @@ void printpHValue()
 {
   Serial.println("LCD -> Printing pH value");
 
-  dtostrf(phValue, 2, 2, dtostrfBuffer);
+  dtostrf(pHValue, 2, 2, dtostrfBuffer);
   printToLCD(4, 2, dtostrfBuffer);
 
   strLength = strlen(dtostrfBuffer);

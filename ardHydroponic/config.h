@@ -7,18 +7,23 @@ String email = "jonsagebrand@gmail.com";
 * Configurable variables
 **********/
 char *varNames[] = {
-    "Nutr pump time, ms  ",
-    "pH+ pump time, ms   ",
-    "pH- pump time, ms   ",
-    "Clean pumps time, ms",
-    "Iteration time, ms  ",
-    "Stir time, ms       ",
-    "Stir interval, ms   ",
-    "pH low, pH          ",
-    "pH high, pH         ",
-    "TDS low, ppm        ",
-    "k value, factor     ",
-    "TDS factor, factor  ",
+    "Nutr pump time, ms  ", /* 0 */
+    "pH+ pump time, ms   ", /* 1 */
+    "pH- pump time, ms   ", /* 2 */
+    "Clean pumps time, ms", /* 3 */
+    "Iteration time, ms  ", /* 4 */
+    "Stir time, ms       ", /* 5 */
+    "Stir interval, ms   ", /* 6 */
+    "pH low, pH          ", /* 7 */
+    "pH high, pH         ", /* 8 */
+    "TDS low, ppm        ", /* 9 */
+    "k value, factor     ", /* 10 */
+    "TDS factor, factor  ", /* 11 */
+    "Neutral pH, pH      ", /* 12 */
+    "Acid pH, pH         ", /* 13 */
+    "Neutral voltage, V  ", /* 14 */
+    "Acid voltage, V     ", /* 15 */
+    "pH voltage offset, V"  /* 16 */
 };
 
 float vars[] = {
@@ -33,23 +38,35 @@ float vars[] = {
     4.63,     /* 8, pH high, pH */
     800.00,   /* 9, TDS low, ppm */
     1.08,     /* 10, k value, factor */
-    1.0       /* 11, TDS factor, factor */
+    1.0,      /* 11, TDS factor, factor */
+    4.0,      /* 12, Neutral pH, pH */
+    7.0,      /* 13, Acid pH, pH */
+    1.50,     /* 14, Neutral voltage, V */
+    2.03,     /* 15, Acid voltage, V */
+    1.50      /* 16, pH voltage offset, V */
 };
 
-float incs[] = {100.00,
-                100.00,
-                100.00,
-                1000.00,
-                1000.00,
-                1000.00,
-                1000.00,
-                0.01,
-                0.01,
-                1.00,
-                0.01,
-                0.1};
+float incs[] = {
+    100.00,  /* 0, Nutr pump time, ms */
+    100.00,  /* 1, pH+ pump time, ms */
+    100.00,  /* 2, pH- pump time, ms */
+    1000.00, /* 3, Clean pumps time */
+    1000.00, /* 4, Iteration time, ms */
+    1000.00, /* 5, Stir time, ms */
+    1000.00, /* 6, Stir interval, ms */
+    0.01,    /* 7, pH low, pH */
+    0.01,    /* 8, pH high, pH */
+    1.00,    /* 9, TDS low, ppm */
+    0.01,    /* 10, k value, factor */
+    0.1,     /* 11, TDS factor, factor */
+    0.1,     /* 12, Neutral pH, pH */
+    0.1,     /* 13, Acid pH, pH */
+    0.01,    /* 14, Neutral voltage, V */
+    0.01,    /* 15, Acid voltage, V */
+    0.01     /* 16, pH voltage offset, V */
+};
 
-const int noOfVars = 12;
+const int noOfVars = 17;
 
 /**********
  * Pins
@@ -84,23 +101,6 @@ byte varNumber = 0;
 byte oldVarNumber = 0;
 
 const byte addressMultiplicator = 4;
-
-/*
-float nutrientsPumpTimeNew = vars[0]; // pump time for nutrient pumps
-float pHPlusPumpTimeNew = vars[1];       // pump time for PH+ pump
-float pHMinusPumpTimeNew = vars[2];     // pump time for PH- pump
-
-float cleanTimeNew = vars[3]; // hoses clean time
-
-float iterationTimeNew = vars[4]; // reading
-
-float pHLowNew = vars[7];   //  lowest allowed pH value
-float pHHighNew = vars[8]; // lowest allowed pH value
-float tdsLowNew = vars[9]; // lowest allowed EC value
-
-float kValueNew = vars[10];
-float tdsFactorNew = tdsFactorNew;
-*/
 
 /***********
 * Serial
@@ -139,21 +139,6 @@ LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 20, 4); // change to (0x27, 20, 
 /**********
 * EC/TDS sensor
 **********/
-/*
-int R1 = 1000;                 // internal resistance
-int Ra = 25;                   // powering pin resistance
-float EC = 0;                  // EC-value
-float EC25 = 0;                // equivalent EC-value at temp 25 celcius
-float K = 1.44;                // trail measured coefficient
-float TemperatureCoef = 0.019; // temperature coefficient for water that is estimated by trials.
-float ECRaw = 0;               // raw data from a EC-sensor reading
-float Vin = 5;                 // internal voltage supply from Arduino to an analog pin
-float Vdrop = 0;               // voltage drop measured from an EC-reading
-float Rc = 0;                  // The voltage of the water solvent
-
-float oldEC25 = 0;
-*/
-
 float voltage;
 //float ecValue;   //before temperature compensation
 float ecValue25; //after temperature compensation
@@ -166,12 +151,18 @@ float TDSValue;
 float oldTDSValue = 0;
 
 /**********
-* PH sensor
+* pH sensor
 **********/
+/*
 unsigned long int avgValue; // average value of the sensor feedback
-float phValue;              // calculated pH reading
 int buf[10], temp;          // pH reading samples
+*/
 
+float pHVoltage; // the voltage reading from analog pin
+float slope;
+float intercept;
+
+float pHValue; // calculated pH reading
 float oldpHValue = 0;
 
 /**********
