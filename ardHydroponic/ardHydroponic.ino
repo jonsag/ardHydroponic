@@ -7,7 +7,6 @@
 #include "outputs.h"
 #include "read.h"
 #include "misc.h"
-#include "settings.h"
 #include "eeprom.h"
 #include "buttons.h"
 
