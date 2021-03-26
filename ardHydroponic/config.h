@@ -7,23 +7,23 @@ String email = "jonsagebrand@gmail.com";
 * Configurable variables
 **********/
 char *varNames[] = {
-    "Nutr pump time, ms  ", /* 0 */
-    "pH+ pump time, ms   ", /* 1 */
-    "pH- pump time, ms   ", /* 2 */
+    "Nutr pump time,   ms", /* 0 */
+    "pH+ pump time,    ms", /* 1 */
+    "pH- pump time,    ms", /* 2 */
     "Clean pumps time, ms", /* 3 */
-    "Iteration time, ms  ", /* 4 */
-    "Stir time, ms       ", /* 5 */
-    "Stir interval, ms   ", /* 6 */
-    "pH low, pH          ", /* 7 */
-    "pH high, pH         ", /* 8 */
-    "TDS low, ppm        ", /* 9 */
-    "k value, factor     ", /* 10 */
-    "TDS factor, factor  ", /* 11 */
-    "Neutral pH, pH      ", /* 12 */
-    "Acid pH, pH         ", /* 13 */
-    "Neutral voltage, V  ", /* 14 */
-    "Acid voltage, V     ", /* 15 */
-    "pH voltage offset, V"  /* 16 */
+    "Iteration time,   ms", /* 4 */
+    "Stir time,        ms", /* 5 */
+    "Stir interval,    ms", /* 6 */
+    "pH low,           pH", /* 7 */
+    "pH high,          pH", /* 8 */
+    "TDS low,         ppm", /* 9 */
+    "k value,    constant", /* 10 */
+    "TDS factor, constant", /* 11 */
+    "Neutral pH,       pH", /* 12 */
+    "Acid pH,          pH", /* 13 */
+    "Neutral voltage,  mV", /* 14 */
+    "Acid voltage,     mV", /* 15 */
+    "pH voltage offs., mV"  /* 16 */
 };
 
 float vars[] = {
@@ -39,11 +39,11 @@ float vars[] = {
     800.00,   /* 9, TDS low, ppm */
     1.08,     /* 10, k value, factor */
     1.0,      /* 11, TDS factor, factor */
-    4.0,      /* 12, Neutral pH, pH */
-    7.0,      /* 13, Acid pH, pH */
-    1.50,     /* 14, Neutral voltage, V */
-    2.03,     /* 15, Acid voltage, V */
-    1.50      /* 16, pH voltage offset, V */
+    7.0,      /* 12, Neutral pH, pH */
+    4.0,      /* 13, Acid pH, pH */
+    1500.0,   /* 14, Neutral voltage, mV */
+    2032.44,  /* 15, Acid voltage, mV */
+    1500.0    /* 16, pH voltage offset, mV */
 };
 
 float incs[] = {
@@ -61,9 +61,9 @@ float incs[] = {
     0.1,     /* 11, TDS factor, factor */
     0.1,     /* 12, Neutral pH, pH */
     0.1,     /* 13, Acid pH, pH */
-    0.01,    /* 14, Neutral voltage, V */
-    0.01,    /* 15, Acid voltage, V */
-    0.01     /* 16, pH voltage offset, V */
+    1.0,     /* 14, Neutral voltage, mV */
+    1.0,     /* 15, Acid voltage, mV */
+    1.0      /* 16, pH voltage offset, mV */
 };
 
 const int noOfVars = 17;
@@ -153,17 +153,21 @@ float oldTDSValue = 0;
 /**********
 * pH sensor
 **********/
-/*
-unsigned long int avgValue; // average value of the sensor feedback
-int buf[10], temp;          // pH reading samples
-*/
-
 float pHVoltage; // the voltage reading from analog pin
 float slope;
 float intercept;
 
 float pHValue; // calculated pH reading
 float oldpHValue = 0;
+
+/**********
+ * Readings
+ **********/
+unsigned long int avgValue; // average value of the sensor feedback
+const byte noOfReadings = 10;
+const int millisBetweenReadings = 10;
+int buf[noOfReadings];
+int temp;          // reading samples
 
 /**********
 * Misc
@@ -200,6 +204,7 @@ unsigned long stirStartMillis = 0; // when was the stirrer started
 unsigned long stirStopMillis = 0;  // when did the stirrer stop
 
 int i;           // just a counter used sometimes
+int j;
 float tempValue; // holds different bvtes
 
 /**********

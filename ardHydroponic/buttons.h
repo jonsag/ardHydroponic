@@ -71,59 +71,59 @@ void checkSanity()
 {
     switch (varNumber)
     {
-    case 0:
+    case 0: /* 0, Nutr pump time, ms */
         if (tempValue < 0)
         {
-            Serial.println("Can't decrease more");
+            Serial.println("Can't decrease more. Not sane value");
             tempValue = 0;
         }
         break;
-    case 1:
+    case 1: /* 1, pH+ pump time, ms */
         if (tempValue < 0)
         {
-            Serial.println("Can't decrease more");
+            Serial.println("Can't decrease more. Not sane value");
             tempValue = 0;
         }
         break;
-    case 2:
+    case 2: /* 2, pH- pump time, ms */
         if (tempValue < 0)
         {
-            Serial.println("Can't decrease more");
+            Serial.println("Can't decrease more. Not sane value");
             tempValue = 0;
         }
         break;
-    case 3:
+    case 3: /* 3, Clean pumps time */
         if (tempValue < 0)
         {
-            Serial.println("Can't decrease more");
+            Serial.println("Can't decrease more. Not sane value");
             tempValue = 0;
         }
         break;
-    case 4:
+    case 4: /* 4, Iteration time, ms */
         if (tempValue < 0)
         {
-            Serial.println("Can't decrease more");
+            Serial.println("Can't decrease more. Not sane value");
             tempValue = 0;
         }
         break;
-    case 5:
+    case 5: /* 5, Stir time, ms */
         if (tempValue < 0)
         {
-            Serial.println("Can't decrease more");
+            Serial.println("Can't decrease more. Not sane value");
             tempValue = 0;
         }
         break;
-    case 6:
+    case 6: /* 6, Stir interval, ms */
         if (tempValue < 0)
         {
-            Serial.println("Can't decrease more");
+            Serial.println("Can't decrease more. Not sane value");
             tempValue = 0;
         }
         break;
-    case 7: // pH low
+    case 7: /* 7, pH low, pH */
         if (tempValue < 0)
         {
-            Serial.println("Can't decrease more");
+            Serial.println("Can't decrease more. Not sane value");
             tempValue = 0;
         }
         else if (tempValue >= vars[8])
@@ -132,39 +132,67 @@ void checkSanity()
             tempValue -= incs[7];
         }
         break;
-    case 8: //pH high
+    case 8: /* 8, pH high, pH */
         if (tempValue <= vars[7])
         {
             Serial.println("Can't decrease more. Conflicting with pH low");
             tempValue += incs[8];
         }
-        else if (tempValue >= 15)
+        else if (tempValue > 15)
         {
             Serial.println("Can't increase more. Not sane value");
-            tempValue = 15 - incs[8];
+            tempValue = 15;
         }
         break;
-    case 9:
+    case 9: /* 9, TDS low, ppm */
         if (tempValue < 0)
         {
-            Serial.println("Can't decrease more");
+            Serial.println("Can't decrease more. Not sane value");
             tempValue = 0;
         }
         break;
-    case 10:
+    case 10: /* 10, k value, factor */
         if (tempValue < 0)
         {
-            Serial.println("Can't decrease more");
+            Serial.println("Can't decrease more. Not sane value");
             tempValue = 0;
         }
         break;
-    case 11:
+    case 11: /* 11, TDS factor, factor */
         if (tempValue < 0)
         {
-            Serial.println("Can't decrease more");
+            Serial.println("Can't decrease more. Not sane value");
             tempValue = 0;
         }
         break;
+    case 12: /* 12, Neutral pH, pH */
+        if (tempValue < vars[13])
+        {
+            Serial.println("Can't decrease more. Conflicting with acid pH");
+            tempValue += incs[13];
+        }
+        else if (tempValue > 15)
+        {
+            Serial.println("Can't increase more. Not sane value");
+            tempValue = 15;
+        }
+        break;
+    case 13: /* 13, Acid pH, pH */
+        if (tempValue < 0)
+        {
+            Serial.println("Can't decrease more. Not sane value");
+            tempValue = 0;
+        }
+        else if (tempValue >= vars[12])
+        {
+            Serial.println("Can't increase more. Conflicting with neutral pH");
+            tempValue -= incs[13];
+            break;
+        case 15: /* 15, Acid voltage, V */
+            break;
+        case 16: /* 16, pH voltage offset, V */
+            break;
+        }
     }
 }
 
@@ -175,8 +203,8 @@ void onPinActivated(int pinNumber)
     Serial.print(pinNumber);
 
     switch (pinNumber)
-    { // outer switch start
-    case button1:
+    {             // outer switch start
+    case button1: // this button acts on release
         Serial.println(" <-> button1");
         button1PushMillis = currentMillis;
         break;
@@ -199,8 +227,8 @@ void onPinActivated(int pinNumber)
                 varNumber = noOfVars - 1;
             }
             tempValue = vars[varNumber];
-            printSelectedVar();
             settingsCheckIfRead();
+            printSelectedVar();
             break;
         }
         break;
@@ -223,8 +251,8 @@ void onPinActivated(int pinNumber)
                 varNumber = 0;
             }
             tempValue = vars[varNumber];
-            printSelectedVar();
             settingsCheckIfRead();
+            printSelectedVar();
             break;
         }
         break;
@@ -235,8 +263,8 @@ void onPinActivated(int pinNumber)
         case 4:
             tempValue -= incs[varNumber];
             checkSanity();
-            printSelectedVar();
             settingsCheckIfRead();
+            printSelectedVar();
             break;
         }
         break;
@@ -247,8 +275,8 @@ void onPinActivated(int pinNumber)
         case 4:
             tempValue += incs[varNumber];
             checkSanity();
-            printSelectedVar();
             settingsCheckIfRead();
+            printSelectedVar();
             break;
         }
         break;

@@ -50,7 +50,7 @@ void printTemp()
   printToLCD(6 + strLength + 1, 1, "C");
 }
 
-void printpHValue()
+void printPHValue()
 {
   Serial.println("LCD -> Printing pH value");
 
@@ -95,7 +95,7 @@ void printNormal()
   printTemp();
 
   printToLCD(0, 2, "pH:");
-  printpHValue();
+  printPHValue();
 
   /*
   printToLCD(0, 3, "EC:");
