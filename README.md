@@ -83,8 +83,8 @@ Button number:
 
 Button number:  
 
-1. Mode
-   * Short press: start or stop the indicated output  
+1. Enter next mode/Save variable  
+   * Short press: save variable to EEPROM  
    * Long press: leave this mode and enter next  
 2. Select previous variable
 3. Select next variable
@@ -160,6 +160,8 @@ Select the 'Acid voltage' variable using 'Button 2' and 'Button 3'.
 On the lower right of the screen you will now see the measured voltage from the pH sensor in millivolts. You can't change that. However, pressing 'Button 4' or 'Button 5' will update that measurement.  
 When you get a solid reading, save the value with a short press on 'Button 1'.  
 
+There is also a 'pH voltage offset' for further trimming.  
+
 ## Software configuration
 
 All configuration is made in 'config.h'
@@ -187,6 +189,21 @@ Don't use the LiquidCrystal_I2C library from Arduino IDE's library manager.
 
 Instead use the one from [https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library](https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library).  
 
+## Trouble shooting
+
+### Resetting EEPROM to default values
+
+Edit ardHydroponic.ino  
+
+Uncomment the line  
+
+    //clearEEPROM();
+
+and upload sketch.  
+
+Comment the line and upload again.  
+
+## Misc
 ### cu
 
 Get serial output  
