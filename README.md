@@ -36,7 +36,7 @@ Calibration fluids:
 pH: two solutions with known values, for example 4.00 and 7.00  (other values will also work)
 TDS: solution with known TDS value
 
-Connect everything according to the schematics in Documents/KiCAD.  
+Connect everything according to the schematics in KiCAD.  
 
 ## Usage
 
