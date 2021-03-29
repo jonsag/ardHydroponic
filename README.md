@@ -2,7 +2,7 @@
 
 An Arduino Mega managing a hydroponic plant bed.
 
-# Hardware
+## Hardware
 
 1 x Arduino Mega 2560  
 
