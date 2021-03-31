@@ -134,65 +134,6 @@ float readpHValue(float neutralPH, float acidPH, float neutralVoltage, float aci
   return pHValue;
 }
 
-/*
-float readpHValue()
-{
-  Serial.println("Reading pH value...");
-
-  for (int i = 0; i < 10; i++)
-  {                                   // get 10 sample value from the sensor for smooth the value
-    buf[i] = analogRead(pHSensorPin); // read pH probe
-    delay(10);                        // 10 ms delay
-  }
-  for (int i = 0; i < 9; i++)
-  { // sort the 10 analog readings from small to large
-    for (int j = i + 1; j < 10; j++)
-    {
-      if (buf[i] > buf[j])
-      {
-        temp = buf[i];
-        buf[i] = buf[j];
-        buf[j] = temp;
-      }
-    }
-  }
-
-  avgValue = 0; // temporary value for the pH readings
-
-  for (int i = 2; i < 8; i++)
-  { // take value of the 6 center samples
-    avgValue += buf[i];
-  }
-
-  avgValue = avgValue / 6;                  // take average value of the 6 center samples
-  pHValue = (avgValue * 5.0) / 1024;        // convert the analog readings into volt
-  pHValue = 3.157895 * pHValue + 0.9152632; // convert the millivolt into pH value. Floats are coefficients from sensor calibration
-
-  return pHValue;
-}
-*/
-
-/*
-float readECLevel()
-{
-  Serial.println("Reading EC value...");
-
-  ECRaw = analogRead(ECPin);
-  ECRaw = analogRead(ECPin);  // first reading will be inconclusive due to low charge in probe
-  digitalWrite(ECPower, LOW); // setting the power pin for EC sensor to low
-
-  // convert voltage to EC
-  Vdrop = (Vin * ECRaw) / 1024.0;    // the voltage drop measured
-  Rc = (Vdrop * R1) / (Vin - Vdrop); // the resistance of the water solvent
-  Rc = Rc - Ra;                      // accounting for Digital Pin Resistance
-  EC = 1000 / (Rc * K);              // the calculate EC value
-
-  EC25 = EC / (1 + TemperatureCoef * (temperatureSum - 25.0)); // compensating For the temperature in the water solvent//
-
-  return EC25;
-}
-*/
-
 float readTDSValue(float tmpKValue, float tmpTdsFactor)
 {
   Serial.println("Reading TDS value...");
@@ -289,6 +230,11 @@ void readSensors()
   {
     printToLCD(12, 3, "   ");
   }
+
+#ifdef logging
+  Serial.println("Writing to thingSpeak...");
+  writeThingSpeak();
+#endif
 
   Serial.println();
 }

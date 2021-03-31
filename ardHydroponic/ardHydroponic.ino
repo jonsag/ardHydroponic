@@ -1,16 +1,23 @@
+#define logging // enable this if you got an ESP-01 and a thingSPeak channel
 
 /**********
 * Include files
 **********/
+
+
 #include "config.h"
+
+#ifdef logging
+#include "secrets.h"
+#include "thingSpeak.h"
+#endif
+
 #include "LCD.h"
 #include "outputs.h"
 #include "read.h"
 #include "misc.h"
 #include "eeprom.h"
 #include "buttons.h"
-
-//#include "thingSpeak.h"
 
 void setup()
 {
@@ -57,11 +64,9 @@ void setup()
   pinMode(nutrBPump, OUTPUT);
   pinMode(stirrer, OUTPUT);
 
-  /*
-  pinMode(ECPin, INPUT);     // EC sensor probe
-  pinMode(ECPower, OUTPUT);  // sourcing current
-  pinMode(ECGround, OUTPUT); // sinking current
-  */
+#ifdef logging
+  pinMode(ESP_HARDWARE_RESET, OUTPUT);
+#endif
 
   Serial.println();
 
@@ -79,6 +84,19 @@ void setup()
   pinDebouncer.init(); // initiate debounce
 
   Serial.println();
+
+/**********
+   * ESP-01
+   **********/
+#ifdef logging
+  Serial.println("Starting ESP-01...");
+  digitalWrite(ESP_HARDWARE_RESET, HIGH);
+
+  espSerial.begin(serialBaudRate);
+  EspHardwareReset();
+
+  Serial.println();
+#endif
 
   /***********
   * WiFi

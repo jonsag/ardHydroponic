@@ -210,11 +210,19 @@ float tempValue; // holds different bvtes
 /**********
 * WiFi
 **********/
-//#define SSID "A WiFi network" // WiFi SSID
-//#define PASS "password" // WiFi password
+#ifdef logging
+
+#include <SoftwareSerial.h>   
+SoftwareSerial espSerial(12,13);  //Rx ==> Pin 12; TX ==> Pin13 
+#define ESP_HARDWARE_RESET 14
 
 /**********
 * ThingSpeak
 **********/
-//#define IP "184.106.153.149"// ip-address for thingspeak.com
-//String msg = "GET /update?key=94IADK04DP5YY184"; // a GET parameter associated with the personal thingspeak channel
+#define thingSpeakIP "184.106.153.149"// ip-address for thingspeak.com
+//String msg = "GET /update?key="; // a GET parameter associated with the personal thingspeak channel
+
+int spare = 0;
+boolean error;
+
+#endif
