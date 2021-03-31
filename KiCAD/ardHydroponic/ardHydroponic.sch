@@ -19,7 +19,7 @@ U 1 1 6045E64B
 P 4200 3350
 F 0 "XA1" H 4200 969 60  0000 C CNN
 F 1 "Arduino_Mega2560" H 4200 863 60  0000 C CNN
-F 2 "My_Arduino:Arduino_Mega2560_Shield__no_ICSP_large" H 4900 6100 60  0001 C CNN
+F 2 "My_Arduino:Arduino_Mega2560_Shield__no_ICSP_no_mount-holes_large" H 4900 6100 60  0001 C CNN
 F 3 "https://store.arduino.cc/arduino-mega-2560-rev3" H 4900 6100 60  0001 C CNN
 	1    4200 3350
 	1    0    0    -1  
@@ -586,34 +586,34 @@ button5
 $Comp
 L Connector:Screw_Terminal_01x06 J2
 U 1 1 607CA2CB
-P 2200 6800
-F 0 "J2" H 2280 6792 50  0000 L CNN
-F 1 "Buttons" H 2280 6701 50  0000 L CNN
-F 2 "My_Parts:6-pole_5-NO_switch_screw_terminal" H 2200 6800 50  0001 C CNN
-F 3 "~" H 2200 6800 50  0001 C CNN
-	1    2200 6800
+P 1450 6800
+F 0 "J2" H 1530 6792 50  0000 L CNN
+F 1 "Buttons" H 1530 6701 50  0000 L CNN
+F 2 "My_Parts:6-pole_5-NO_switch_screw_terminal" H 1450 6800 50  0001 C CNN
+F 3 "~" H 1450 6800 50  0001 C CNN
+	1    1450 6800
 	1    0    0    -1  
 $EndComp
-Text GLabel 1900 6700 0    50   Input ~ 0
+Text GLabel 1150 6700 0    50   Input ~ 0
 button1
-Text GLabel 1900 6800 0    50   Input ~ 0
+Text GLabel 1150 6800 0    50   Input ~ 0
 button2
-Text GLabel 1900 6900 0    50   Input ~ 0
+Text GLabel 1150 6900 0    50   Input ~ 0
 button3
-Text GLabel 1900 7000 0    50   Input ~ 0
+Text GLabel 1150 7000 0    50   Input ~ 0
 button4
-Text GLabel 1900 7100 0    50   Input ~ 0
+Text GLabel 1150 7100 0    50   Input ~ 0
 button5
 Wire Wire Line
-	2000 6700 1900 6700
+	1250 6700 1150 6700
 Wire Wire Line
-	1900 6800 2000 6800
+	1150 6800 1250 6800
 Wire Wire Line
-	2000 6900 1900 6900
+	1250 6900 1150 6900
 Wire Wire Line
-	1900 7000 2000 7000
+	1150 7000 1250 7000
 Wire Wire Line
-	2000 7100 1900 7100
+	1250 7100 1150 7100
 Text GLabel 7600 1100 1    50   Input ~ 0
 pH+
 Text GLabel 7500 1100 1    50   Input ~ 0
@@ -632,62 +632,62 @@ Wire Wire Line
 $Comp
 L Connector:Screw_Terminal_01x07 J3
 U 1 1 60855372
-P 3600 6950
-F 0 "J3" H 3680 6992 50  0000 L CNN
-F 1 "MOSFETs" H 3680 6901 50  0000 L CNN
-F 2 "My_Parts:7-pole_6-MOSFET_screw_terminal" H 3600 6950 50  0001 C CNN
-F 3 "~" H 3600 6950 50  0001 C CNN
-	1    3600 6950
+P 2850 6950
+F 0 "J3" H 2930 6992 50  0000 L CNN
+F 1 "MOSFETs" H 2930 6901 50  0000 L CNN
+F 2 "My_Parts:7-pole_6-MOSFET_screw_terminal" H 2850 6950 50  0001 C CNN
+F 3 "~" H 2850 6950 50  0001 C CNN
+	1    2850 6950
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR0113
 U 1 1 60856567
-P 3300 6450
-F 0 "#PWR0113" H 3300 6300 50  0001 C CNN
-F 1 "+5V" H 3315 6623 50  0000 C CNN
-F 2 "" H 3300 6450 50  0001 C CNN
-F 3 "" H 3300 6450 50  0001 C CNN
-	1    3300 6450
+P 2550 6450
+F 0 "#PWR0113" H 2550 6300 50  0001 C CNN
+F 1 "+5V" H 2565 6623 50  0000 C CNN
+F 2 "" H 2550 6450 50  0001 C CNN
+F 3 "" H 2550 6450 50  0001 C CNN
+	1    2550 6450
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	3400 6650 3300 6650
+	2650 6650 2550 6650
 Wire Wire Line
-	3300 6650 3300 6450
-Text GLabel 3300 6850 0    50   Input ~ 0
+	2550 6650 2550 6450
+Text GLabel 2550 6850 0    50   Input ~ 0
 pH+
-Text GLabel 3300 6950 0    50   Input ~ 0
+Text GLabel 2550 6950 0    50   Input ~ 0
 pH-
-Text GLabel 3300 7050 0    50   Input ~ 0
+Text GLabel 2550 7050 0    50   Input ~ 0
 nutrA
-Text GLabel 3300 7150 0    50   Input ~ 0
+Text GLabel 2550 7150 0    50   Input ~ 0
 nutrB
-Text GLabel 3300 7250 0    50   Input ~ 0
+Text GLabel 2550 7250 0    50   Input ~ 0
 stirrer
 Wire Wire Line
-	3400 6850 3300 6850
+	2650 6850 2550 6850
 Wire Wire Line
-	3300 6950 3400 6950
+	2550 6950 2650 6950
 Wire Wire Line
-	3400 7050 3300 7050
+	2650 7050 2550 7050
 Wire Wire Line
-	3300 7150 3400 7150
+	2550 7150 2650 7150
 Wire Wire Line
-	3400 7250 3300 7250
+	2650 7250 2550 7250
 Wire Wire Line
-	3400 6750 2900 6750
+	2650 6750 2150 6750
 Wire Wire Line
-	2900 6750 2900 7450
+	2150 6750 2150 7450
 $Comp
 L power:GND #PWR0114
 U 1 1 6091C813
-P 2900 7450
-F 0 "#PWR0114" H 2900 7200 50  0001 C CNN
-F 1 "GND" H 2905 7277 50  0000 C CNN
-F 2 "" H 2900 7450 50  0001 C CNN
-F 3 "" H 2900 7450 50  0001 C CNN
-	1    2900 7450
+P 2150 7450
+F 0 "#PWR0114" H 2150 7200 50  0001 C CNN
+F 1 "GND" H 2155 7277 50  0000 C CNN
+F 2 "" H 2150 7450 50  0001 C CNN
+F 3 "" H 2150 7450 50  0001 C CNN
+	1    2150 7450
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -719,18 +719,18 @@ Connection ~ 7200 1600
 Wire Wire Line
 	7200 1100 7200 1600
 Wire Wire Line
-	1900 6600 2000 6600
+	1150 6600 1250 6600
 Wire Wire Line
-	1900 6600 1900 6400
+	1150 6600 1150 6400
 $Comp
 L power:+5V #PWR0111
 U 1 1 607CDEE8
-P 1900 6400
-F 0 "#PWR0111" H 1900 6250 50  0001 C CNN
-F 1 "+5V" H 1915 6573 50  0000 C CNN
-F 2 "" H 1900 6400 50  0001 C CNN
-F 3 "" H 1900 6400 50  0001 C CNN
-	1    1900 6400
+P 1150 6400
+F 0 "#PWR0111" H 1150 6250 50  0001 C CNN
+F 1 "+5V" H 1165 6573 50  0000 C CNN
+F 2 "" H 1150 6400 50  0001 C CNN
+F 3 "" H 1150 6400 50  0001 C CNN
+	1    1150 6400
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -797,4 +797,125 @@ Wire Wire Line
 Connection ~ 7500 3150
 Wire Wire Line
 	7050 2400 7600 2400
+$Comp
+L power:GND #PWR0105
+U 1 1 6065BBCD
+P 6450 7450
+F 0 "#PWR0105" H 6450 7200 50  0001 C CNN
+F 1 "GND" H 6455 7277 50  0000 C CNN
+F 2 "" H 6450 7450 50  0001 C CNN
+F 3 "" H 6450 7450 50  0001 C CNN
+	1    6450 7450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6450 7450 6450 7300
+Wire Wire Line
+	6450 6500 5850 6500
+$Comp
+L power:+3.3V #PWR0106
+U 1 1 6066632F
+P 2300 4500
+F 0 "#PWR0106" H 2300 4350 50  0001 C CNN
+F 1 "+3.3V" H 2315 4673 50  0000 C CNN
+F 2 "" H 2300 4500 50  0001 C CNN
+F 3 "" H 2300 4500 50  0001 C CNN
+	1    2300 4500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2900 5100 2300 5100
+Wire Wire Line
+	2300 5100 2300 4500
+$Comp
+L power:+3.3V #PWR0115
+U 1 1 6066FC4A
+P 4300 6200
+F 0 "#PWR0115" H 4300 6050 50  0001 C CNN
+F 1 "+3.3V" H 4315 6373 50  0000 C CNN
+F 2 "" H 4300 6200 50  0001 C CNN
+F 3 "" H 4300 6200 50  0001 C CNN
+	1    4300 6200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4900 6800 4300 6800
+Wire Wire Line
+	4300 6800 4300 6600
+Text GLabel 5600 2200 2    50   Input ~ 0
+softRx
+Text GLabel 5600 2300 2    50   Input ~ 0
+softTx
+Text GLabel 2800 1900 0    50   Input ~ 0
+espReset
+Wire Wire Line
+	5600 2200 5500 2200
+Wire Wire Line
+	5500 2300 5600 2300
+Text GLabel 4800 6700 0    50   Input ~ 0
+espReset
+Wire Wire Line
+	4900 6700 4800 6700
+Text GLabel 4800 6500 0    50   Input ~ 0
+softRx
+Wire Wire Line
+	4900 6500 4800 6500
+Text GLabel 6150 5750 1    50   Input ~ 0
+softTx
+Wire Wire Line
+	6150 6800 5850 6800
+Wire Wire Line
+	4900 6600 4300 6600
+Connection ~ 4300 6600
+Wire Wire Line
+	4300 6600 4300 6200
+$Comp
+L Device:R R7
+U 1 1 60744C67
+P 6150 6100
+F 0 "R7" H 6220 6146 50  0000 L CNN
+F 1 "1k" H 6220 6055 50  0000 L CNN
+F 2 "My_Misc:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal_larger_pads" V 6080 6100 50  0001 C CNN
+F 3 "~" H 6150 6100 50  0001 C CNN
+	1    6150 6100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R8
+U 1 1 60745883
+P 6150 7050
+F 0 "R8" H 6220 7096 50  0000 L CNN
+F 1 "2.2k" H 6220 7005 50  0000 L CNN
+F 2 "My_Misc:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal_larger_pads" V 6080 7050 50  0001 C CNN
+F 3 "~" H 6150 7050 50  0001 C CNN
+	1    6150 7050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6150 6250 6150 6800
+Wire Wire Line
+	6150 6800 6150 6900
+Connection ~ 6150 6800
+Wire Wire Line
+	6150 5950 6150 5750
+Wire Wire Line
+	6150 7200 6150 7300
+Wire Wire Line
+	6150 7300 6450 7300
+Connection ~ 6450 7300
+Wire Wire Line
+	6450 7300 6450 6500
+$Comp
+L My_Arduino:ESP-01 U10
+U 1 1 608444F6
+P 4900 6500
+F 0 "U10" H 5375 6725 50  0000 C CNN
+F 1 "ESP-01" H 5375 6634 50  0000 C CNN
+F 2 "My_Arduino:ESP-01_large" H 5600 6350 50  0001 C CNN
+F 3 "http://l0l.org.uk/2014/12/esp8266-modules-hardware-guide-gotta-catch-em-all/" H 5600 6350 50  0001 C CNN
+	1    4900 6500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2900 1900 2800 1900
 $EndSCHEMATC
