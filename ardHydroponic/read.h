@@ -231,7 +231,7 @@ void readSensors()
     printToLCD(12, 3, "   ");
   }
 
-#ifdef logging
+#ifdef logToThingSpeak
   Serial.println("Writing to thingSpeak...");
   writeThingSpeak();
 #endif

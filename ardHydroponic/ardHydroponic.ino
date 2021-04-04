@@ -1,13 +1,12 @@
-#define logging // enable this if you got an ESP-01 and a thingSPeak channel
+#define logToThingSpeak // enable this if you got an ESP-01 and a thingSPeak channel
 
 /**********
 * Include files
 **********/
 
-
 #include "config.h"
 
-#ifdef logging
+#ifdef logToThingSpeak
 #include "secrets.h"
 #include "thingSpeak.h"
 #endif
@@ -38,14 +37,6 @@ void setup()
   Serial.println();
 
   /**********
-  * EEPROM
-  **********/
-  //clearEEPROM();
-  Serial.println("Reading EEPROM...");
-  initEEPROMCheck();
-  Serial.println();
-
-  /**********
   * LCD
   **********/
   Serial.println("Starting LCD...");
@@ -53,10 +44,24 @@ void setup()
   lcd.begin();
   Serial.println();
 
+  bootScreen(programName);
+  bootScreen(date);
+
+  /**********
+  * EEPROM
+  **********/
+  //clearEEPROM();
+  Serial.println("Reading EEPROM...");
+  bootScreen("Reading EEPROM...   ");
+
+  initEEPROMCheck();
+  Serial.println();
+
   /**********
   * In/Outputs
   **********/
-  Serial.println("Starting In/Out puts...");
+  Serial.println("Starting In/Outputs...");
+  bootScreen("Starting In/Outputs.");
 
   pinMode(pHPlusPump, OUTPUT);
   pinMode(pHMinusPump, OUTPUT);
@@ -64,8 +69,8 @@ void setup()
   pinMode(nutrBPump, OUTPUT);
   pinMode(stirrer, OUTPUT);
 
-#ifdef logging
-  pinMode(ESP_HARDWARE_RESET, OUTPUT);
+#ifdef logToThingSpeak
+  pinMode(espHardwareReset, OUTPUT);
 #endif
 
   Serial.println();
@@ -74,6 +79,7 @@ void setup()
   * Setup FTDebouncer pins
   **********/
   Serial.println("Setting up buttons...");
+  bootScreen("Setting up buttons..");
 
   pinDebouncer.addPin(button1, LOW); // pin has external pull-down resistor
   pinDebouncer.addPin(button2, LOW);
@@ -88,14 +94,52 @@ void setup()
 /**********
    * ESP-01
    **********/
-#ifdef logging
+#ifdef logToThingSpeak
   Serial.println("Starting ESP-01...");
-  digitalWrite(ESP_HARDWARE_RESET, HIGH);
+  bootScreen("Starting ESP-01...  ");
 
-  espSerial.begin(serialBaudRate);
-  EspHardwareReset();
-
+  digitalWrite(espHardwareReset, HIGH);
   Serial.println();
+
+  Serial.println("Starting Serial1 for ESP communication...");
+  bootScreen("Starting Serial1... ");
+
+  Serial1.begin(serialBaudRate);
+  Serial.println();
+
+  Serial.println("Resetting ESP module...");
+  bootScreen("Resetting ESP module");
+
+  EspHardwareReset();
+  Serial.println();
+
+  Serial.println("Checking ESP with simple AT command...");
+  sendATCommand("AT");
+  Serial.println("This should have produced an 'OK'");
+  Serial.println();
+
+  Serial.print("Connecting to SSID '");
+  Serial.print(SSID);
+  Serial.print("' with password '");
+  Serial.print(PASS);
+  Serial.println("'...");
+  bootScreen("Connecting to WiFi..");
+
+  String connectString = "AT+CWJAP=\""; // construct the connect command
+  connectString += SSID;
+  connectString += "\",\"";
+  connectString += PASS;
+  connectString += "\"";
+
+  sendATCommand(connectString);
+  Serial.println();
+
+  Serial.println("Checking for IP...");
+  bootScreen("Checking for IP...  ");
+
+  sendATCommand("AT+CIFSR"); // command to print IPs
+  Serial.println();
+
 #endif
 
   /***********
@@ -106,6 +150,7 @@ void setup()
   /**********
   * Initiate screen
   **********/
+  clearLCD();
   printNormal();
   readSensors();
 }

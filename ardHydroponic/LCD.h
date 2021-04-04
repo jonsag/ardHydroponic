@@ -179,3 +179,48 @@ void printSettings()
   printToLCD(0, 0, "Mode:");
   printMode();
 }
+
+void bootScreen(String message)
+{
+  clearLCD();
+
+  /*
+  int strLen = message.length() + 1;      // length (with one extra character for the null terminator)
+  char charArray[strLen];                 // prepare the character array (the buffer)
+  message.toCharArray(charArray, strLen); // copy it over
+*/
+
+  switch (bootScreenLineNo)
+  {
+  case 0:
+    bootScreenLine0 = message;
+    bootScreenLine1 = "";
+    bootScreenLine2 = "";
+    bootScreenLine3 = "";
+    break;
+  case 1:
+    bootScreenLine1 = message;
+    break;
+  case 2:
+    bootScreenLine2 = message;
+    break;
+  case 3:
+    bootScreenLine3 = message;
+    break;
+  default:
+    bootScreenLine0 = bootScreenLine1;
+    bootScreenLine1 = bootScreenLine2;
+    bootScreenLine2 = bootScreenLine3;
+    bootScreenLine3 = message;
+    bootScreenLineNo = 3;
+  }
+
+printToLCD(0, 0, bootScreenLine0);
+printToLCD(0, 1, bootScreenLine1);
+printToLCD(0, 2, bootScreenLine2);
+printToLCD(0, 3, bootScreenLine3);
+
+  Serial.println();
+
+  bootScreenLineNo++;
+}
