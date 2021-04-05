@@ -4,6 +4,12 @@ String author = "Jon Sagebrand";
 String email = "jonsagebrand@gmail.com";
 
 /**********
+ * Debug and plot
+ **********/
+const boolean debug = 0;
+const boolean plot = 1;
+
+/**********
 * Configurable variables
 **********/
 char *varNames[] = {

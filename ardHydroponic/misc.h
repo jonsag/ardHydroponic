@@ -1,3 +1,4 @@
+
 int intLength(long value)
 {
   int length;
@@ -32,8 +33,8 @@ clearLCD();
     switch (mode)
     {
     case 0:
-      Serial.println();
-      Serial.println("-> Normal mode");
+      if (debug) Serial.println();
+      if (debug) Serial.println("-> Normal mode");
       if (oldMode == 3 || oldMode == 4)
       {
         printNormal();
@@ -44,23 +45,23 @@ clearLCD();
       }
       break;
     case 1:
-      Serial.println();
-      Serial.println("-> Reading mode");
+      if (debug) Serial.println();
+      if (debug) Serial.println("-> Reading mode");
       printMode();
       break;
     case 2:
-      Serial.println();
-      Serial.println("-> Pumping mode");
+      if (debug) Serial.println();
+      if (debug) Serial.println("-> Pumping mode");
       printMode();
       break;
     case 3:
-      Serial.println();
-      Serial.println("-> Maintenance mode");
+      if (debug) Serial.println();
+      if (debug) Serial.println("-> Maintenance mode");
       printMaintenance();
       break;
     case 4:
-      Serial.println();
-      Serial.println("-> Settings mode");
+      if (debug) Serial.println();
+      if (debug) Serial.println("-> Settings mode");
       printSettings();
       break;
     }

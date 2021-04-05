@@ -8,12 +8,12 @@ void startThingSpeakCmd(void)
   cmd += "\",80";
   Serial1.println(cmd);
 
-  Serial.print("Sent ==> Start cmd: ");
-  Serial.println(cmd);
+  if (debug) Serial.print("Sent ==> Start cmd: ");
+  if (debug) Serial.println(cmd);
 
   if (Serial1.find("Error"))
   {
-    Serial.println("AT+CIPSTART error");
+    if (debug) Serial.println("AT+CIPSTART error");
     return;
   }
 }
@@ -23,14 +23,14 @@ String sendThingSpeakGetCmd(String getStr)
   String cmd = "AT+CIPSEND=";
   cmd += String(getStr.length());
   Serial1.println(cmd);
-  Serial.print("Sent ==> length cmd: ");
-  Serial.println(cmd);
+  if (debug) Serial.print("Sent ==> length cmd: ");
+  if (debug) Serial.println(cmd);
 
   if (Serial1.find((char *)">"))
   {
     Serial1.print(getStr);
-    Serial.print("Sent ==> getStr: ");
-    Serial.println(getStr);
+    if (debug) Serial.print("Sent ==> getStr: ");
+    if (debug) Serial.println(getStr);
     delay(500); // time to process the GET, without this delay it displays busy in the next command
 
     String messageBody = "";
@@ -42,14 +42,14 @@ String sendThingSpeakGetCmd(String getStr)
         messageBody = Serial1.readStringUntil('\n');
       }
     }
-    Serial.print("MessageBody received: ");
-    Serial.println(messageBody);
+    if (debug) Serial.print("MessageBody received: ");
+    if (debug) Serial.println(messageBody);
     return messageBody;
   }
   else
   {
     Serial1.println("AT+CIPCLOSE");                     // alert user
-    Serial.println("ESP8266 CIPSEND ERROR: RESENDING"); //Resend...
+    if (debug) Serial.println("ESP8266 CIPSEND ERROR: RESENDING"); //Resend...
     spare = spare + 1;
     error = 1;
     return "error";
@@ -78,12 +78,12 @@ void writeThingSpeak(void)
 
 void EspHardwareReset(void)
 { // reset ESP
-  Serial.println("Resetting...");
+  if (debug) Serial.println("Resetting...");
   digitalWrite(espHardwareReset, LOW);
   delay(500);
   digitalWrite(espHardwareReset, HIGH);
   delay(8000); // time needed to start reading
-  Serial.println("RESET!");
+  if (debug) Serial.println("RESET!");
 }
 
 void sendATCommand(String command)
@@ -93,13 +93,13 @@ void sendATCommand(String command)
   command += "\r\n\r\n";
   Serial1.println(command);
 
-  Serial.print("Sent ==> Command: ");
-  Serial.println(command);
+  if (debug) Serial.print("Sent ==> Command: ");
+  if (debug) Serial.println(command);
 
-  delay(500);
   while (Serial1.available())
   {
-    String inData = Serial1.readStringUntil('\n');
-    Serial.println("Got response from ESP8266: " + inData);
+    if (debug) Serial.print(Serial1.read());
+    //String inData = Serial1.readStringUntil('\n');
+    //if (debug) Serial.println("Got response from ESP8266: " + inData);
   }
 }
