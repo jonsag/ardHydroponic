@@ -294,12 +294,12 @@ void readSensors()
   {
     Serial.print("Temp:");
     Serial.println(temperatureSum);
-    Serial.print(",pH:");
+    Serial.print("pH:");
     Serial.println(pHValue);
-    Serial.print(",TDS:");
+    Serial.print("TDS:");
     Serial.println(TDSValue);
   }
-  
+
   if (debug)
     Serial.println();
 }
