@@ -1,7 +1,13 @@
 String programName = "ardHydroponic";
-String date = "20210329";
+String date = "20210404";
 String author = "Jon Sagebrand";
 String email = "jonsagebrand@gmail.com";
+
+/**********
+ * Debug and plot
+ **********/
+const boolean debug = 0;
+const byte plot = 2; // 0: no plotting, 1: all values with headers on one line, 2: header and value on separate lines
 
 /**********
 * Configurable variables
@@ -92,6 +98,11 @@ const int button3 = 9;
 const int button4 = 10;
 const int button5 = 11;
 
+#ifdef logToThingSpeak
+const int espHardwareReset = 12;
+// connect ESP-Rx -> D18, ESP-Tx -> D19
+#endif
+
 /**********
 * EEPROM
 **********/
@@ -167,7 +178,7 @@ unsigned long int avgValue; // average value of the sensor feedback
 const byte noOfReadings = 10;
 const int millisBetweenReadings = 10;
 int buf[noOfReadings];
-int temp;          // reading samples
+int temp; // reading samples
 
 /**********
 * Misc
@@ -203,23 +214,25 @@ char *outputNames[] = {"pH+    ", "pH-    ", "Nutr A ", "Nutr B ", "Stirrer"};
 unsigned long stirStartMillis = 0; // when was the stirrer started
 unsigned long stirStopMillis = 0;  // when did the stirrer stop
 
-int i;           // just a counter used sometimes
+int i; // just a counter used sometimes
 int j;
 float tempValue; // holds different bvtes
+
+byte bootScreenLineNo = 0;
+String bootScreenLine0;
+String bootScreenLine1;
+String bootScreenLine2;
+String bootScreenLine3;
 
 /**********
 * WiFi
 **********/
-#ifdef logging
-
-#include <SoftwareSerial.h>   
-SoftwareSerial espSerial(12,13);  //Rx ==> Pin 12; TX ==> Pin13 
-#define ESP_HARDWARE_RESET 14
+#ifdef logToThingSpeak
 
 /**********
 * ThingSpeak
 **********/
-#define thingSpeakIP "184.106.153.149"// ip-address for thingspeak.com
+#define thingSpeakIP "184.106.153.149" // ip-address for thingspeak.com
 //String msg = "GET /update?key="; // a GET parameter associated with the personal thingspeak channel
 
 int spare = 0;

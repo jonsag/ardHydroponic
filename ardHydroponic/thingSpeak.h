@@ -1,34 +1,19 @@
 
-/*
-void updateTS()
-{                                          // ThingSpeak channel update function
-    String cmd = "AT+CIPSTART=\"TCP\",\""; // a serial command to instruct the WiFi chip
-    cmd += IP;                             // adding the string containing the IP for ThingSpeak
-    cmd += "\",80";                        // the port to communicate with ThingSpeak through
-    Serial.println(cmd);                   // establishing connection with ThingSpeak
-    delay(2000);                           // time delay
-}
-
-void updateThingSpeak()
-{
-    updateTS(); // calling on function to update the ThingSpeak channel with new data
-}
-*/
-
 void startThingSpeakCmd(void)
-{ // start communication with thingSpeak
-  espSerial.flush(); // clears the buffer before starting to write
-  
+{                  // start communication with thingSpeak
+  Serial1.flush(); // clears the buffer before starting to write
+
   String cmd = "AT+CIPSTART=\"TCP\",\"";
   cmd += thingSpeakIP; // Endereco IP de api.thingspeak.com
   cmd += "\",80";
-  espSerial.println(cmd);
-  Serial.print("Sent ==> Start cmd: ");
-  Serial.println(cmd);
+  Serial1.println(cmd);
 
-  if(espSerial.find("Error"))
+  if (debug) Serial.print("Sent ==> Start cmd: ");
+  if (debug) Serial.println(cmd);
+
+  if (Serial1.find("Error"))
   {
-    Serial.println("AT+CIPSTART error");
+    if (debug) Serial.println("AT+CIPSTART error");
     return;
   }
 }
@@ -37,38 +22,38 @@ String sendThingSpeakGetCmd(String getStr)
 { // send a GET cmd to ThingSpeak
   String cmd = "AT+CIPSEND=";
   cmd += String(getStr.length());
-  espSerial.println(cmd);
-  Serial.print("Sent ==> length cmd: ");
-  Serial.println(cmd);
+  Serial1.println(cmd);
+  if (debug) Serial.print("Sent ==> length cmd: ");
+  if (debug) Serial.println(cmd);
 
-  if(espSerial.find((char *)">"))
+  if (Serial1.find((char *)">"))
   {
-    espSerial.print(getStr);
-    Serial.print("Sent ==> getStr: ");
-    Serial.println(getStr);
+    Serial1.print(getStr);
+    if (debug) Serial.print("Sent ==> getStr: ");
+    if (debug) Serial.println(getStr);
     delay(500); // time to process the GET, without this delay it displays busy in the next command
 
     String messageBody = "";
-    while (espSerial.available()) 
+    while (Serial1.available())
     {
-      String line = espSerial.readStringUntil('\n');
-      if (line.length() == 1) 
+      String line = Serial1.readStringUntil('\n');
+      if (line.length() == 1)
       { //actual content starts after empty line (that has length 1)
-        messageBody = espSerial.readStringUntil('\n');
+        messageBody = Serial1.readStringUntil('\n');
       }
     }
-    Serial.print("MessageBody received: ");
-    Serial.println(messageBody);
+    if (debug) Serial.print("MessageBody received: ");
+    if (debug) Serial.println(messageBody);
     return messageBody;
   }
   else
   {
-    espSerial.println("AT+CIPCLOSE");     // alert user
-    Serial.println("ESP8266 CIPSEND ERROR: RESENDING"); //Resend...
+    Serial1.println("AT+CIPCLOSE");                     // alert user
+    if (debug) Serial.println("ESP8266 CIPSEND ERROR: RESENDING"); //Resend...
     spare = spare + 1;
-    error=1;
+    error = 1;
     return "error";
-  } 
+  }
 }
 
 void writeThingSpeak(void)
@@ -79,25 +64,42 @@ void writeThingSpeak(void)
   // prepare the GET string
   String getStr = "GET /update?api_key=";
   getStr += thingSpeakWriteKey;
-  getStr +="&field1=";
+  getStr += "&field1=";
   getStr += String(temperatureSum);
-  getStr +="&field2=";
+  getStr += "&field2=";
   getStr += String(pHValue);
-  getStr +="&field3=";
+  getStr += "&field3=";
   getStr += String(TDSValue);
- 
+
   getStr += "\r\n\r\n";
 
-  sendThingSpeakGetCmd(getStr); 
+  sendThingSpeakGetCmd(getStr);
 }
 
 void EspHardwareReset(void)
 { // reset ESP
-  Serial.println("Resetting......."); 
-  digitalWrite(ESP_HARDWARE_RESET, LOW); 
+  if (debug) Serial.println("Resetting...");
+  digitalWrite(espHardwareReset, LOW);
   delay(500);
-  digitalWrite(ESP_HARDWARE_RESET, HIGH);
-  delay(8000); // time needed to start reading 
-  Serial.println("RESET"); 
+  digitalWrite(espHardwareReset, HIGH);
+  delay(8000); // time needed to start reading
+  if (debug) Serial.println("RESET!");
 }
 
+void sendATCommand(String command)
+{
+  Serial1.flush(); // clears the buffer before starting to write
+
+  command += "\r\n\r\n";
+  Serial1.println(command);
+
+  if (debug) Serial.print("Sent ==> Command: ");
+  if (debug) Serial.println(command);
+
+  while (Serial1.available())
+  {
+    if (debug) Serial.print(Serial1.read());
+    //String inData = Serial1.readStringUntil('\n');
+    //if (debug) Serial.println("Got response from ESP8266: " + inData);
+  }
+}

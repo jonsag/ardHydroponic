@@ -1,13 +1,12 @@
-#define logging // enable this if you got an ESP-01 and a thingSPeak channel
+//#define logToThingSpeak // enable this if you got an ESP-01 and a thingSPeak channel
 
 /**********
 * Include files
 **********/
 
-
 #include "config.h"
 
-#ifdef logging
+#ifdef logToThingSpeak
 #include "secrets.h"
 #include "thingSpeak.h"
 #endif
@@ -29,34 +28,52 @@ void setup()
   /*******************************
   * Print start information
   *******************************/
-  Serial.println();
-  Serial.println(programName); // print information
-  Serial.println(date);
-  Serial.print("by ");
-  Serial.println(author);
-  Serial.println(email);
-  Serial.println();
+  if (debug)
+    Serial.println();
+  if (debug)
+    Serial.println(programName); // print information
+  if (debug)
+    Serial.println(date);
+  if (debug)
+    Serial.print("by ");
+  if (debug)
+    Serial.println(author);
+  if (debug)
+    Serial.println(email);
+  if (debug)
+    Serial.println();
+
+  /**********
+  * LCD
+  **********/
+  if (debug)
+    Serial.println("Starting LCD...");
+
+  lcd.begin();
+  if (debug)
+    Serial.println();
+
+  bootScreen(programName);
+  bootScreen(date);
 
   /**********
   * EEPROM
   **********/
   //clearEEPROM();
-  Serial.println("Reading EEPROM...");
+  if (debug)
+    Serial.println("Reading EEPROM...");
+  bootScreen("Reading EEPROM...   ");
+
   initEEPROMCheck();
-  Serial.println();
-
-  /**********
-  * LCD
-  **********/
-  Serial.println("Starting LCD...");
-
-  lcd.begin();
-  Serial.println();
+  if (debug)
+    Serial.println();
 
   /**********
   * In/Outputs
   **********/
-  Serial.println("Starting In/Out puts...");
+  if (debug)
+    Serial.println("Starting In/Outputs...");
+  bootScreen("Starting In/Outputs.");
 
   pinMode(pHPlusPump, OUTPUT);
   pinMode(pHMinusPump, OUTPUT);
@@ -64,16 +81,19 @@ void setup()
   pinMode(nutrBPump, OUTPUT);
   pinMode(stirrer, OUTPUT);
 
-#ifdef logging
-  pinMode(ESP_HARDWARE_RESET, OUTPUT);
+#ifdef logToThingSpeak
+  pinMode(espHardwareReset, OUTPUT);
 #endif
 
-  Serial.println();
+  if (debug)
+    Serial.println();
 
   /**********
   * Setup FTDebouncer pins
   **********/
-  Serial.println("Setting up buttons...");
+  if (debug)
+    Serial.println("Setting up buttons...");
+  bootScreen("Setting up buttons..");
 
   pinDebouncer.addPin(button1, LOW); // pin has external pull-down resistor
   pinDebouncer.addPin(button2, LOW);
@@ -83,29 +103,86 @@ void setup()
 
   pinDebouncer.init(); // initiate debounce
 
-  Serial.println();
+  if (debug)
+    Serial.println();
 
 /**********
    * ESP-01
    **********/
-#ifdef logging
-  Serial.println("Starting ESP-01...");
-  digitalWrite(ESP_HARDWARE_RESET, HIGH);
+#ifdef logToThingSpeak
+  if (debug)
+    Serial.println("Starting ESP-01...");
+  bootScreen("Starting ESP-01...  ");
 
-  espSerial.begin(serialBaudRate);
+  digitalWrite(espHardwareReset, HIGH);
+  if (debug)
+    Serial.println();
+
+  if (debug)
+    Serial.println("Starting Serial1 for ESP communication...");
+  bootScreen("Starting Serial1... ");
+
+  Serial1.begin(serialBaudRate);
+  if (debug)
+    Serial.println();
+
+  if (debug)
+    Serial.println("Resetting ESP module...");
+  bootScreen("Resetting ESP module");
+
   EspHardwareReset();
+  if (debug)
+    Serial.println();
 
-  Serial.println();
+  if (debug)
+    Serial.println("Checking ESP with simple AT command...");
+  sendATCommand("AT");
+  if (debug)
+    Serial.println("This should have produced an 'OK'");
+  if (debug)
+    Serial.println();
+
+  if (debug)
+    Serial.print("Connecting to SSID '");
+  if (debug)
+    Serial.print(SSID);
+  if (debug)
+    Serial.print("' with password '");
+  if (debug)
+    Serial.print(PASS);
+  if (debug)
+    Serial.println("'...");
+  bootScreen("Connecting to WiFi..");
+
+  String connectString = "AT+CWJAP=\""; // construct the connect command
+  connectString += SSID;
+  connectString += "\",\"";
+  connectString += PASS;
+  connectString += "\"";
+
+  sendATCommand(connectString);
+  if (debug)
+    Serial.println();
+
+  if (debug)
+    Serial.println("Checking for IP...");
+  bootScreen("Checking for IP...  ");
+
+  sendATCommand("AT+CIFSR"); // command to print IPs
+  if (debug)
+    Serial.println();
+
 #endif
 
   /***********
   * WiFi
   ***********/
-  //Serial.println("AT"); // Hayes command call for attention    }
+  //if (debug) Serial.println("AT"); // Hayes command call for attention    }
 
   /**********
   * Initiate screen
   **********/
+  clearLCD();
   printNormal();
   readSensors();
 }
@@ -134,7 +211,7 @@ void loop()
       /*
       if (counter <= 1)
       {
-        Serial.println("Powering EC sensor...");
+        if (debug) Serial.println("Powering EC sensor...");
         digitalWrite(ECPower, HIGH); // setting the power pin for EC sensor to high
       }
       */

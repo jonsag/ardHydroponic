@@ -11,36 +11,36 @@ void printToLCD(int col, int row, String text)
 
 void printMode()
 {
-  Serial.print("LCD -> Printing mode: ");
+  if (debug) Serial.print("LCD -> Printing mode: ");
   switch (mode)
   {
   case 0:
-    Serial.println("Running...");
+    if (debug) Serial.println("Running...");
     printToLCD(6, 0, "Running...  ");
     break;
   case 1:
-    Serial.println("Reading...");
+    if (debug) Serial.println("Reading...");
     printToLCD(6, 0, "Reading...  ");
     break;
   case 2:
-    Serial.println("Pumping...");
+    if (debug) Serial.println("Pumping...");
     printToLCD(6, 0, "Pumping...  ");
     break;
   case 3:
-    Serial.println("Maintenance");
+    if (debug) Serial.println("Maintenance");
     printToLCD(6, 0, "Maintenance ");
     break;
   case 4:
-    Serial.println("Settings");
+    if (debug) Serial.println("Settings");
     printToLCD(6, 0, "Settings    ");
     break;
   }
-  Serial.println();
+  if (debug) Serial.println();
 }
 
 void printTemp()
 {
-  Serial.println("LCD -> Printing temp");
+  if (debug) Serial.println("LCD -> Printing temp");
 
   dtostrf(temperatureSum, 1, 1, dtostrfBuffer);
   printToLCD(6, 1, dtostrfBuffer);
@@ -52,7 +52,7 @@ void printTemp()
 
 void printPHValue()
 {
-  Serial.println("LCD -> Printing pH value");
+  if (debug) Serial.println("LCD -> Printing pH value");
 
   dtostrf(pHValue, 2, 2, dtostrfBuffer);
   printToLCD(4, 2, dtostrfBuffer);
@@ -64,7 +64,7 @@ void printPHValue()
 /*
 void printECValue()
 {
-  Serial.println("LCD -> Printing EC value");
+  if (debug) Serial.println("LCD -> Printing EC value");
 
   dtostrf(EC25, 2, 2, dtostrfBuffer);
   printToLCD(4, 3, dtostrfBuffer);
@@ -73,7 +73,7 @@ void printECValue()
 
 void printTDSValue()
 {
-  Serial.println("LCD -> Printing TDS value");
+  if (debug) Serial.println("LCD -> Printing TDS value");
 
   dtostrf(TDSValue, 2, 0, dtostrfBuffer);
   printToLCD(5, 3, dtostrfBuffer);
@@ -84,7 +84,7 @@ void printTDSValue()
 
 void printNormal()
 {
-  Serial.println("LCD -> Normal mode");
+  if (debug) Serial.println("LCD -> Normal mode");
 
   //lcd.clear();
 
@@ -108,11 +108,11 @@ void printNormal()
 
 void printSelectedOutput()
 {
-  Serial.println("LCD -> Printing selected output");
-  Serial.print(outputNumber);
-  Serial.print(": ");
-  Serial.print(outputNames[outputNumber]);
-  Serial.println(" selected");
+  if (debug) Serial.println("LCD -> Printing selected output");
+  if (debug) Serial.print(outputNumber);
+  if (debug) Serial.print(": ");
+  if (debug) Serial.print(outputNames[outputNumber]);
+  if (debug) Serial.println(" selected");
 
   printToLCD(0, 2, String(outputNumber));
   printToLCD(0, 3, outputNames[outputNumber]);
@@ -120,17 +120,17 @@ void printSelectedOutput()
 
 void printSelectedVar()
 {
-  Serial.println("LCD -> Printing selected variable");
-  Serial.print(varNumber);
-  Serial.print(": ");
-  Serial.print(varNames[varNumber]);
-  Serial.print("\tOld value: ");
-  Serial.print(vars[varNumber]);
-  Serial.print("\t+-: ");
-  Serial.print(incs[varNumber]);
-  Serial.print("\tNew value: ");
-  Serial.print(tempValue);
-  Serial.println();
+  if (debug) Serial.println("LCD -> Printing selected variable");
+  if (debug) Serial.print(varNumber);
+  if (debug) Serial.print(": ");
+  if (debug) Serial.print(varNames[varNumber]);
+  if (debug) Serial.print("\tOld value: ");
+  if (debug) Serial.print(vars[varNumber]);
+  if (debug) Serial.print("\t+-: ");
+  if (debug) Serial.print(incs[varNumber]);
+  if (debug) Serial.print("\tNew value: ");
+  if (debug) Serial.print(tempValue);
+  if (debug) Serial.println();
 
   printToLCD(0, 1, varNames[varNumber]);
 
@@ -178,4 +178,49 @@ void printSettings()
   clearLCD();
   printToLCD(0, 0, "Mode:");
   printMode();
+}
+
+void bootScreen(String message)
+{
+  clearLCD();
+
+  /*
+  int strLen = message.length() + 1;      // length (with one extra character for the null terminator)
+  char charArray[strLen];                 // prepare the character array (the buffer)
+  message.toCharArray(charArray, strLen); // copy it over
+*/
+
+  switch (bootScreenLineNo)
+  {
+  case 0:
+    bootScreenLine0 = message;
+    bootScreenLine1 = "";
+    bootScreenLine2 = "";
+    bootScreenLine3 = "";
+    break;
+  case 1:
+    bootScreenLine1 = message;
+    break;
+  case 2:
+    bootScreenLine2 = message;
+    break;
+  case 3:
+    bootScreenLine3 = message;
+    break;
+  default:
+    bootScreenLine0 = bootScreenLine1;
+    bootScreenLine1 = bootScreenLine2;
+    bootScreenLine2 = bootScreenLine3;
+    bootScreenLine3 = message;
+    bootScreenLineNo = 3;
+  }
+
+printToLCD(0, 0, bootScreenLine0);
+printToLCD(0, 1, bootScreenLine1);
+printToLCD(0, 2, bootScreenLine2);
+printToLCD(0, 3, bootScreenLine3);
+
+  if (debug) Serial.println();
+
+  bootScreenLineNo++;
 }
