@@ -1,6 +1,7 @@
 float readWaterTemp()
 {
-  if (debug) Serial.println("Reading water temp...");
+  if (debug)
+    Serial.println("Reading water temp...");
 
   if (!ds.search(addr))
   { // no more sensors on chain, reset search
@@ -95,7 +96,8 @@ int getAvgValue(int sensorPin)
 
 float readpHValue(float neutralPH, float acidPH, float neutralVoltage, float acidVoltage, float voltageOffset)
 {
-  if (debug) Serial.println("Reading pH value...");
+  if (debug)
+    Serial.println("Reading pH value...");
 
   pHVoltage = getAvgValue(pHSensorPin) / adcRange * aref * 1000;
 
@@ -108,51 +110,84 @@ float readpHValue(float neutralPH, float acidPH, float neutralVoltage, float aci
   pHValue = slope * (pHVoltage - voltageOffset) / 3.0 + intercept; //y = k*x + b
   //pHValue = slope * (voltage - 1500.0       ) / 3.0 + intercept;
 
-  if (debug) Serial.print("Neutral pH: ");
-  if (debug) Serial.println(neutralPH);
-  if (debug) Serial.print("Acid pH: ");
-  if (debug) Serial.println(acidPH);
-  if (debug) Serial.print("Neutral voltage: ");
-  if (debug) Serial.println(neutralVoltage);
-  if (debug) Serial.print("Acid voltage: ");
-  if (debug) Serial.println(acidVoltage);
-  if (debug) Serial.print("Voltage offset: ");
-  if (debug) Serial.println(voltageOffset);
-  if (debug) Serial.print("adc range: ");
-  if (debug) Serial.println(adcRange);
-  if (debug) Serial.print("aref: ");
-  if (debug) Serial.println(aref);
-  if (debug) Serial.print("pH voltage: ");
-  if (debug) Serial.println(pHVoltage);
-  if (debug) Serial.print("slope: ");
-  if (debug) Serial.println(slope);
-  if (debug) Serial.print("intercept: ");
-  if (debug) Serial.println(intercept);
-  if (debug) Serial.print("pH value: ");
-  if (debug) Serial.println(pHValue);
+  if (debug)
+    Serial.print("Neutral pH: ");
+  if (debug)
+    Serial.println(neutralPH);
+  if (debug)
+    Serial.print("Acid pH: ");
+  if (debug)
+    Serial.println(acidPH);
+  if (debug)
+    Serial.print("Neutral voltage: ");
+  if (debug)
+    Serial.println(neutralVoltage);
+  if (debug)
+    Serial.print("Acid voltage: ");
+  if (debug)
+    Serial.println(acidVoltage);
+  if (debug)
+    Serial.print("Voltage offset: ");
+  if (debug)
+    Serial.println(voltageOffset);
+  if (debug)
+    Serial.print("adc range: ");
+  if (debug)
+    Serial.println(adcRange);
+  if (debug)
+    Serial.print("aref: ");
+  if (debug)
+    Serial.println(aref);
+  if (debug)
+    Serial.print("pH voltage: ");
+  if (debug)
+    Serial.println(pHVoltage);
+  if (debug)
+    Serial.print("slope: ");
+  if (debug)
+    Serial.println(slope);
+  if (debug)
+    Serial.print("intercept: ");
+  if (debug)
+    Serial.println(intercept);
+  if (debug)
+    Serial.print("pH value: ");
+  if (debug)
+    Serial.println(pHValue);
 
   return pHValue;
 }
 
 float readTDSValue(float tmpKValue, float tmpTdsFactor)
 {
-  if (debug) Serial.println("Reading TDS value...");
+  if (debug)
+    Serial.println("Reading TDS value...");
 
   voltage = getAvgValue(ECSensorPin) / adcRange * aref;
   //ecValue = (133.42 *  voltage * voltage * voltage - 255.86 * voltage * voltage + 857.39 * voltage) * vars[10];
   ecValue25 = ((133.42 * voltage * voltage * voltage - 255.86 * voltage * voltage + 857.39 * voltage) * tmpKValue) / (1.0 + 0.02 * (temperatureSum - 25.0)); //temperature compensation
   TDSValue = ecValue25 * tmpTdsFactor;
 
-  if (debug) Serial.print("adc range: ");
-  if (debug) Serial.println(adcRange);
-  if (debug) Serial.print("aref: ");
-  if (debug) Serial.println(aref);
-  if (debug) Serial.print("Voltage: ");
-  if (debug) Serial.println(voltage);
-  if (debug) Serial.print("ec25: ");
-  if (debug) Serial.println(ecValue25);
-  if (debug) Serial.print("TDS value: ");
-  if (debug) Serial.println(TDSValue);
+  if (debug)
+    Serial.print("adc range: ");
+  if (debug)
+    Serial.println(adcRange);
+  if (debug)
+    Serial.print("aref: ");
+  if (debug)
+    Serial.println(aref);
+  if (debug)
+    Serial.print("Voltage: ");
+  if (debug)
+    Serial.println(voltage);
+  if (debug)
+    Serial.print("ec25: ");
+  if (debug)
+    Serial.println(ecValue25);
+  if (debug)
+    Serial.print("TDS value: ");
+  if (debug)
+    Serial.println(TDSValue);
 
   return TDSValue;
 }
@@ -161,23 +196,28 @@ void readSensors()
 {
   temperatureSum = readWaterTemp();
 
-  if (debug) Serial.print("Tank temp: ");
-  if (debug) Serial.println(temperatureSum);
+  if (debug)
+    Serial.print("Tank temp: ");
+  if (debug)
+    Serial.println(temperatureSum);
 
   if (temperatureSum != oldTemperatureSum)
   {
     printTemp();
     oldTemperatureSum = temperatureSum;
   }
-  if (debug) Serial.println();
+  if (debug)
+    Serial.println();
 
   /**********
   * Read PH value
   **********/
   pHValue = readpHValue(vars[12], vars[13], vars[14], vars[15], vars[16]);
 
-  if (debug) Serial.print("pH: ");
-  if (debug) Serial.println(pHValue);
+  if (debug)
+    Serial.print("pH: ");
+  if (debug)
+    Serial.println(pHValue);
 
   if (pHValue != oldpHValue)
   {
@@ -202,16 +242,20 @@ void readSensors()
     printToLCD(12, 2, "    ");
   }
 
-  if (debug) Serial.println();
+  if (debug)
+    Serial.println();
 
   /**********
   * Read EC/TDS level
   **********/
   TDSValue = readTDSValue(vars[10], vars[11]);
 
-  if (debug) Serial.print("TDS: ");
-  if (debug) Serial.print(TDSValue, 0);
-  if (debug) Serial.println(" ppm");
+  if (debug)
+    Serial.print("TDS: ");
+  if (debug)
+    Serial.print(TDSValue, 0);
+  if (debug)
+    Serial.println(" ppm");
 
   if (TDSValue != oldTDSValue)
   {
@@ -232,18 +276,32 @@ void readSensors()
   }
 
 #ifdef logToThingSpeak
-  if (debug) Serial.println("Writing to thingSpeak...");
+  if (debug)
+    Serial.println("Writing to thingSpeak...");
   writeThingSpeak();
 #endif
 
-    if (plot) Serial.print("Temp:");
-    if (plot) Serial.print(temperatureSum);
-    if (plot) Serial.print(",pH:");
-    if (plot) Serial.print(pHValue);
-    if (plot) Serial.print(",TDS:");
-    if (plot) Serial.println(TDSValue);
-
-    if (debug) Serial.println();
+  if (plot == 1)
+  {
+    Serial.print("Temp:");
+    Serial.print(temperatureSum);
+    Serial.print(",pH:");
+    Serial.print(pHValue);
+    Serial.print(",TDS:");
+    Serial.println(TDSValue);
+  }
+  else if (plot == 2)
+  {
+    Serial.print("Temp:");
+    Serial.println(temperatureSum);
+    Serial.print(",pH:");
+    Serial.println(pHValue);
+    Serial.print(",TDS:");
+    Serial.println(TDSValue);
+  }
+  
+  if (debug)
+    Serial.println();
 }
 
 void settingsCheckIfRead()

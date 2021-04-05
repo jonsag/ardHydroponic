@@ -7,7 +7,7 @@ String email = "jonsagebrand@gmail.com";
  * Debug and plot
  **********/
 const boolean debug = 0;
-const boolean plot = 1;
+const byte plot = 2; // 0: no plotting, 1: all values with headers on one line, 2: header and value on separate lines
 
 /**********
 * Configurable variables

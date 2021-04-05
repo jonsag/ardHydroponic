@@ -28,21 +28,30 @@ void setup()
   /*******************************
   * Print start information
   *******************************/
-  if (debug) Serial.println();
-  if (debug) Serial.println(programName); // print information
-  if (debug) Serial.println(date);
-  if (debug) Serial.print("by ");
-  if (debug) Serial.println(author);
-  if (debug) Serial.println(email);
-  if (debug) Serial.println();
+  if (debug)
+    Serial.println();
+  if (debug)
+    Serial.println(programName); // print information
+  if (debug)
+    Serial.println(date);
+  if (debug)
+    Serial.print("by ");
+  if (debug)
+    Serial.println(author);
+  if (debug)
+    Serial.println(email);
+  if (debug)
+    Serial.println();
 
   /**********
   * LCD
   **********/
-  if (debug) Serial.println("Starting LCD...");
+  if (debug)
+    Serial.println("Starting LCD...");
 
   lcd.begin();
-  if (debug) Serial.println();
+  if (debug)
+    Serial.println();
 
   bootScreen(programName);
   bootScreen(date);
@@ -51,16 +60,19 @@ void setup()
   * EEPROM
   **********/
   //clearEEPROM();
-  if (debug) Serial.println("Reading EEPROM...");
+  if (debug)
+    Serial.println("Reading EEPROM...");
   bootScreen("Reading EEPROM...   ");
 
   initEEPROMCheck();
-  if (debug) Serial.println();
+  if (debug)
+    Serial.println();
 
   /**********
   * In/Outputs
   **********/
-  if (debug) Serial.println("Starting In/Outputs...");
+  if (debug)
+    Serial.println("Starting In/Outputs...");
   bootScreen("Starting In/Outputs.");
 
   pinMode(pHPlusPump, OUTPUT);
@@ -73,12 +85,14 @@ void setup()
   pinMode(espHardwareReset, OUTPUT);
 #endif
 
-  if (debug) Serial.println();
+  if (debug)
+    Serial.println();
 
   /**********
   * Setup FTDebouncer pins
   **********/
-  if (debug) Serial.println("Setting up buttons...");
+  if (debug)
+    Serial.println("Setting up buttons...");
   bootScreen("Setting up buttons..");
 
   pinDebouncer.addPin(button1, LOW); // pin has external pull-down resistor
@@ -89,40 +103,55 @@ void setup()
 
   pinDebouncer.init(); // initiate debounce
 
-  if (debug) Serial.println();
+  if (debug)
+    Serial.println();
 
 /**********
    * ESP-01
    **********/
 #ifdef logToThingSpeak
-  if (debug) Serial.println("Starting ESP-01...");
+  if (debug)
+    Serial.println("Starting ESP-01...");
   bootScreen("Starting ESP-01...  ");
 
   digitalWrite(espHardwareReset, HIGH);
-  if (debug) Serial.println();
+  if (debug)
+    Serial.println();
 
-  if (debug) Serial.println("Starting Serial1 for ESP communication...");
+  if (debug)
+    Serial.println("Starting Serial1 for ESP communication...");
   bootScreen("Starting Serial1... ");
 
   Serial1.begin(serialBaudRate);
-  if (debug) Serial.println();
+  if (debug)
+    Serial.println();
 
-  if (debug) Serial.println("Resetting ESP module...");
+  if (debug)
+    Serial.println("Resetting ESP module...");
   bootScreen("Resetting ESP module");
 
   EspHardwareReset();
-  if (debug) Serial.println();
+  if (debug)
+    Serial.println();
 
-  if (debug) Serial.println("Checking ESP with simple AT command...");
+  if (debug)
+    Serial.println("Checking ESP with simple AT command...");
   sendATCommand("AT");
-  if (debug) Serial.println("This should have produced an 'OK'");
-  if (debug) Serial.println();
+  if (debug)
+    Serial.println("This should have produced an 'OK'");
+  if (debug)
+    Serial.println();
 
-  if (debug) Serial.print("Connecting to SSID '");
-  if (debug) Serial.print(SSID);
-  if (debug) Serial.print("' with password '");
-  if (debug) Serial.print(PASS);
-  if (debug) Serial.println("'...");
+  if (debug)
+    Serial.print("Connecting to SSID '");
+  if (debug)
+    Serial.print(SSID);
+  if (debug)
+    Serial.print("' with password '");
+  if (debug)
+    Serial.print(PASS);
+  if (debug)
+    Serial.println("'...");
   bootScreen("Connecting to WiFi..");
 
   String connectString = "AT+CWJAP=\""; // construct the connect command
@@ -132,13 +161,16 @@ void setup()
   connectString += "\"";
 
   sendATCommand(connectString);
-  if (debug) Serial.println();
+  if (debug)
+    Serial.println();
 
-  if (debug) Serial.println("Checking for IP...");
+  if (debug)
+    Serial.println("Checking for IP...");
   bootScreen("Checking for IP...  ");
 
   sendATCommand("AT+CIFSR"); // command to print IPs
-  if (debug) Serial.println();
+  if (debug)
+    Serial.println();
 
 #endif
 
