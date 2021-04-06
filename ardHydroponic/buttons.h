@@ -259,6 +259,14 @@ void onPinActivated(int pinNumber)
             settingsCheckIfRead();
             printSelectedVar();
             break;
+        case 5:
+            specialMaintMode--;
+            if (specialMaintMode < 0 || specialMaintMode == 255)
+            {
+                specialMaintMode = 2;
+            }
+            printSpecialMaintMode();
+            break;
         }
         break;
     case button3:
@@ -283,6 +291,14 @@ void onPinActivated(int pinNumber)
             tempValue = vars[varNumber];
             settingsCheckIfRead();
             printSelectedVar();
+            break;
+        case 5:
+            specialMaintMode++;
+            if (specialMaintMode > 2)
+            {
+                specialMaintMode = 0;
+            }
+            printSpecialMaintMode();
             break;
         }
         break;
@@ -365,6 +381,22 @@ void onPinDeactivated(int pinNumber)
                 vars[varNumber] = tempValue;
 
                 printSelectedVar();
+                break;
+            case 5:
+                switch (specialMaintMode)
+                {
+                case 1:
+                    printToLCD(0, 2, "Clearing...         ");
+                    clearEEPROM();
+                    printToLCD(0, 2, "Cleared             ");
+                    break;
+                case 2:
+                    printToLCD(0, 2, "Resetting...        ");
+                    EspHardwareReset();
+                    printToLCD(0, 2, "Reset              ");
+                    break;
+                }
+                break;
             }
         }
         button1PushMillis = 0;

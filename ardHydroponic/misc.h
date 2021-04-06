@@ -66,8 +66,8 @@ clearLCD();
       break;
     case 5:
       if (debug) Serial.println();
-      if (debug) Serial.println("-> Serial cmd mode");
-      printSerialCmdMode();
+      if (debug) Serial.println("-> Special maintenance mode");
+      printSpecialMaint();
       break;
     }
     oldMode = mode;

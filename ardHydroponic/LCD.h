@@ -43,7 +43,7 @@ void printMode()
   case 5:
     if (debug)
       Serial.println("Serial cmd");
-    printToLCD(6, 0, "Serial cmd  ");
+    printToLCD(6, 0, "Special     ");
     break;
   }
   if (debug)
@@ -212,9 +212,9 @@ void printSettings()
   printMode();
 }
 
-void printCmdMode()
+void printSpecialMaintMode()
 {
-  switch (serialCmdMode)
+  switch (specialMaintMode)
   {
   case 0:
     Serial.println("Communicate with ESP module");
@@ -237,14 +237,26 @@ void printCmdMode()
     Serial.println("----------");
     Serial.println();
     printToLCD(0, 1, "Communicate with ESP");
+    printToLCD(0, 2, "Use serial monitor  ");
+    break;
+  case 1:
+    Serial.println("Clear EEPROM");
+    printToLCD(0, 1, "Clear EEPROM        ");
+    printToLCD(0, 2, "                    ");
+    break;
+  case 2:
+    Serial.println("Reset ESP module");
+    printToLCD(0, 1, "Reset ESP module    ");
+    printToLCD(0, 2, "                    ");
+    break;
   }
 }
-void printSerialCmdMode()
+void printSpecialMaint()
 {
   clearLCD();
   printToLCD(0, 0, "Mode:");
   printMode();
-  printCmdMode();
+  printSpecialMaintMode();
 }
 
 void bootScreen(String message)

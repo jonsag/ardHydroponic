@@ -224,7 +224,7 @@ String bootScreenLine1;
 String bootScreenLine2;
 String bootScreenLine3;
 
-byte serialCmdMode = 0;
+byte specialMaintMode = 0;
 
 /**********
 * WiFi

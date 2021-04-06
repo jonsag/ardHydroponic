@@ -17,7 +17,7 @@
 #include "misc.h"
 #include "eeprom.h"
 #include "buttons.h"
-#include "serialCmd.h"
+#include "specialMaint.h"
 
 void setup()
 {
@@ -264,7 +264,7 @@ void loop()
   }
   else if (mode == 5)
   {
-    doSerialCmd();
+    doSpecialMaint();
   }
 
   if (button1PushMillis != 0 && currentMillis - button1PushMillis >= longPushTime)

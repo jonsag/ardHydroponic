@@ -1,6 +1,6 @@
-void doSerialCmd()
+void doSpecialMaint()
 {
-    switch (serialCmdMode)
+    switch (specialMaintMode)
     {
     case 0:
         while (Serial1.available())
