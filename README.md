@@ -47,7 +47,7 @@ Everything is monitored and adjusted from the LCD. However, a lot of output is a
 
 ### Modes
 
-There are three major modes of the system:  
+There are four major modes of the system:  
 
 * Running...  
 * Maintenance  
@@ -70,6 +70,8 @@ Button number:
 4. No function  
 5. No function  
 
+LCD shows measured values, and whether they're too low or too high  
+
 ### 'Maintenance' mode
 
 Button number:  
@@ -81,6 +83,8 @@ Button number:
 3. Select next output
 4. No function
 5. No function
+
+LCD shows selected output  
 
 ### 'Settings' mode
 
@@ -134,7 +138,9 @@ Button number:
 3. Select next action
 4. No function
 5. No function
-   
+
+LCD shows selected action and action result  
+
 #### Actions
 
 * Interact with ESP module in serial monitor
@@ -225,10 +231,12 @@ and upload sketch.
 Comment the line and upload again.  
 
 ## Misc
+
+## Useful programs
 ### cu
 
 Get serial output  
 
->$ cu -l /dev/ttyUSB0 -s 9600
+>$ cu -l /dev/ttyACM0 -s 9600
 
 Exit with ~. (tilde dot)  
