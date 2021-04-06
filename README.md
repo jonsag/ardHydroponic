@@ -216,6 +216,15 @@ Don't use the LiquidCrystal_I2C library from Arduino IDE's library manager.
 
 Instead use the one from [https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library](https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library).  
 
+## Install
+
+Upload the code in ardHydroponic with, for example, Arduino IDE.  
+
+Connect with a serial monitor and configure network via the 'Special mode'.  
+Command for this is found in the serial monitor.  
+
+You could of course also do this with an FTDI device, before you mount the ESP module on the Mega.  
+
 ## Trouble shooting
 
 ### Resetting EEPROM to default values
@@ -236,8 +245,18 @@ Comment the line and upload again.
 
 #### cu
 
-Get serial output  
+A simple serial monitor  
 
+Get serial output  
 >$ cu -l /dev/ttyACM0 -s 9600
 
 Exit with ~. (tilde dot)  
+
+#### picocom
+
+A more versatile serial monitor  
+
+Get serial output  
+>$ picocom -b 115200 /dev/ttyACM0 --omap crcrlf
+
+Exit with Ctrl+a Ctrl+x  
