@@ -8,6 +8,8 @@ An Arduino Mega managing a hydroponic plant bed.
 
 1 x LCD display, 4x20 with I2C communication  
 
+1 x ESP-01 module  
+
 5 x Momentary push button  
 
 4 x fluid pump  
@@ -33,8 +35,8 @@ Manufacturers reference : VBESTLIFE29748130zt
 1 x 4.7 kohm resistor
 
 Calibration fluids:  
-pH: two solutions with known values, for example 4.00 and 7.00  (other values will also work)
-TDS: solution with known TDS value
+pH: two solutions with known values, for example 4.00 and 7.00  (other values will also work)  
+TDS: solution with known TDS value  
 
 Connect everything according to the schematics in KiCAD.  
 
@@ -50,11 +52,12 @@ There are three major modes of the system:
 * Running...  
 * Maintenance  
 * Settings  
+* Special  
 
 Also there is a 'Reading...' mode that the system enters when measuring in 'Running...' mode.  
 
 You advance from one mode to the next by pushing and holding down 'Button 1' for one second.  
-When you do this in 'Settings' mode you jump back to 'Running...' mode again.  
+When you do this in 'Special' mode you loop back to 'Running...' mode again.  
 
 ### 'Running...' mode
 
@@ -72,8 +75,8 @@ Button number:
 Button number:  
 
 1. Enter next mode/Toggle output
-   * Short press: start or stop the indicated output  
    * Long press: enter next mode  
+   * Short press: start or stop the indicated output  
 2. Select previous output
 3. Select next output
 4. No function
@@ -84,8 +87,8 @@ Button number:
 Button number:  
 
 1. Enter next mode/Save variable  
-   * Short press: save variable to EEPROM  
    * Long press: leave this mode and enter next  
+   * Short press: save variable to EEPROM  
 2. Select previous variable
 3. Select next variable
 4. Step down selected variable
@@ -120,6 +123,24 @@ Line four will show the new value you step upp and down.
 
 Also lines three and four will show pH and TDS when applicable.  
 
+### 'Special' mode
+
+Button number:  
+
+1. Enter next mode/Run action  
+   * Long press: leave this mode and enter next  
+   * Short press: Run selected action  
+2. Select previous action
+3. Select next action
+4. No function
+5. No function
+   
+#### Actions
+
+* Interact with ESP module in serial monitor
+* Clear EEPROM. On next restart the EEPROM will be rewritten with the default values from config
+* Reset ESP module
+
 ## Calibration
 
 ### TDS value
@@ -130,12 +151,12 @@ Enter 'Settings' mode.
 
 Select the 'TDS factor' variable using 'Button 2' and 'Button 3'.  
 Enter the TDS factor of your known solution using 'Button 4' and 'Button 5'.  
-The TDS value on the left of the screen will be updated whenever you push those buttons'.  
+The TDS value on the left of the screen will be updated whenever you push those buttons.  
 Save the new 'TDS factor' with a short press on 'Button 1'.  
 
 Select the 'k value' variable using 'Button 2' and 'Button 3'.  
 Step up and down 'k value' using 'Button 4' and 'Button 5'.  
-The TDS value on the left of the screen will be updated whenever you push those buttons'.  
+The TDS value on the left of the screen will be updated whenever you push those buttons.  
 When the TDS value shown on screen correlates with your known solution save the 'k value' with a short press on 'Button 1'.  
 
 ### pH value
@@ -181,7 +202,7 @@ If you change these after having having uploaded the sketch once, it will not be
 ### incs
 
 The increments/decrements of the variables above.  
-How big should the jumps be.  
+How big should the jumps be when using buttons 'Button 4' and 'Button5'.  
 
 ## Libraries
 
