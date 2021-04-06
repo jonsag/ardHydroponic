@@ -26,7 +26,7 @@ void checkMode()
 {
   if (mode != oldMode)
   {
-    if (oldMode == 3 || oldMode == 4)
+    if (oldMode == 3 || oldMode == 4 || oldMode == 5)
     {
 clearLCD();
     }
@@ -35,7 +35,7 @@ clearLCD();
     case 0:
       if (debug) Serial.println();
       if (debug) Serial.println("-> Normal mode");
-      if (oldMode == 3 || oldMode == 4)
+      if (oldMode == 3 || oldMode == 4 || oldMode == 5)
       {
         printNormal();
       }
@@ -63,6 +63,11 @@ clearLCD();
       if (debug) Serial.println();
       if (debug) Serial.println("-> Settings mode");
       printSettings();
+      break;
+    case 5:
+      if (debug) Serial.println();
+      if (debug) Serial.println("-> Serial cmd mode");
+      printSerialCmdMode();
       break;
     }
     oldMode = mode;

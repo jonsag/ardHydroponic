@@ -4,10 +4,10 @@ String author = "Jon Sagebrand";
 String email = "jonsagebrand@gmail.com";
 
 /**********
- * Debug and plot
+ * Debug and info
  **********/
-const boolean debug = 0;
-const byte plot = 2; // 0: no plotting, 1: all values with headers on one line, 2: header and value on separate lines
+const boolean debug = 1; // output all debugging info
+const byte info = 0;     // 0: no info; 1: plotting, all values with headers on one line; 2: header and value on separate lines
 
 /**********
 * Configurable variables
@@ -224,14 +224,20 @@ String bootScreenLine1;
 String bootScreenLine2;
 String bootScreenLine3;
 
+byte serialCmdMode = 0;
+
 /**********
 * WiFi
 **********/
 #ifdef logToThingSpeak
+#define WifiEnabled
+#endif
 
 /**********
 * ThingSpeak
 **********/
+#ifdef logToThingSpeak
+
 #define thingSpeakIP "184.106.153.149" // ip-address for thingspeak.com
 //String msg = "GET /update?key="; // a GET parameter associated with the personal thingspeak channel
 

@@ -1,4 +1,4 @@
-//#define logToThingSpeak // enable this if you got an ESP-01 and a thingSPeak channel
+#define logToThingSpeak // enable this if you got an ESP-01 and a thingSPeak channel
 
 /**********
 * Include files
@@ -17,6 +17,7 @@
 #include "misc.h"
 #include "eeprom.h"
 #include "buttons.h"
+#include "serialCmd.h"
 
 void setup()
 {
@@ -134,6 +135,7 @@ void setup()
   if (debug)
     Serial.println();
 
+/*
   if (debug)
     Serial.println("Checking ESP with simple AT command...");
   sendATCommand("AT");
@@ -171,7 +173,7 @@ void setup()
   sendATCommand("AT+CIFSR"); // command to print IPs
   if (debug)
     Serial.println();
-
+*/
 #endif
 
   /***********
@@ -198,7 +200,7 @@ void loop()
 
   checkMode(); // check if mode has changed
 
-  if (mode != 3 && mode != 4)
+  if (mode != 3 && mode != 4 && mode != 5)
   { // normal mode
 
     counter = (vars[4] - (currentMillis - readMillis)) / 1000;
@@ -257,9 +259,12 @@ void loop()
     checkOutputStop(); // check if it's time to stop the pumps or stirrer
   }
   else if (mode == 3)
-  { // maintenance mode
-
+  {                   // maintenance mode
     checkMaintStop(); // check if pumps are running and if it's time to stop any of them
+  }
+  else if (mode == 5)
+  {
+    doSerialCmd();
   }
 
   if (button1PushMillis != 0 && currentMillis - button1PushMillis >= longPushTime)

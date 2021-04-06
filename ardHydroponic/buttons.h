@@ -1,11 +1,13 @@
 void startStopCleaning()
 {
-    if (debug) Serial.print("Cleaning ");
+    if (debug)
+        Serial.print("Cleaning ");
 
     switch (outputNumber)
     {
     case 0: // pH+
-        if (debug) Serial.println("pH+");
+        if (debug)
+            Serial.println("pH+");
         if (digitalRead(pHPlusPump))
         {
             stoppHPlus();
@@ -17,7 +19,8 @@ void startStopCleaning()
         }
         break;
     case 1: // pH-
-        if (debug) Serial.println("pH-");
+        if (debug)
+            Serial.println("pH-");
         if (digitalRead(pHMinusPump))
         {
             stoppHMinus();
@@ -29,7 +32,8 @@ void startStopCleaning()
         }
         break;
     case 2: // Nutr A
-        if (debug) Serial.println("Nutr A");
+        if (debug)
+            Serial.println("Nutr A");
         if (digitalRead(nutrAPump))
         {
             stopNutrA();
@@ -41,7 +45,8 @@ void startStopCleaning()
         }
         break;
     case 3: // Nutr B
-        if (debug) Serial.println("Nutr B");
+        if (debug)
+            Serial.println("Nutr B");
         if (digitalRead(nutrBPump))
         {
             stopNutrB();
@@ -53,7 +58,8 @@ void startStopCleaning()
         }
         break;
     case 4: // stirrer
-        if (debug) Serial.println("Stir");
+        if (debug)
+            Serial.println("Stir");
         if (digitalRead(stirrer))
         {
             stopStirrer();
@@ -74,118 +80,136 @@ void checkSanity()
     case 0: /* 0, Nutr pump time, ms */
         if (tempValue < 0)
         {
-            if (debug) Serial.println("Can't decrease more. Not sane value");
+            if (debug)
+                Serial.println("Can't decrease more. Not sane value");
             tempValue = 0;
         }
         break;
     case 1: /* 1, pH+ pump time, ms */
         if (tempValue < 0)
         {
-            if (debug) Serial.println("Can't decrease more. Not sane value");
+            if (debug)
+                Serial.println("Can't decrease more. Not sane value");
             tempValue = 0;
         }
         break;
     case 2: /* 2, pH- pump time, ms */
         if (tempValue < 0)
         {
-            if (debug) Serial.println("Can't decrease more. Not sane value");
+            if (debug)
+                Serial.println("Can't decrease more. Not sane value");
             tempValue = 0;
         }
         break;
     case 3: /* 3, Clean pumps time */
         if (tempValue < 0)
         {
-            if (debug) Serial.println("Can't decrease more. Not sane value");
+            if (debug)
+                Serial.println("Can't decrease more. Not sane value");
             tempValue = 0;
         }
         break;
     case 4: /* 4, Iteration time, ms */
         if (tempValue < 0)
         {
-            if (debug) Serial.println("Can't decrease more. Not sane value");
+            if (debug)
+                Serial.println("Can't decrease more. Not sane value");
             tempValue = 0;
         }
         break;
     case 5: /* 5, Stir time, ms */
         if (tempValue < 0)
         {
-            if (debug) Serial.println("Can't decrease more. Not sane value");
+            if (debug)
+                Serial.println("Can't decrease more. Not sane value");
             tempValue = 0;
         }
         break;
     case 6: /* 6, Stir interval, ms */
         if (tempValue < 0)
         {
-            if (debug) Serial.println("Can't decrease more. Not sane value");
+            if (debug)
+                Serial.println("Can't decrease more. Not sane value");
             tempValue = 0;
         }
         break;
     case 7: /* 7, pH low, pH */
         if (tempValue < 0)
         {
-            if (debug) Serial.println("Can't decrease more. Not sane value");
+            if (debug)
+                Serial.println("Can't decrease more. Not sane value");
             tempValue = 0;
         }
         else if (tempValue >= vars[8])
         {
-            if (debug) Serial.println("Can't increase more. Conflicting with pH high");
+            if (debug)
+                Serial.println("Can't increase more. Conflicting with pH high");
             tempValue -= incs[7];
         }
         break;
     case 8: /* 8, pH high, pH */
         if (tempValue <= vars[7])
         {
-            if (debug) Serial.println("Can't decrease more. Conflicting with pH low");
+            if (debug)
+                Serial.println("Can't decrease more. Conflicting with pH low");
             tempValue += incs[8];
         }
         else if (tempValue > 15)
         {
-            if (debug) Serial.println("Can't increase more. Not sane value");
+            if (debug)
+                Serial.println("Can't increase more. Not sane value");
             tempValue = 15;
         }
         break;
     case 9: /* 9, TDS low, ppm */
         if (tempValue < 0)
         {
-            if (debug) Serial.println("Can't decrease more. Not sane value");
+            if (debug)
+                Serial.println("Can't decrease more. Not sane value");
             tempValue = 0;
         }
         break;
     case 10: /* 10, k value, factor */
         if (tempValue < 0)
         {
-            if (debug) Serial.println("Can't decrease more. Not sane value");
+            if (debug)
+                Serial.println("Can't decrease more. Not sane value");
             tempValue = 0;
         }
         break;
     case 11: /* 11, TDS factor, factor */
         if (tempValue < 0)
         {
-            if (debug) Serial.println("Can't decrease more. Not sane value");
+            if (debug)
+                Serial.println("Can't decrease more. Not sane value");
             tempValue = 0;
         }
         break;
     case 12: /* 12, Neutral pH, pH */
         if (tempValue < vars[13])
         {
-            if (debug) Serial.println("Can't decrease more. Conflicting with acid pH");
+            if (debug)
+                Serial.println("Can't decrease more. Conflicting with acid pH");
             tempValue += incs[13];
         }
         else if (tempValue > 15)
         {
-            if (debug) Serial.println("Can't increase more. Not sane value");
+            if (debug)
+                Serial.println("Can't increase more. Not sane value");
             tempValue = 15;
         }
         break;
     case 13: /* 13, Acid pH, pH */
         if (tempValue < 0)
         {
-            if (debug) Serial.println("Can't decrease more. Not sane value");
+            if (debug)
+                Serial.println("Can't decrease more. Not sane value");
             tempValue = 0;
         }
         else if (tempValue >= vars[12])
         {
-            if (debug) Serial.println("Can't increase more. Conflicting with neutral pH");
+            if (debug)
+                Serial.println("Can't increase more. Conflicting with neutral pH");
             tempValue -= incs[13];
             break;
         case 15: /* 15, Acid voltage, V */
@@ -198,18 +222,23 @@ void checkSanity()
 
 void onPinActivated(int pinNumber)
 {
-    if (debug) Serial.println();
-    if (debug) Serial.print("Pin activated: ");
-    if (debug) Serial.print(pinNumber);
+    if (debug)
+        Serial.println();
+    if (debug)
+        Serial.print("Pin activated: ");
+    if (debug)
+        Serial.print(pinNumber);
 
     switch (pinNumber)
     {             // outer switch start
     case button1: // this button acts on release
-        if (debug) Serial.println(" <-> button1");
+        if (debug)
+            Serial.println(" <-> button1");
         button1PushMillis = currentMillis;
         break;
     case button2:
-        if (debug) Serial.println(" <-> button2");
+        if (debug)
+            Serial.println(" <-> button2");
         switch (mode)
         {
         case 3:
@@ -233,7 +262,8 @@ void onPinActivated(int pinNumber)
         }
         break;
     case button3:
-        if (debug) Serial.println(" <-> button3");
+        if (debug)
+            Serial.println(" <-> button3");
         switch (mode)
         {
         case 3:
@@ -257,7 +287,8 @@ void onPinActivated(int pinNumber)
         }
         break;
     case button4:
-        if (debug) Serial.println(" <-> button4");
+        if (debug)
+            Serial.println(" <-> button4");
         switch (mode)
         {
         case 4:
@@ -269,7 +300,8 @@ void onPinActivated(int pinNumber)
         }
         break;
     case button5:
-        if (debug) Serial.println(" <-> button5");
+        if (debug)
+            Serial.println(" <-> button5");
         switch (mode)
         {
         case 4:
@@ -285,35 +317,49 @@ void onPinActivated(int pinNumber)
 
 void onPinDeactivated(int pinNumber)
 {
-    if (debug) Serial.println();
-    if (debug) Serial.print("Pin deactivated: ");
-    if (debug) Serial.print(pinNumber);
+    if (debug)
+        Serial.println();
+    if (debug)
+        Serial.print("Pin deactivated: ");
+    if (debug)
+        Serial.print(pinNumber);
 
     switch (pinNumber)
     {
     case button1:
         if (longPush)
         {
-            if (debug) Serial.println(" <-> button1 - was a long push");
+            if (debug)
+                Serial.println(" <-> button1 - was a long push");
         }
         else
         {
-            if (debug) Serial.println(" <-> button1 - short push");
+            if (debug)
+                Serial.println(" <-> button1 - short push");
             switch (mode)
             {
             case 3:
                 startStopCleaning();
                 break;
             case 4:
-                if (debug) Serial.print("Saving value ");
-                if (debug) Serial.print(tempValue);
-                if (debug) Serial.print(" to EEPROM at address ");
-                if (debug) Serial.print(varNumber * addressMultiplicator);
-                if (debug) Serial.println(", ");
-                if (debug) Serial.print("and setting ");
-                if (debug) Serial.print(varNames[varNumber]);
-                if (debug) Serial.print(" = ");
-                if (debug) Serial.println(tempValue);
+                if (debug)
+                    Serial.print("Saving value ");
+                if (debug)
+                    Serial.print(tempValue);
+                if (debug)
+                    Serial.print(" to EEPROM at address ");
+                if (debug)
+                    Serial.print(varNumber * addressMultiplicator);
+                if (debug)
+                    Serial.println(", ");
+                if (debug)
+                    Serial.print("and setting ");
+                if (debug)
+                    Serial.print(varNames[varNumber]);
+                if (debug)
+                    Serial.print(" = ");
+                if (debug)
+                    Serial.println(tempValue);
 
                 putEEPROM(varNumber * addressMultiplicator, tempValue);
                 vars[varNumber] = tempValue;
@@ -325,15 +371,18 @@ void onPinDeactivated(int pinNumber)
         longPush = 0;
         break;
     default:
-        if (debug) Serial.println();
+        if (debug)
+            Serial.println();
         break;
     }
 }
 
 void longPushButton1()
 {
-    if (debug) Serial.println("button1 long push, switching mode");
-    if (debug) Serial.println();
+    if (debug)
+        Serial.println("button1 long push, switching mode");
+    if (debug)
+        Serial.println();
 
     switch (mode)
     {
@@ -351,6 +400,11 @@ void longPushButton1()
         settingsCheckIfRead();
         break;
     case 4:
+        stopOutputs();
+        mode = 5;
+        checkMode(); // check if mode has changed
+        break;
+    case 5:
         stopOutputs();
         mode = 0;
         checkMode(); // check if mode has changed

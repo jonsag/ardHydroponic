@@ -39,14 +39,15 @@ int getAvgValue(int sensorPin)
     delay(millisBetweenReadings);   // delay
   }
 
-  /*
-  if (debug) Serial.println("Readings: ");
+  if (debug)
+    Serial.println("Readings: ");
   for (i = 0; i < noOfReadings; i++)
   {
-    if (debug) Serial.println(buf[i]);
+    if (debug)
+      Serial.println(buf[i]);
   }
-  if (debug) Serial.println();
-  */
+  if (debug)
+    Serial.println();
 
   for (i = 0; i < noOfReadings; i++)
   { // sort the analog readings from small to large
@@ -61,35 +62,38 @@ int getAvgValue(int sensorPin)
     }
   }
 
-  /*
-  if (debug) Serial.println("Sorted readings: ");
+  if (debug)
+    Serial.println("Sorted readings: ");
   for (i = 0; i < noOfReadings; i++)
   {
-    if (debug) Serial.println(buf[i]);
+    if (debug)
+      Serial.println(buf[i]);
   }
-  if (debug) Serial.println();
-  */
+  if (debug)
+    Serial.println();
 
   avgValue = 0; // temporary value for the pH readings
 
-  for (int i = 2; i < noOfReadings - 2; i++)
+  for (int i = noOfReadings / 5; i < noOfReadings - noOfReadings / 5; i++)
   { // take value of the noOfPHReadings - 2 center samples
     avgValue += buf[i];
   }
 
-  /*
-  if (debug) Serial.println("Added values: ");
-  if (debug) Serial.println(avgValue);
-  if (debug) Serial.println();
-  */
+  if (debug)
+    Serial.println("Added values: ");
+  if (debug)
+    Serial.println(avgValue);
+  if (debug)
+    Serial.println();
 
-  avgValue = avgValue / (noOfReadings - 4);
+  avgValue = avgValue / (noOfReadings - noOfReadings / 5 * 2);
 
-  /*
-  if (debug) Serial.println("Average value: ");
-  if (debug) Serial.println(avgValue);
-  if (debug) Serial.println();
-  */
+  if (debug)
+    Serial.println("Average value: ");
+  if (debug)
+    Serial.println(avgValue);
+  if (debug)
+    Serial.println();
 
   return avgValue;
 }
@@ -281,7 +285,7 @@ void readSensors()
   writeThingSpeak();
 #endif
 
-  if (plot == 1)
+  if (info == 1)
   {
     Serial.print("Temp:");
     Serial.print(temperatureSum);
@@ -290,7 +294,7 @@ void readSensors()
     Serial.print(",TDS:");
     Serial.println(TDSValue);
   }
-  else if (plot == 2)
+  else if (info == 2)
   {
     Serial.print("Temp:");
     Serial.println(temperatureSum);
