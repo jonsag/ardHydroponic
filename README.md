@@ -232,8 +232,9 @@ Comment the line and upload again.
 
 ## Misc
 
-## Useful programs
-### cu
+### Useful programs
+
+#### cu
 
 Get serial output  
 
