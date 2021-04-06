@@ -1,5 +1,5 @@
 
-void startThingSpeakCmd(void)
+void esp01StartThingSpeakCmd(void)
 {                  // start communication with thingSpeak
   Serial1.flush(); // clears the buffer before starting to write
 
@@ -21,7 +21,7 @@ void startThingSpeakCmd(void)
   }
 }
 
-String sendThingSpeakGetCmd(String getStr)
+String esp01SendThingSpeakGetCmd(String getStr)
 { // send a GET cmd to ThingSpeak
   String cmd = "AT+CIPSEND=";
   cmd += String(getStr.length());
@@ -69,7 +69,8 @@ String sendThingSpeakGetCmd(String getStr)
 void writeThingSpeak(void)
 { // connect to thingSpeak
 
-  startThingSpeakCmd();
+#ifdef esp01
+  esp01StartThingSpeakCmd();
 
   // prepare the GET string
   String getStr = "GET /update?api_key=";
@@ -83,22 +84,11 @@ void writeThingSpeak(void)
 
   getStr += "\r\n\r\n";
 
-  sendThingSpeakGetCmd(getStr);
+  esp01SendThingSpeakGetCmd(getStr);
+#endif
 }
 
-void EspHardwareReset(void)
-{ // reset ESP
-  if (debug)
-    Serial.println("Resetting...");
-  digitalWrite(espHardwareReset, LOW);
-  delay(500);
-  digitalWrite(espHardwareReset, HIGH);
-  delay(8000); // time needed to start reading
-  if (debug)
-    Serial.println("RESET!");
-}
-
-void sendATCommand(String command)
+void esp01SendATCommand(String command)
 {
   Serial1.flush(); // clears the buffer before starting to write
 

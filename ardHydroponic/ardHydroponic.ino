@@ -1,4 +1,5 @@
 #define logToThingSpeak // enable this if you got an ESP-01 and a thingSPeak channel
+#define esp01 // enable this if you got an ESP-01 module
 
 /**********
 * Include files
@@ -6,8 +7,11 @@
 
 #include "config.h"
 
-#ifdef logToThingSpeak
+#ifdef wifiEnabled
 #include "secrets.h"
+#endif
+
+#ifdef logToThingSpeak
 #include "thingSpeak.h"
 #endif
 
@@ -82,7 +86,7 @@ void setup()
   pinMode(nutrBPump, OUTPUT);
   pinMode(stirrer, OUTPUT);
 
-#ifdef logToThingSpeak
+#ifdef esp01
   pinMode(espHardwareReset, OUTPUT);
 #endif
 
@@ -110,7 +114,7 @@ void setup()
 /**********
    * ESP-01
    **********/
-#ifdef logToThingSpeak
+#ifdef esp01
   if (debug)
     Serial.println("Starting ESP-01...");
   bootScreen("Starting ESP-01...  ");
@@ -131,14 +135,14 @@ void setup()
     Serial.println("Resetting ESP module...");
   bootScreen("Resetting ESP module");
 
-  EspHardwareReset();
+  esp01HardwareReset();
   if (debug)
     Serial.println();
 
 /*
   if (debug)
     Serial.println("Checking ESP with simple AT command...");
-  sendATCommand("AT");
+  esp01SendATCommand("AT");
   if (debug)
     Serial.println("This should have produced an 'OK'");
   if (debug)
@@ -162,7 +166,7 @@ void setup()
   connectString += PASS;
   connectString += "\"";
 
-  sendATCommand(connectString);
+  esp01SendATCommand(connectString);
   if (debug)
     Serial.println();
 
@@ -170,7 +174,7 @@ void setup()
     Serial.println("Checking for IP...");
   bootScreen("Checking for IP...  ");
 
-  sendATCommand("AT+CIFSR"); // command to print IPs
+  esp01SendATCommand("AT+CIFSR"); // command to print IPs
   if (debug)
     Serial.println();
 */

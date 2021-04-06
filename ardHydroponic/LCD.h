@@ -217,6 +217,7 @@ void printSpecialMaintMode()
   switch (specialMaintMode)
   {
   case 0:
+#ifdef esp01
     Serial.println("Communicate with ESP module");
     Serial.println("----------");
     Serial.println("Test AT startup: AT");
@@ -238,6 +239,7 @@ void printSpecialMaintMode()
     Serial.println();
     printToLCD(0, 1, "Communicate with ESP");
     printToLCD(0, 2, "Use serial monitor  ");
+#endif
     break;
   case 1:
     Serial.println("Clear EEPROM");

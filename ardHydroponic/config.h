@@ -98,7 +98,7 @@ const int button3 = 9;
 const int button4 = 10;
 const int button5 = 11;
 
-#ifdef logToThingSpeak
+#ifdef esp01
 const int espHardwareReset = 12;
 // connect ESP-Rx -> D18, ESP-Tx -> D19
 #endif
@@ -229,8 +229,8 @@ byte specialMaintMode = 0;
 /**********
 * WiFi
 **********/
-#ifdef logToThingSpeak
-#define WifiEnabled
+#ifdef esp01
+#define wifiEnabled
 #endif
 
 /**********
