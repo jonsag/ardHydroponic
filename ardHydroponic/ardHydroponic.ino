@@ -204,7 +204,10 @@ void loop()
 
   checkMode(); // check if mode has changed
 
-  if (mode != 3 && mode != 4 && mode != 5)
+  /**********
+   * Count down on LCD
+   **********/
+  if (mode == 0)
   { // normal mode
 
     counter = (vars[4] - (currentMillis - readMillis)) / 1000;

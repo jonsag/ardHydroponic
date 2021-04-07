@@ -18,32 +18,32 @@ void printMode()
   case 0:
     if (debug)
       Serial.println("Running...");
-    printToLCD(6, 0, "Running...  ");
+    printToLCD(6, 0, "Running...    ");
     break;
   case 1:
     if (debug)
       Serial.println("Reading...");
-    printToLCD(6, 0, "Reading...  ");
+    printToLCD(6, 0, "Reading...    ");
     break;
   case 2:
     if (debug)
       Serial.println("Uploading...");
-    printToLCD(6, 0, "Uploading...");
+    printToLCD(6, 0, "Uploading...  ");
     break;
   case 3:
     if (debug)
       Serial.println("Maintenance");
-    printToLCD(6, 0, "Maintenance ");
+    printToLCD(6, 0, "Maintenance   ");
     break;
   case 4:
     if (debug)
       Serial.println("Settings");
-    printToLCD(6, 0, "Settings    ");
+    printToLCD(6, 0, "Settings      ");
     break;
   case 5:
     if (debug)
       Serial.println("Serial cmd");
-    printToLCD(6, 0, "Special     ");
+    printToLCD(6, 0, "Special       ");
     break;
   }
   if (debug)
