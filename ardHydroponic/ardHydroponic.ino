@@ -90,6 +90,9 @@ void setup()
   pinMode(espHardwareReset, OUTPUT);
 #endif
 
+  digitalWrite(resetPin, HIGH); // set pin high before it's defined
+  pinMode(resetPin, OUTPUT);
+
   if (debug)
     Serial.println();
 

@@ -263,7 +263,7 @@ void onPinActivated(int pinNumber)
             specialMaintMode--;
             if (specialMaintMode < 0 || specialMaintMode == 255)
             {
-                specialMaintMode = 2;
+                specialMaintMode = 3;
             }
             printSpecialMaintMode();
             break;
@@ -294,7 +294,7 @@ void onPinActivated(int pinNumber)
             break;
         case 5:
             specialMaintMode++;
-            if (specialMaintMode > 2)
+            if (specialMaintMode > 3)
             {
                 specialMaintMode = 0;
             }
@@ -394,9 +394,13 @@ void onPinDeactivated(int pinNumber)
 #ifdef esp01
                     printToLCD(0, 2, "Resetting...        ");
                     esp01HardwareReset();
-                    printToLCD(0, 2, "Reset              ");
+                    printToLCD(0, 2, "Reset               ");
 #endif
                     break;
+                case 3:
+                    printToLCD(0, 2, "Resetting...        ");
+                    resetSystem();
+                    printToLCD(0, 2, "Reset               ");
                 }
                 break;
             }

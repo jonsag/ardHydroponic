@@ -54,7 +54,7 @@ There are four major modes of the system:
 * Settings  
 * Special  
 
-Also there is a 'Reading...' mode that the system enters when measuring in 'Running...' mode.  
+Also there is a 'Reading...' mode that the system enters when measuring in 'Running...' mode, and an 'Uploading...' mode when uploading data to internet.  
 
 You advance from one mode to the next by pushing and holding down 'Button 1' for one second.  
 When you do this in 'Special' mode you loop back to 'Running...' mode again.  
@@ -146,6 +146,7 @@ LCD shows selected action and action result
 * Interact with ESP module in serial monitor
 * Clear EEPROM. On next restart the EEPROM will be rewritten with the default values from config
 * Reset ESP module
+* Reset system
 
 ## Calibration
 

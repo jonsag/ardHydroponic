@@ -103,6 +103,8 @@ const int espHardwareReset = 12;
 // connect ESP-Rx -> D18, ESP-Tx -> D19
 #endif
 
+const int resetPin = 14;
+
 /**********
 * EEPROM
 **********/
@@ -183,7 +185,7 @@ int temp; // reading samples
 /**********
 * Misc
 *********/
-int mode = 0; // 0: normal, 1: reading, 2: pumping, 3: maintenance, 4: settings
+int mode = 0; // 0: normal, 1: reading, 2: uploading, 3: maintenance, 4: settings, 5: special
 int oldMode = -1;
 
 char dtostrfBuffer[6];
@@ -224,7 +226,7 @@ String bootScreenLine1;
 String bootScreenLine2;
 String bootScreenLine3;
 
-byte specialMaintMode = 0;
+byte specialMaintMode = 0; // 0: communicate with esp module, 1: clear EEPROM, 2: reset esp module, 3: reset system
 
 boolean newData = 0;
 

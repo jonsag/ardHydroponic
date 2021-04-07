@@ -74,6 +74,12 @@ clearLCD();
   }
 }
 
+void resetSystem() {
+  if (debug) Serial.println("Resetting system...");
+  delay(1000);
+  digitalWrite(resetPin, LOW);
+}
+
 /*
 dtostrf(floatvar, StringLengthIncDecimalPoint, numVarsAfterDecimal, charbuf);
 where

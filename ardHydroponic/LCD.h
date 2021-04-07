@@ -239,6 +239,10 @@ void printSpecialMaintMode()
     Serial.println();
     printToLCD(0, 1, "Communicate with ESP");
     printToLCD(0, 2, "Use serial monitor  ");
+#else
+    Serial.print("Not available");
+    printToLCD(0, 1, "Not available       ");
+    printToLCD(0, 2, "                    ");
 #endif
     break;
   case 1:
@@ -251,6 +255,10 @@ void printSpecialMaintMode()
     printToLCD(0, 1, "Reset ESP module    ");
     printToLCD(0, 2, "                    ");
     break;
+  case 3:
+    Serial.println("Reset system");
+    printToLCD(0, 1, "Reset system        ");
+    printToLCD(0, 2, "                    ");
   }
 }
 void printSpecialMaint()
