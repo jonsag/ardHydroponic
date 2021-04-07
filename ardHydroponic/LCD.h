@@ -27,8 +27,8 @@ void printMode()
     break;
   case 2:
     if (debug)
-      Serial.println("Pumping...");
-    printToLCD(6, 0, "Pumping...  ");
+      Serial.println("Uploading...");
+    printToLCD(6, 0, "Uploading...");
     break;
   case 3:
     if (debug)

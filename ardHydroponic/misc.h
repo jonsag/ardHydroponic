@@ -51,7 +51,7 @@ clearLCD();
       break;
     case 2:
       if (debug) Serial.println();
-      if (debug) Serial.println("-> Pumping mode");
+      if (debug) Serial.println("-> Uploading mode");
       printMode();
       break;
     case 3:

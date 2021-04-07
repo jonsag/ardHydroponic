@@ -1,5 +1,5 @@
 #define logToThingSpeak // enable this if you got an ESP-01 and a thingSPeak channel
-#define esp01 // enable this if you got an ESP-01 module
+#define esp01           // enable this if you got an ESP-01 module
 
 /**********
 * Include files
@@ -230,6 +230,15 @@ void loop()
     **********/
     if (currentMillis - readMillis >= vars[4])
     { // read mode
+
+#ifdef logToThingSpeak
+      mode = 2;
+      checkMode();
+      if (debug)
+        Serial.println("Writing to thingSpeak...");
+      writeThingSpeak();
+#endif
+
       mode = 1;
       checkMode(); // check if mode has changed
 

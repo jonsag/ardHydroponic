@@ -279,12 +279,6 @@ void readSensors()
     printToLCD(12, 3, "   ");
   }
 
-#ifdef logToThingSpeak
-  if (debug)
-    Serial.println("Writing to thingSpeak...");
-  writeThingSpeak();
-#endif
-
   if (info == 1)
   {
     Serial.print("Temp:");
