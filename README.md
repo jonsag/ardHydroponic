@@ -4,35 +4,31 @@ An Arduino Mega managing a hydroponic plant bed.
 
 ## Hardware
 
-1 x Arduino Mega 2560  
+1 x Arduino Mega 2560, [https://www.aliexpress.com/item/32850843888.html](https://www.aliexpress.com/item/32850843888.html)  
 
-1 x LCD display, 4x20 with I2C communication  
+1 x LCD display, 4x20 with I2C communication, [https://www.aliexpress.com/item/4001135515638.html](https://www.aliexpress.com/item/4001135515638.html)  
 
-1 x ESP-01 module  
+1 x ESP-01 module, [https://www.aliexpress.com/item/32693314450.html](https://www.aliexpress.com/item/32693314450.html)  
 
 5 x Momentary push button  
 
-4 x fluid pump  
+5 x MOSFET module, [https://www.aliexpress.com/item/32839197645.html](https://www.aliexpress.com/item/32839197645.html)  
+
+4 x pump, [https://www.aliexpress.com/item/1005002253125218.html](https://www.aliexpress.com/item/1005002253125218.html)    
 
 1 x magnetic stirrer  
 
-1 x EC/TDS sensor:  
-Manufacturer: Qiter  
-ASIN: B08RJ5F7QP  
-Manufacturers reference: Qiterw75r30cnsb  
-[https://wiki.dfrobot.com/Gravity__Analog_TDS_Sensor___Meter_For_Arduino_SKU__SEN0244](https://wiki.dfrobot.com/Gravity__Analog_TDS_Sensor___Meter_For_Arduino_SKU__SEN0244)  
+1 x EC/TDS sensor, [https://www.aliexpress.com/item/32844394039.html](https://www.aliexpress.com/item/32844394039.html)  
 
-1 x pH sensor:  
-Manufacturer: VBESTLIFE  
-ASIN : B081QK9TX2  
-Manufacturers reference : VBESTLIFE29748130zt  
-[https://wiki.dfrobot.com/Gravity__Analog_pH_Sensor_Meter_Kit_V2_SKU_SEN0161-V2](https://wiki.dfrobot.com/Gravity__Analog_pH_Sensor_Meter_Kit_V2_SKU_SEN0161-V2)  
+1 x pH sensor, [https://www.aliexpress.com/item/32486002798.html](https://www.aliexpress.com/item/32486002798.html)  
 
-1 x DS18B20 temperature sensor
+1 x DS18B20 temperature sensor, [https://www.aliexpress.com/item/1783091649.html](https://www.aliexpress.com/item/1783091649.html)  
 
 5 x 10 kohm resistor
 
 1 x 4.7 kohm resistor
+
+1 x DC power source, same voltage as your pumps. If this will also feed the Arduino board, not higher than 12V  
 
 Calibration fluids:  
 pH: two solutions with known values, for example 4.00 and 7.00  (other values will also work)  
@@ -261,3 +257,11 @@ Get serial output
 >$ picocom -b 115200 /dev/ttyACM0 --omap crcrlf
 
 Exit with Ctrl+a Ctrl+x  
+
+## Links
+
+EC sensor:  
+[https://wiki.dfrobot.com/Gravity__Analog_TDS_Sensor___Meter_For_Arduino_SKU__SEN0244](https://wiki.dfrobot.com/Gravity__Analog_TDS_Sensor___Meter_For_Arduino_SKU__SEN0244)  
+
+pH sensor:  
+[https://wiki.dfrobot.com/Gravity__Analog_pH_Sensor_Meter_Kit_V2_SKU_SEN0161-V2](https://wiki.dfrobot.com/Gravity__Analog_pH_Sensor_Meter_Kit_V2_SKU_SEN0161-V2)  
