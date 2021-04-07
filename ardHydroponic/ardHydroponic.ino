@@ -226,19 +226,27 @@ void loop()
     }
 
     /**********
-    * Read loop
-    **********/
-    if (currentMillis - readMillis >= vars[4])
-    { // read mode
-
+     * Upload data
+     **********/
 #ifdef logToThingSpeak
+    if (currentMillis - readMillis > max(vars[0], max(vars[1], vars[2])) && newData)
+    { // pumps has stopped
       mode = 2;
       checkMode();
       if (debug)
         Serial.println("Writing to thingSpeak...");
       writeThingSpeak();
+      mode = 0;
+      checkMode();
+      newData = 0;
+    }
 #endif
 
+    /**********
+    * Read loop
+    **********/
+    if (currentMillis - readMillis >= vars[4])
+    { // read mode
       mode = 1;
       checkMode(); // check if mode has changed
 

@@ -298,6 +298,8 @@ void readSensors()
     Serial.println(TDSValue);
   }
 
+  newData = 1;
+
   if (debug)
     Serial.println();
 }

@@ -226,6 +226,8 @@ String bootScreenLine3;
 
 byte specialMaintMode = 0;
 
+boolean newData = 0;
+
 /**********
 * WiFi
 **********/
