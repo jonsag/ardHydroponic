@@ -76,7 +76,7 @@ clearLCD();
 
 void resetSystem() {
   if (debug) Serial.println("Resetting system...");
-  delay(1000);
+  delay(500);
   digitalWrite(resetPin, LOW);
 }
 

@@ -445,12 +445,12 @@ Wire Wire Line
 $Comp
 L power:+5V #PWR0109
 U 1 1 607528B2
-P 2500 4500
-F 0 "#PWR0109" H 2500 4350 50  0001 C CNN
-F 1 "+5V" H 2515 4673 50  0000 C CNN
-F 2 "" H 2500 4500 50  0001 C CNN
-F 3 "" H 2500 4500 50  0001 C CNN
-	1    2500 4500
+P 2250 4500
+F 0 "#PWR0109" H 2250 4350 50  0001 C CNN
+F 1 "+5V" H 2265 4673 50  0000 C CNN
+F 2 "" H 2250 4500 50  0001 C CNN
+F 3 "" H 2250 4500 50  0001 C CNN
+	1    2250 4500
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -465,9 +465,9 @@ F 3 "" H 2600 5850 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2900 5200 2500 5200
+	2900 5200 2250 5200
 Wire Wire Line
-	2500 5200 2500 4500
+	2250 5200 2250 4500
 $Comp
 L My_Parts:2-pole_power_in_screw_terminal U4
 U 1 1 607870A4
@@ -479,21 +479,6 @@ F 3 "" H 2175 5625 50  0001 C CNN
 	1    2000 5500
 	-1   0    0    -1  
 $EndComp
-$Comp
-L power:+6V #PWR0112
-U 1 1 6078A76B
-P 2100 4900
-F 0 "#PWR0112" H 2100 4750 50  0001 C CNN
-F 1 "+6V" H 2115 5073 50  0000 C CNN
-F 2 "" H 2100 4900 50  0001 C CNN
-F 3 "" H 2100 4900 50  0001 C CNN
-	1    2100 4900
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	2000 5500 2100 5500
-Wire Wire Line
-	2100 5500 2100 4900
 Wire Wire Line
 	1400 3950 1500 3950
 Connection ~ 1500 3950
@@ -562,9 +547,6 @@ Connection ~ 7600 2400
 Wire Wire Line
 	2000 5600 2600 5600
 Wire Wire Line
-	2100 5500 2900 5500
-Connection ~ 2100 5500
-Wire Wire Line
 	2600 4800 2900 4800
 Wire Wire Line
 	2600 4800 2600 5600
@@ -586,34 +568,34 @@ button5
 $Comp
 L Connector:Screw_Terminal_01x06 J2
 U 1 1 607CA2CB
-P 1450 6800
-F 0 "J2" H 1530 6792 50  0000 L CNN
-F 1 "Buttons" H 1530 6701 50  0000 L CNN
-F 2 "My_Parts:6-pole_5-NO_switch_screw_terminal" H 1450 6800 50  0001 C CNN
-F 3 "~" H 1450 6800 50  0001 C CNN
-	1    1450 6800
+P 1800 6850
+F 0 "J2" H 1880 6842 50  0000 L CNN
+F 1 "Buttons" H 1880 6751 50  0000 L CNN
+F 2 "My_Parts:6-pole_5-NO_switch_screw_terminal" H 1800 6850 50  0001 C CNN
+F 3 "~" H 1800 6850 50  0001 C CNN
+	1    1800 6850
 	1    0    0    -1  
 $EndComp
-Text GLabel 1150 6700 0    50   Input ~ 0
+Text GLabel 1500 6750 0    50   Input ~ 0
 button1
-Text GLabel 1150 6800 0    50   Input ~ 0
+Text GLabel 1500 6850 0    50   Input ~ 0
 button2
-Text GLabel 1150 6900 0    50   Input ~ 0
+Text GLabel 1500 6950 0    50   Input ~ 0
 button3
-Text GLabel 1150 7000 0    50   Input ~ 0
+Text GLabel 1500 7050 0    50   Input ~ 0
 button4
-Text GLabel 1150 7100 0    50   Input ~ 0
+Text GLabel 1500 7150 0    50   Input ~ 0
 button5
 Wire Wire Line
-	1250 6700 1150 6700
+	1600 6750 1500 6750
 Wire Wire Line
-	1150 6800 1250 6800
+	1500 6850 1600 6850
 Wire Wire Line
-	1250 6900 1150 6900
+	1600 6950 1500 6950
 Wire Wire Line
-	1150 7000 1250 7000
+	1500 7050 1600 7050
 Wire Wire Line
-	1250 7100 1150 7100
+	1600 7150 1500 7150
 Text GLabel 7600 1100 1    50   Input ~ 0
 pH+
 Text GLabel 7500 1100 1    50   Input ~ 0
@@ -632,62 +614,62 @@ Wire Wire Line
 $Comp
 L Connector:Screw_Terminal_01x07 J3
 U 1 1 60855372
-P 2850 6950
-F 0 "J3" H 2930 6992 50  0000 L CNN
-F 1 "MOSFETs" H 2930 6901 50  0000 L CNN
-F 2 "My_Parts:7-pole_6-MOSFET_screw_terminal" H 2850 6950 50  0001 C CNN
-F 3 "~" H 2850 6950 50  0001 C CNN
-	1    2850 6950
+P 3550 6900
+F 0 "J3" H 3630 6942 50  0000 L CNN
+F 1 "MOSFETs" H 3630 6851 50  0000 L CNN
+F 2 "My_Parts:7-pole_6-MOSFET_screw_terminal" H 3550 6900 50  0001 C CNN
+F 3 "~" H 3550 6900 50  0001 C CNN
+	1    3550 6900
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR0113
 U 1 1 60856567
-P 2550 6450
-F 0 "#PWR0113" H 2550 6300 50  0001 C CNN
-F 1 "+5V" H 2565 6623 50  0000 C CNN
-F 2 "" H 2550 6450 50  0001 C CNN
-F 3 "" H 2550 6450 50  0001 C CNN
-	1    2550 6450
+P 3250 6400
+F 0 "#PWR0113" H 3250 6250 50  0001 C CNN
+F 1 "+5V" H 3265 6573 50  0000 C CNN
+F 2 "" H 3250 6400 50  0001 C CNN
+F 3 "" H 3250 6400 50  0001 C CNN
+	1    3250 6400
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2650 6650 2550 6650
+	3350 6600 3250 6600
 Wire Wire Line
-	2550 6650 2550 6450
-Text GLabel 2550 6850 0    50   Input ~ 0
+	3250 6600 3250 6400
+Text GLabel 3100 6800 0    50   Input ~ 0
 pH+
-Text GLabel 2550 6950 0    50   Input ~ 0
+Text GLabel 3100 6900 0    50   Input ~ 0
 pH-
-Text GLabel 2550 7050 0    50   Input ~ 0
+Text GLabel 3100 7000 0    50   Input ~ 0
 nutrA
-Text GLabel 2550 7150 0    50   Input ~ 0
+Text GLabel 3100 7100 0    50   Input ~ 0
 nutrB
-Text GLabel 2550 7250 0    50   Input ~ 0
+Text GLabel 3100 7200 0    50   Input ~ 0
 stirrer
 Wire Wire Line
-	2650 6850 2550 6850
+	3350 6800 3100 6800
 Wire Wire Line
-	2550 6950 2650 6950
+	3100 6900 3350 6900
 Wire Wire Line
-	2650 7050 2550 7050
+	3350 7000 3100 7000
 Wire Wire Line
-	2550 7150 2650 7150
+	3100 7100 3350 7100
 Wire Wire Line
-	2650 7250 2550 7250
+	3350 7200 3100 7200
 Wire Wire Line
-	2650 6750 2150 6750
+	3350 6700 3250 6700
 Wire Wire Line
-	2150 6750 2150 7450
+	3250 6700 3250 7400
 $Comp
 L power:GND #PWR0114
 U 1 1 6091C813
-P 2150 7450
-F 0 "#PWR0114" H 2150 7200 50  0001 C CNN
-F 1 "GND" H 2155 7277 50  0000 C CNN
-F 2 "" H 2150 7450 50  0001 C CNN
-F 3 "" H 2150 7450 50  0001 C CNN
-	1    2150 7450
+P 3250 7400
+F 0 "#PWR0114" H 3250 7150 50  0001 C CNN
+F 1 "GND" H 3255 7227 50  0000 C CNN
+F 2 "" H 3250 7400 50  0001 C CNN
+F 3 "" H 3250 7400 50  0001 C CNN
+	1    3250 7400
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -719,18 +701,18 @@ Connection ~ 7200 1600
 Wire Wire Line
 	7200 1100 7200 1600
 Wire Wire Line
-	1150 6600 1250 6600
+	1500 6650 1600 6650
 Wire Wire Line
-	1150 6600 1150 6400
+	1500 6650 1500 6450
 $Comp
 L power:+5V #PWR0111
 U 1 1 607CDEE8
-P 1150 6400
-F 0 "#PWR0111" H 1150 6250 50  0001 C CNN
-F 1 "+5V" H 1165 6573 50  0000 C CNN
-F 2 "" H 1150 6400 50  0001 C CNN
-F 3 "" H 1150 6400 50  0001 C CNN
-	1    1150 6400
+P 1500 6450
+F 0 "#PWR0111" H 1500 6300 50  0001 C CNN
+F 1 "+5V" H 1515 6623 50  0000 C CNN
+F 2 "" H 1500 6450 50  0001 C CNN
+F 3 "" H 1500 6450 50  0001 C CNN
+	1    1500 6450
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -815,18 +797,18 @@ Wire Wire Line
 $Comp
 L power:+3.3V #PWR0106
 U 1 1 6066632F
-P 2300 4500
-F 0 "#PWR0106" H 2300 4350 50  0001 C CNN
-F 1 "+3.3V" H 2315 4673 50  0000 C CNN
-F 2 "" H 2300 4500 50  0001 C CNN
-F 3 "" H 2300 4500 50  0001 C CNN
-	1    2300 4500
+P 2500 4500
+F 0 "#PWR0106" H 2500 4350 50  0001 C CNN
+F 1 "+3.3V" H 2515 4673 50  0000 C CNN
+F 2 "" H 2500 4500 50  0001 C CNN
+F 3 "" H 2500 4500 50  0001 C CNN
+	1    2500 4500
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2900 5100 2300 5100
+	2900 5100 2500 5100
 Wire Wire Line
-	2300 5100 2300 4500
+	2500 5100 2500 4500
 $Comp
 L power:+3.3V #PWR0115
 U 1 1 6066FC4A
@@ -842,26 +824,20 @@ Wire Wire Line
 	4900 6800 4300 6800
 Wire Wire Line
 	4300 6800 4300 6600
-Text GLabel 5600 2200 2    50   Input ~ 0
-softRx
-Text GLabel 5600 2300 2    50   Input ~ 0
-softTx
-Text GLabel 2800 1900 0    50   Input ~ 0
-espReset
-Wire Wire Line
-	5600 2200 5500 2200
-Wire Wire Line
-	5500 2300 5600 2300
+Text GLabel 2800 1400 0    50   Input ~ 0
+Rx
+Text GLabel 2800 1500 0    50   Input ~ 0
+Tx
 Text GLabel 4800 6700 0    50   Input ~ 0
 espReset
 Wire Wire Line
 	4900 6700 4800 6700
 Text GLabel 4800 6500 0    50   Input ~ 0
-softRx
+Rx
 Wire Wire Line
 	4900 6500 4800 6500
 Text GLabel 6150 5750 1    50   Input ~ 0
-softTx
+Tx
 Wire Wire Line
 	6150 6800 5850 6800
 Wire Wire Line
@@ -918,4 +894,18 @@ F 3 "http://l0l.org.uk/2014/12/esp8266-modules-hardware-guide-gotta-catch-em-all
 $EndComp
 Wire Wire Line
 	2900 1900 2800 1900
+Wire Wire Line
+	2900 1400 2800 1400
+Wire Wire Line
+	2900 1500 2800 1500
+Text GLabel 5600 2200 2    50   Input ~ 0
+espReset
+Wire Wire Line
+	5600 2200 5500 2200
+Wire Wire Line
+	2900 4300 2800 4300
+Wire Wire Line
+	2800 4300 2800 1900
+Wire Wire Line
+	2000 5500 2900 5500
 $EndSCHEMATC
