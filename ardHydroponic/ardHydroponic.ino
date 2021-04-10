@@ -261,11 +261,6 @@ void loop()
       mode = 0;    // go back to normal mode
       checkMode(); // check if mode has changed
 
-      /**********
-      * ThingSpeak
-      **********/
-      // updateThingSpeak();
-
       readMillis = millis();
     }
 
@@ -277,11 +272,6 @@ void loop()
       startStirrer();
       stirStartMillis = currentMillis;
     }
-
-    /**********
-    * Run pumps
-    **********/
-    //if (EC25<1.4 && pHValue>6.6) {} // if the nutrient level unsufficient, and the pH value to high
 
     checkOutputStop(); // check if it's time to stop the pumps or stirrer
   }
