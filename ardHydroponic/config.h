@@ -240,7 +240,7 @@ boolean newData = 0;
 /**********
 * ThingSpeak
 **********/
-#ifdef logToThingSpeak
+#ifdef logToSerial1
 
 #define thingSpeakIP "184.106.153.149" // ip-address for thingspeak.com
 //String msg = "GET /update?key="; // a GET parameter associated with the personal thingspeak channel

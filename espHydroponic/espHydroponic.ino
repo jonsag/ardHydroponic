@@ -53,7 +53,7 @@ void setup(void)
 {
 
   Serial.setTimeout(10);
-  Serial.begin(115200);
+  Serial.begin(9600);
 
   /*
   WiFi.mode(WIFI_STA);
@@ -129,7 +129,10 @@ void handle_OnConnect()
   String formattedTime = timeClient.getFormattedTime();
 
   struct tm *ptm = gmtime((time_t *)&epochTime);
-
+while (Serial1.available())
+        {
+            Serial.write(Serial1.read());
+        }
   int monthDay = ptm->tm_mday;
   int currentMonth = ptm->tm_mon + 1;
   int currentYear = ptm->tm_year + 1900;

@@ -1,4 +1,4 @@
-#define logToThingSpeak // enable this if you got an ESP-01 and a thingSPeak channel
+#define logToSerial1 // enable this if you got an ESP-01 and a thingSPeak channel
 #define esp01           // enable this if you got an ESP-01 module
 
 /**********
@@ -11,7 +11,7 @@
 #include "secrets.h"
 #endif
 
-#ifdef logToThingSpeak
+#ifdef logToSerial1
 #include "thingSpeak.h"
 #endif
 
@@ -234,14 +234,15 @@ void loop()
     /**********
      * Upload data
      **********/
-#ifdef logToThingSpeak
+#ifdef logToSerial1
     if (currentMillis - readMillis > max(vars[0], max(vars[1], vars[2])) && newData)
     { // pumps has stopped
       mode = 2;
       checkMode();
       if (debug)
-        Serial.println("Writing to thingSpeak...");
-      writeThingSpeak();
+        Serial.println("Writing to Serial1...");
+        writeToSerial1();
+      //writeThingSpeak();
       mode = 0;
       checkMode();
       newData = 0;

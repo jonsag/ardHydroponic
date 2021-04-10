@@ -123,3 +123,26 @@ void esp01SendATCommand(String command)
   }
   */
 }
+
+void writeToSerial1(void) {
+  String serial1Mess = "Temp:";
+  serial1Mess += temperatureSum;
+  serial1Mess +=",pH:";
+  serial1Mess += pHValue;
+  serial1Mess += ",TDS:";
+  serial1Mess += TDSValue;
+
+  if (debug) Serial.print("Sending -> Serial1: ");
+  if (debug) Serial.println(serial1Mess);
+
+  Serial1.print(serial1Mess);
+
+  if (debug) {
+    while (Serial1.available())
+        {
+            Serial.write(Serial1.read());
+        }
+  }
+
+  if (debug) Serial.println();
+}
