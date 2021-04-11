@@ -1,4 +1,4 @@
-update=Mon 29 Mar 2021 10:57:48 PM CEST
+update=Sun 11 Apr 2021 10:38:39 PM CEST
 version=1
 last_client=kicad
 [general]
@@ -239,7 +239,7 @@ dPairViaGap=0.25
 [schematic_editor]
 version=1
 PageLayoutDescrFile=
-PlotDirectoryName=
+PlotDirectoryName=/home/jon/Documents/CodeWorkspace/ardHydroponic/KiCAD/ardHydroponic/
 SubpartIdSeparator=0
 SubpartFirstId=65
 NetFmtName=
