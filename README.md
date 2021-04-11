@@ -233,13 +233,13 @@ Create a new channel with the fields:
 
 Take note of your channel ID and write API key.  
 
-### Blynk
+### blynk
 
 Download [Blynk](https://play.google.com/store/apps/details?id=cc.blynk) to your phone.  
 
 Open Blynk and create a new project.  
 
-Add four widget boxes:  
+Add widget boxes:  
 
 * Gauge, Temperature, Input: Virtual V0, scaled 0-30
 * Gauge, pH, Input: Virtual V1, scaled 0-15
@@ -251,11 +251,12 @@ In your mail you will have received the authorization token.
 ### ESP-01
 
 Rename/copy espHydroponic/secrets.h.template to espHydroponic/secrets.h, and edit it with your own values/keys.  
+
 Compile and upload espHydroponic/espHydroponic.ino with, for example, Arduino IDE.  
 
 ## Trouble shooting
 
-### Resetting EEPROM to default values
+### Resetting EEPROM to default values at every start
 
 Edit ardHydroponic.ino  
 
