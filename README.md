@@ -14,7 +14,7 @@ An Arduino Mega managing a hydroponic plant bed.
 
 5 x MOSFET module, [https://www.aliexpress.com/item/32839197645.html](https://www.aliexpress.com/item/32839197645.html)  
 
-4 x pump, [https://www.aliexpress.com/item/1005002253125218.html](https://www.aliexpress.com/item/1005002253125218.html)    
+4 x pump, [https://www.aliexpress.com/item/1005002253125218.html](https://www.aliexpress.com/item/1005002253125218.html)  
 
 1 x magnetic stirrer  
 
@@ -23,6 +23,8 @@ An Arduino Mega managing a hydroponic plant bed.
 1 x pH sensor, [https://www.aliexpress.com/item/32486002798.html](https://www.aliexpress.com/item/32486002798.html)  
 
 1 x DS18B20 temperature sensor, [https://www.aliexpress.com/item/1783091649.html](https://www.aliexpress.com/item/1783091649.html)  
+
+1 x KY-019 relay module, [https://www.aliexpress.com/item/4000430707028.html](https://www.aliexpress.com/item/4000430707028.html)  
 
 5 x 10 kohm resistor
 
@@ -213,14 +215,43 @@ Don't use the LiquidCrystal_I2C library from Arduino IDE's library manager.
 
 Instead use the one from [https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library](https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library).  
 
-## Install
+## Install and configuration
 
-Upload the code in ardHydroponic with, for example, Arduino IDE.  
+### Arduino Mega
 
-Connect with a serial monitor and configure network via the 'Special mode'.  
-Command for this is found in the serial monitor.  
+Compile and upload ardHydroponic/ardHydroponic.ino with, for example, Arduino IDE.  
 
-You could of course also do this with an FTDI device, before you mount the ESP module on the Mega.  
+### thingspeak
+
+Get an account at [thingspeak.com](https://thingspeak.com).
+
+Create a new channel with the fields:
+
+* Field1: Temp
+* Field2: pH
+* Field3: TDS
+
+Take note of your channel ID and write API key.  
+
+### Blynk
+
+Download [Blynk](https://play.google.com/store/apps/details?id=cc.blynk) to your phone.  
+
+Open Blynk and create a new project.  
+
+Add four widget boxes:  
+
+* Gauge, Temperature, Input: Virtual V0, scaled 0-30
+* Gauge, pH, Input: Virtual V1, scaled 0-15
+* Gauge, TDS, Input Virtual V2, scaled 0-4000
+* Button, Enabled, Mode: Switch, Output: Virtual V3
+
+In your mail you will have received the authorization token.  
+
+### ESP-01
+
+Rename/copy espHydroponic/secrets.h.template to espHydroponic/secrets.h, and edit it with your own values/keys.  
+Compile and upload espHydroponic/espHydroponic.ino with, for example, Arduino IDE.  
 
 ## Trouble shooting
 
