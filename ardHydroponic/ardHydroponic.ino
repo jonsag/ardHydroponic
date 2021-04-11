@@ -1,20 +1,10 @@
-#define logToSerial1 // enable this if you got an ESP-01 and a thingSPeak channel
-#define esp01           // enable this if you got an ESP-01 module
 
 /**********
 * Include files
 **********/
 
 #include "config.h"
-
-#ifdef wifiEnabled
-#include "secrets.h"
-#endif
-
-#ifdef logToSerial1
-#include "thingSpeak.h"
-#endif
-
+#include "logging.h"
 #include "LCD.h"
 #include "outputs.h"
 #include "read.h"
@@ -86,9 +76,7 @@ void setup()
   pinMode(nutrBPump, OUTPUT);
   pinMode(stirrer, OUTPUT);
 
-#ifdef esp01
   pinMode(espHardwareReset, OUTPUT);
-#endif
 
   digitalWrite(resetPin, HIGH); // set pin high before it's defined
   pinMode(resetPin, OUTPUT);
@@ -117,7 +105,6 @@ void setup()
 /**********
    * ESP-01
    **********/
-#ifdef esp01
   if (debug)
     Serial.println("Starting ESP-01...");
   bootScreen("Starting ESP-01...  ");
@@ -141,52 +128,6 @@ void setup()
   esp01HardwareReset();
   if (debug)
     Serial.println();
-
-/*
-  if (debug)
-    Serial.println("Checking ESP with simple AT command...");
-  esp01SendATCommand("AT");
-  if (debug)
-    Serial.println("This should have produced an 'OK'");
-  if (debug)
-    Serial.println();
-
-  if (debug)
-    Serial.print("Connecting to SSID '");
-  if (debug)
-    Serial.print(SSID);
-  if (debug)
-    Serial.print("' with password '");
-  if (debug)
-    Serial.print(PASS);
-  if (debug)
-    Serial.println("'...");
-  bootScreen("Connecting to WiFi..");
-
-  String connectString = "AT+CWJAP=\""; // construct the connect command
-  connectString += SSID;
-  connectString += "\",\"";
-  connectString += PASS;
-  connectString += "\"";
-
-  esp01SendATCommand(connectString);
-  if (debug)
-    Serial.println();
-
-  if (debug)
-    Serial.println("Checking for IP...");
-  bootScreen("Checking for IP...  ");
-
-  esp01SendATCommand("AT+CIFSR"); // command to print IPs
-  if (debug)
-    Serial.println();
-*/
-#endif
-
-  /***********
-  * WiFi
-  ***********/
-  //if (debug) Serial.println("AT"); // Hayes command call for attention    }
 
   /**********
   * Initiate screen
@@ -234,7 +175,6 @@ void loop()
     /**********
      * Upload data
      **********/
-#ifdef logToSerial1
     if (currentMillis - readMillis > max(vars[0], max(vars[1], vars[2])) && newData)
     { // pumps has stopped
       mode = 2;
@@ -247,7 +187,6 @@ void loop()
       checkMode();
       newData = 0;
     }
-#endif
 
     /**********
     * Read loop

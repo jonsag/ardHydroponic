@@ -1,3 +1,4 @@
+
 void startpHPlus()
 {
     if (debug)
@@ -163,7 +164,6 @@ void checkMaintStop()
 
 void esp01HardwareReset(void)
 { // reset ESP
-#ifdef esp01
     if (debug)
         Serial.println("Resetting...");
     digitalWrite(espHardwareReset, LOW);
@@ -172,5 +172,4 @@ void esp01HardwareReset(void)
     delay(8000); // time needed to start reading
     if (debug)
         Serial.println("RESET!");
-#endif
 }

@@ -4,6 +4,7 @@
 //#include <ESP8266mDNS.h>
 #include <NTPClient.h>
 #include <WiFiUdp.h>
+#include <BlynkSimpleEsp8266.h>
 
 #include "secrets.h"
 
@@ -11,6 +12,9 @@
 
 boolean debug = 1;
 
+/**********
+   WiFi
+ **********/
 const char *ssid = STASSID;
 const char *password = STAPSK;
 WiFiClient client;
@@ -29,25 +33,67 @@ NTPClient timeClient(ntpUDP, "pool.ntp.org", utcOffsetInSeconds);
 //void handle_OnConnect();
 //void handle_NotFound();
 
+/**********
+   Times
+ **********/
 String formattedTime;
 String Date;
 int Day;
 int Month;
 int Year;
 
-int incomingByte = 0;
+/**********
+   Message
+ **********/
+//int incomingByte = 0;
 String message = "";
 
+/**********
+   Values
+ **********/
 float temperatureSum = 0.0;
 float pHValue = 0.0;
 float tdsValue = 0.0;
 
-unsigned long uploadedEpoch;
-//String uploadedTime;
+/**********
+   Web server
+ **********/
+ESP8266WebServer server(80);
 
+/**********
+   Outputs
+ **********/
+const byte relay = 2;
+boolean relayState = HIGH;
+
+/**********
+   Blynk
+ **********/
+char *blynkAuth = blynkToken;
+int valueV3;
+boolean lastValueV3 = HIGH;
+
+BLYNK_WRITE(V3)
+{
+  valueV3 = param.asInt(); // Get value as integer
+  if (valueV3)
+  {
+    relayState = HIGH;
+  }
+  else
+  {
+    relayState = LOW;
+  }
+  digitalWrite(relay, relayState);
+}
+
+/**********
+   Misc
+ **********/
 boolean uploadSuccess = 0;
 
-ESP8266WebServer server(80);
+unsigned long uploadedEpoch;
+//String uploadedTime;
 
 void setup(void)
 {
@@ -56,23 +102,23 @@ void setup(void)
   Serial.begin(9600);
 
   /*
-  WiFi.mode(WIFI_STA);
-  WiFi.begin(ssid, password);
-  if (debug) Serial.println("");
+    WiFi.mode(WIFI_STA);
+    WiFi.begin(ssid, password);
+    if (debug) Serial.println("");
 
-  // Wait for connection
-  while (WiFi.status() != WL_CONNECTED) {
+    // Wait for connection
+    while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     if (debug) Serial.print(".");
-  }
+    }
 
-  if (debug) Serial.println(WiFi.status());
-  if (debug) Serial.println("");
-  if (debug) Serial.print("Connected to ");
-  if (debug) Serial.println(ssid);
-  if (debug) Serial.print("IP address: ");
-  if (debug) Serial.println(WiFi.localIP());
-*/
+    if (debug) Serial.println(WiFi.status());
+    if (debug) Serial.println("");
+    if (debug) Serial.print("Connected to ");
+    if (debug) Serial.println(ssid);
+    if (debug) Serial.print("IP address: ");
+    if (debug) Serial.println(WiFi.localIP());
+  */
 
   /*MDNS
     }
@@ -83,11 +129,18 @@ void setup(void)
 
   server.on("/", handle_OnConnect);
   server.onNotFound(handle_NotFound);
+  server.on("/toggleRelay", handle_toggleRelay);
   server.begin();
+
   timeClient.begin();
 
   if (debug)
     Serial.println("HTTP server started");
+
+  pinMode(relay, OUTPUT);
+  digitalWrite(relay, relayState);
+
+  Blynk.begin(blynkAuth, ssid, password);
 }
 
 void loop(void)
@@ -99,12 +152,14 @@ void loop(void)
     WiFi.begin(ssid, password); // connect to WPA/WPA2 network
     while (WiFi.status() != WL_CONNECTED)
     {
-      
+
       Serial.print(".");
       delay(500);
     }
     Serial.println("\nConnected.");
   }
+
+  Blynk.run();
 
   server.handleClient();
   //MDNS.update();
@@ -129,98 +184,166 @@ void handle_OnConnect()
   String formattedTime = timeClient.getFormattedTime();
 
   struct tm *ptm = gmtime((time_t *)&epochTime);
-while (Serial1.available())
-        {
-            Serial.write(Serial1.read());
-        }
+  while (Serial1.available())
+  {
+    Serial.write(Serial1.read());
+  }
   int monthDay = ptm->tm_mday;
   int currentMonth = ptm->tm_mon + 1;
   int currentYear = ptm->tm_year + 1900;
 
   Date = String(currentYear) + "-" + String(currentMonth) + "-" + String(monthDay);
 
-  server.send(200, "text/html", SendHTML(temperatureSum, pHValue, tdsValue, formattedTime, Date, epochTime, uploadedEpoch, uploadSuccess));
+  server.send(200, "text/html", SendHTML(temperatureSum, pHValue, tdsValue, formattedTime, Date, epochTime, uploadedEpoch, uploadSuccess, relayState));
 }
 
 void handle_NotFound()
 {
-  String message = "File Not Found\n\n";
-  message += "URI: ";
-  message += server.uri();
-  message += "\nMethod: ";
-  message += (server.method() == HTTP_GET) ? "GET" : "POST";
-  message += "\nArguments: ";
-  message += server.args();
-  message += "\n";
+  String message404 = "File Not Found\n\n";
+  message404 += "URI: ";
+  message404 += server.uri();
+  message404 += "\nMethod: ";
+  message404 += (server.method() == HTTP_GET) ? "GET" : "POST";
+  message404 += "\nArguments: ";
+  message404 += server.args();
+  message404 += "\n";
   for (uint8_t i = 0; i < server.args(); i++)
   {
-    message += " " + server.argName(i) + ": " + server.arg(i) + "\n";
+    message404 += " " + server.argName(i) + ": " + server.arg(i) + "\n";
   }
-  server.send(404, "text/plain", message);
+  server.send(404, "text/plain", message404);
 }
 
-String SendHTML(float temperatureSum, float pHValue, float tdsValueString, String TimeWeb, String DateWeb, unsigned long epochTime, unsigned long uploadedEpoch, boolean uploadSuccess)
+void handle_toggleRelay()
 {
-  String ptr = "<!DOCTYPE html> <html>\n";
-  ptr += "<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\n";
-  ptr += "<title>ESP8266 Global Server</title>\n";
-
-  ptr += "</head>\n";
-  ptr += "<body>\n";
-  ptr += "<div id=\"webpage\">\n";
-  ptr += "</p>\n";
-  ptr += "<h1>espHydroponic</h1>\n";
-
-  ptr += "<p>Date: ";
-  ptr += (String)DateWeb;
-  ptr += "\n";
-  ptr += "<br>Time: ";
-  ptr += (String)TimeWeb;
-  ptr += " UTC\n";
-
-  if (debug)
+  if (relayState)
   {
-    ptr += "<br>Epoch: ";
-    ptr += epochTime;
-  }
-  ptr += "</p>\n";
-
-  ptr += "<p>Temp: ";
-  ptr += temperatureSum;
-  ptr += "&#176;C\n";
-  ptr += "<br>pH: ";
-  ptr += pHValue;
-  ptr += "\n";
-  ptr += "<br>TDS: ";
-  ptr += (int)tdsValue;
-  ptr += " ppm</p>\n";
-
-  ptr += "<p>Collected ";
-  ptr += epochTime - uploadedEpoch;
-  ptr += " seconds ago\n";
-
-  if (debug)
-  {
-    ptr += "<br>Collected epoch: ";
-    ptr += uploadedEpoch;
-    ptr += "\n";
-  }
-
-  ptr += "<br>Upload ";
-  if (uploadSuccess)
-  {
-    ptr += "successful";
+    relayState = LOW;
   }
   else
   {
-    ptr += "failed";
+    relayState = HIGH;
   }
-  ptr += "</p>\n";
 
-  ptr += "</div>\n";
-  ptr += "</body>\n";
-  ptr += "</html>\n";
-  return ptr;
+  digitalWrite(relay, relayState);
+  Blynk.virtualWrite(V3, relayState);
+
+  String togglePage = "<!DOCTYPE html>\n<html>\n";
+  togglePage += "<head><meta name = \"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\n"; // head
+  togglePage += "<title>ESP8266 espHydroponic</title>\n";
+  togglePage += "</head>\n";
+
+  togglePage += "<body>\n"; // body
+  togglePage += "<div id=\"webpage\">\n";
+
+  togglePage += "<h1>espHydroponic</h1>\n";
+
+  if (relayState)
+  {
+    togglePage += "<p>Pumps enabled</p>";
+  }
+  else
+  {
+    togglePage += "<p>Pumps disabled</p>";
+  }
+
+  togglePage += "<br>\n<button onclick = \"goBack()\">Go Back </button>\n";
+  togglePage += "<script>\n";
+  togglePage += "function goBack() {\n";
+  togglePage += "window.history.back();\n";
+  togglePage += "}\n";
+  togglePage += "</script>\n";
+
+  togglePage += "<p>Don't forget to refresh page once there</p>\n";
+
+  togglePage += "</div>\n";
+  togglePage += "</body>\n";
+  togglePage += "</html>\n";
+
+  server.send(200, "text / html", togglePage);
+  //handle_OnConnect();
+}
+
+String SendHTML(float temperatureSum, float pHValue, float tdsValueString, String TimeWeb, String DateWeb, unsigned long epochTime, unsigned long uploadedEpoch, boolean uploadSuccess, boolean relayState)
+{
+  String mainPage = "<!DOCTYPE html>\n<html>\n";
+  mainPage += "<head><meta name = \"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\n"; // head
+  mainPage += "<title>ESP8266 espHydroponic</title>\n";
+  mainPage += "</head>\n";
+
+  mainPage += "<body>\n"; // body
+  mainPage += "<div id=\"webpage\">\n";
+
+  mainPage += "<h1>espHydroponic</h1>\n"; // header
+
+  mainPage += "<p>Date: "; // time and date
+  mainPage += (String)DateWeb;
+  mainPage += "\n";
+  mainPage += "<br>Time: ";
+  mainPage += (String)TimeWeb;
+  mainPage += " UTC\n";
+
+  if (debug)
+  {
+    mainPage += "<br>Epoch: ";
+    mainPage += epochTime;
+    Blynk.virtualWrite(V2, tdsValue);
+  }
+  mainPage += "</p>\n";
+
+  mainPage += "<p>Temp: "; // values
+  mainPage += temperatureSum;
+  mainPage += "&#176;C\n";
+  mainPage += "<br>pH: ";
+  mainPage += pHValue;
+  mainPage += "\n";
+  mainPage += "<br>TDS: ";
+  mainPage += (int)tdsValue;
+  mainPage += " ppm</p>\n";
+
+  mainPage += "<p>Collected "; // how old are values
+  mainPage += epochTime - uploadedEpoch;
+  mainPage += " seconds ago\n";
+
+  if (debug)
+  {
+    mainPage += "<br>Collected epoch: ";
+    mainPage += uploadedEpoch;
+    mainPage += "</p>\n";
+  }
+
+  mainPage += "<p>Upload "; // uploaded
+  if (uploadSuccess)
+  {
+    mainPage += "successful";
+  }
+  else
+  {
+    mainPage += "failed";
+  }
+  mainPage += "</p>\n";
+
+  mainPage += "<p>Pumps are "; // uploaded
+  if (relayState)
+  {
+    mainPage += "enabled\n";
+    mainPage += "<br><a href=\"/toggleRelay\">Disable pumps</a>\n";
+  }
+  else
+  {
+    mainPage += "disabled";
+    mainPage += "<br><a href=\"/toggleRelay\">Enable pumps</a>\n";
+  }
+  mainPage += "</p>\n";
+
+  mainPage += "<p><FORM>\n";
+  mainPage += "<INPUT TYPE=\"button\" onClick=\"history.go(0)\" VALUE=\"Refresh page\">\n";
+  mainPage += "</FORM></p>\n";
+
+  mainPage += "</div>\n";
+  mainPage += "</body>\n";
+  mainPage += "</html>\n";
+  return mainPage;
 }
 
 void decodeMessage(String message)
@@ -350,9 +473,14 @@ void decodeMessage(String message)
           Serial.println("Problem updating channel. HTTP error code " + String(x));
         uploadSuccess = 0;
       }
+
       timeClient.update();
       //uploadedTime = timeClient.getFormattedTime();
       uploadedEpoch = timeClient.getEpochTime();
+
+      Blynk.virtualWrite(V0, temperatureSum);
+      Blynk.virtualWrite(V1, pHValue);
+      Blynk.virtualWrite(V2, tdsValue);
     }
     else
     {

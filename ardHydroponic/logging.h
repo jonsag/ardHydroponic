@@ -1,4 +1,4 @@
-
+/*
 void esp01StartThingSpeakCmd(void)
 {                  // start communication with thingSpeak
   Serial1.flush(); // clears the buffer before starting to write
@@ -69,7 +69,6 @@ String esp01SendThingSpeakGetCmd(String getStr)
 void writeThingSpeak(void)
 { // connect to thingSpeak
 
-#ifdef esp01
   esp01StartThingSpeakCmd();
 
   // prepare the GET string
@@ -85,7 +84,6 @@ void writeThingSpeak(void)
   getStr += "\r\n\r\n";
 
   esp01SendThingSpeakGetCmd(getStr);
-#endif
 }
 
 void esp01SendATCommand(String command)
@@ -114,15 +112,8 @@ void esp01SendATCommand(String command)
   if (debug)
     Serial.println(messageBody);
 
-  /*  
-  while (Serial1.available())
-  {
-    if (debug) Serial.print(Serial1.read());
-    //String inData = Serial1.readStringUntil('\n');
-    //if (debug) Serial.println("Got response from ESP8266: " + inData);
-  }
-  */
 }
+*/
 
 void writeToSerial1(void) {
   String serial1Mess = "Temp:";

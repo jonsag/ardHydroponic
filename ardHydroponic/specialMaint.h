@@ -3,7 +3,6 @@ void doSpecialMaint()
     switch (specialMaintMode)
     {
     case 0:
-#ifdef esp01
         while (Serial1.available())
         {
             Serial.write(Serial1.read());
@@ -12,7 +11,6 @@ void doSpecialMaint()
         {
             Serial1.write(Serial.read());
         }
-#endif
         break;
     }
 }

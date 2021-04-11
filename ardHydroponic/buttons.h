@@ -391,11 +391,9 @@ void onPinDeactivated(int pinNumber)
                     printToLCD(0, 2, "Cleared             ");
                     break;
                 case 2:
-#ifdef esp01
                     printToLCD(0, 2, "Resetting...        ");
                     esp01HardwareReset();
                     printToLCD(0, 2, "Reset               ");
-#endif
                     break;
                 case 3:
                     printToLCD(0, 2, "Resetting...        ");

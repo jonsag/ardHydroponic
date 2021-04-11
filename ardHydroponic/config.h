@@ -1,5 +1,5 @@
 String programName = "ardHydroponic";
-String date = "20210407";
+String date = "20210411";
 String author = "Jon Sagebrand";
 String email = "jonsagebrand@gmail.com";
 
@@ -98,10 +98,8 @@ const int button3 = 9;
 const int button4 = 10;
 const int button5 = 11;
 
-#ifdef esp01
 const int espHardwareReset = 12;
 // connect ESP-Rx -> D18, ESP-Tx -> D19
-#endif
 
 const int resetPin = 14;
 
@@ -190,7 +188,6 @@ int oldMode = -1;
 
 char dtostrfBuffer[6];
 int strLength;
-//String valString;
 int valLength;
 
 unsigned long currentMillis;
@@ -211,7 +208,6 @@ unsigned long oldCounter = -1;
 
 byte outputNumber = 0;
 char *outputNames[] = {"pH+    ", "pH-    ", "Nutr A ", "Nutr B ", "Stirrer"};
-//boolean set = 0;
 
 unsigned long stirStartMillis = 0; // when was the stirrer started
 unsigned long stirStopMillis = 0;  // when did the stirrer stop
@@ -230,22 +226,3 @@ byte specialMaintMode = 0; // 0: communicate with esp module, 1: clear EEPROM, 2
 
 boolean newData = 0;
 
-/**********
-* WiFi
-**********/
-#ifdef esp01
-#define wifiEnabled
-#endif
-
-/**********
-* ThingSpeak
-**********/
-#ifdef logToSerial1
-
-#define thingSpeakIP "184.106.153.149" // ip-address for thingspeak.com
-//String msg = "GET /update?key="; // a GET parameter associated with the personal thingspeak channel
-
-int spare = 0;
-boolean error;
-
-#endif

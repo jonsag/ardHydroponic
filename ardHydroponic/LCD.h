@@ -1,3 +1,4 @@
+
 void clearLCD()
 {
   lcd.clear();
@@ -75,16 +76,6 @@ void printPHValue()
   printToLCD(4 + strLength, 2, "   ");
 }
 
-/*
-void printECValue()
-{
-  if (debug) Serial.println("LCD -> Printing EC value");
-
-  dtostrf(EC25, 2, 2, dtostrfBuffer);
-  printToLCD(4, 3, dtostrfBuffer);
-}
-*/
-
 void printTDSValue()
 {
   if (debug)
@@ -112,11 +103,6 @@ void printNormal()
 
   printToLCD(0, 2, "pH:");
   printPHValue();
-
-  /*
-  printToLCD(0, 3, "EC:");
-  printECValue();
-  */
 
   printToLCD(0, 3, "TDS:");
   printTDSValue();
@@ -217,46 +203,25 @@ void printSpecialMaintMode()
   switch (specialMaintMode)
   {
   case 0:
-#ifdef esp01
     Serial.println("Communicate with ESP module");
-    Serial.println("----------");
-    Serial.println("Test AT startup: AT");
-    Serial.println("Restart module: AT+RST");
-    Serial.println("View firmware info: AT+GMR");
-    Serial.println("Check WiFi mode: AT+CWMODE=?");
-    Serial.println("Print SSID of connected access point: AT+CWJAP?");
-    Serial.println("List available access points: AT+CWLAP");
-    Serial.println("Disconnect from access point: AT+CWQAP");
-    Serial.println("Set WiFi mode to station: AT+CWMODE=1");
-    Serial.print("Connect to your access point: ");
-    Serial.print("AT+CWJAP=\""); // construct the connect command
-    Serial.print(SSID);
-    Serial.print("\",\"");
-    Serial.print(PASS);
-    Serial.println("\"");
-    Serial.println("Check IP: AT+CIFSR");
-    Serial.println("----------");
-    Serial.println();
     printToLCD(0, 1, "Communicate with ESP");
     printToLCD(0, 2, "Use serial monitor  ");
-#else
-    Serial.print("Not available");
-    printToLCD(0, 1, "Not available       ");
-    printToLCD(0, 2, "                    ");
-#endif
     break;
   case 1:
-    Serial.println("Clear EEPROM");
+    if (debug)
+      Serial.println("Clear EEPROM");
     printToLCD(0, 1, "Clear EEPROM        ");
     printToLCD(0, 2, "                    ");
     break;
   case 2:
-    Serial.println("Reset ESP module");
+    if (debug)
+      Serial.println("Reset ESP module");
     printToLCD(0, 1, "Reset ESP module    ");
     printToLCD(0, 2, "                    ");
     break;
   case 3:
-    Serial.println("Reset system");
+    if (debug)
+      Serial.println("Reset system");
     printToLCD(0, 1, "Reset system        ");
     printToLCD(0, 2, "                    ");
   }
@@ -272,12 +237,6 @@ void printSpecialMaint()
 void bootScreen(String message)
 {
   clearLCD();
-
-  /*
-  int strLen = message.length() + 1;      // length (with one extra character for the null terminator)
-  char charArray[strLen];                 // prepare the character array (the buffer)
-  message.toCharArray(charArray, strLen); // copy it over
-*/
 
   switch (bootScreenLineNo)
   {
