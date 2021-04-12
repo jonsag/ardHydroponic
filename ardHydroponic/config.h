@@ -1,5 +1,5 @@
 String programName = "ardHydroponic";
-String date = "20210411";
+String date = "20210412";
 String author = "Jon Sagebrand";
 String email = "jonsagebrand@gmail.com";
 
@@ -13,6 +13,7 @@ const byte info = 0;     // 0: no info; 1: plotting, all values with headers on 
 * Configurable variables
 **********/
 char *varNames[] = {
+    // This is the text printed on the LCD in 'Settings' mode
     "Nutr pump time,   ms", /* 0 */
     "pH+ pump time,    ms", /* 1 */
     "pH- pump time,    ms", /* 2 */
@@ -33,6 +34,7 @@ char *varNames[] = {
 };
 
 float vars[] = {
+    // initial values of the configurable variables
     500.00,   /* 0, Nutr pump time, ms */
     500.00,   /* 1, pH+ pump time, ms */
     500.00,   /* 2, pH- pump time, ms */
@@ -53,6 +55,7 @@ float vars[] = {
 };
 
 float incs[] = {
+    // increments/decrements when pushing buttons 4 and 5 in 'Settings'
     100.00,  /* 0, Nutr pump time, ms */
     100.00,  /* 1, pH+ pump time, ms */
     100.00,  /* 2, pH- pump time, ms */
@@ -72,7 +75,7 @@ float incs[] = {
     1.0      /* 16, pH voltage offset, mV */
 };
 
-const int noOfVars = 17;
+const int noOfVars = 17; // this must correlate to the above variables
 
 /**********
  * Pins
@@ -101,7 +104,7 @@ const int button5 = 11;
 const int espHardwareReset = 12;
 // connect ESP-Rx -> D18, ESP-Tx -> D19
 
-const int resetPin = 14;
+const int resetPin = 14; // resets the Mega itself
 
 /**********
 * EEPROM
@@ -111,7 +114,7 @@ const int resetPin = 14;
 byte varNumber = 0;
 byte oldVarNumber = 0;
 
-const byte addressMultiplicator = 4;
+const byte addressMultiplicator = 4; // we store all variables as floats which uses 4 bytes
 
 /***********
 * Serial
@@ -203,11 +206,15 @@ unsigned long button1PushMillis = 0;
 const int longPushTime = 1000;
 boolean longPush = 0;
 
-unsigned long counter;
+unsigned long counter; // counter on screen in 'Running...' mode
 unsigned long oldCounter = -1;
 
 byte outputNumber = 0;
-char *outputNames[] = {"pH+    ", "pH-    ", "Nutr A ", "Nutr B ", "Stirrer"};
+char *outputNames[] = {"pH+    ",
+                       "pH-    ",
+                       "Nutr A ",
+                       "Nutr B ",
+                       "Stirrer"};
 
 unsigned long stirStartMillis = 0; // when was the stirrer started
 unsigned long stirStopMillis = 0;  // when did the stirrer stop
@@ -217,12 +224,11 @@ int j;
 float tempValue; // holds different bvtes
 
 byte bootScreenLineNo = 0;
-String bootScreenLine0;
+String bootScreenLine0; // holds boot screen messages
 String bootScreenLine1;
 String bootScreenLine2;
 String bootScreenLine3;
 
 byte specialMaintMode = 0; // 0: communicate with esp module, 1: clear EEPROM, 2: reset esp module, 3: reset system
 
-boolean newData = 0;
-
+boolean newData = 0; // we have new readings which wasn't uploaded

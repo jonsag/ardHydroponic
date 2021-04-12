@@ -28,13 +28,15 @@ void checkMode()
   {
     if (oldMode == 3 || oldMode == 4 || oldMode == 5)
     {
-clearLCD();
+      clearLCD();
     }
     switch (mode)
     {
     case 0:
-      if (debug) Serial.println();
-      if (debug) Serial.println("-> Normal mode");
+      if (debug)
+        Serial.println();
+      if (debug)
+        Serial.println("-> Normal mode");
       if (oldMode == 3 || oldMode == 4 || oldMode == 5)
       {
         printNormal();
@@ -45,28 +47,38 @@ clearLCD();
       }
       break;
     case 1:
-      if (debug) Serial.println();
-      if (debug) Serial.println("-> Reading mode");
+      if (debug)
+        Serial.println();
+      if (debug)
+        Serial.println("-> Reading mode");
       printMode();
       break;
     case 2:
-      if (debug) Serial.println();
-      if (debug) Serial.println("-> Uploading mode");
+      if (debug)
+        Serial.println();
+      if (debug)
+        Serial.println("-> Uploading mode");
       printMode();
       break;
     case 3:
-      if (debug) Serial.println();
-      if (debug) Serial.println("-> Maintenance mode");
+      if (debug)
+        Serial.println();
+      if (debug)
+        Serial.println("-> Maintenance mode");
       printMaintenance();
       break;
     case 4:
-      if (debug) Serial.println();
-      if (debug) Serial.println("-> Settings mode");
+      if (debug)
+        Serial.println();
+      if (debug)
+        Serial.println("-> Settings mode");
       printSettings();
       break;
     case 5:
-      if (debug) Serial.println();
-      if (debug) Serial.println("-> Special maintenance mode");
+      if (debug)
+        Serial.println();
+      if (debug)
+        Serial.println("-> Special maintenance mode");
       printSpecialMaint();
       break;
     }
@@ -74,8 +86,10 @@ clearLCD();
   }
 }
 
-void resetSystem() {
-  if (debug) Serial.println("Resetting system...");
+void resetSystem()
+{
+  if (debug)
+    Serial.println("Resetting system...");
   delay(500);
   digitalWrite(resetPin, LOW);
   printToLCD(0, 2, "Reset failed        ");

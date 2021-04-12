@@ -26,7 +26,7 @@ void setup()
   if (debug)
     Serial.println();
   if (debug)
-    Serial.println(programName); // print information
+    Serial.println(programName);
   if (debug)
     Serial.println(date);
   if (debug)
@@ -102,7 +102,7 @@ void setup()
   if (debug)
     Serial.println();
 
-/**********
+  /**********
    * ESP-01
    **********/
   if (debug)
@@ -181,7 +181,7 @@ void loop()
       checkMode();
       if (debug)
         Serial.println("Writing to Serial1...");
-        writeToSerial1();
+      writeToSerial1();
       //writeThingSpeak();
       mode = 0;
       checkMode();

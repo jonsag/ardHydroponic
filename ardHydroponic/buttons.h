@@ -1,3 +1,7 @@
+
+/**********
+ * Toggle pumps
+ **********/
 void startStopCleaning()
 {
     if (debug)
@@ -73,6 +77,9 @@ void startStopCleaning()
     }
 }
 
+/**********
+ * Check if values are sane after changing them
+ **********/
 void checkSanity()
 {
     switch (varNumber)
@@ -220,6 +227,9 @@ void checkSanity()
     }
 }
 
+/**********
+ * Buttons 2-5 act on button down
+ **********/
 void onPinActivated(int pinNumber)
 {
     if (debug)
@@ -331,6 +341,9 @@ void onPinActivated(int pinNumber)
     } // outer switch stop
 }
 
+/**********
+ * Button 1 acts on buttn release
+ **********/
 void onPinDeactivated(int pinNumber)
 {
     if (debug)
@@ -413,6 +426,9 @@ void onPinDeactivated(int pinNumber)
     }
 }
 
+/**********
+ * Button 1 has a long push action
+ **********/
 void longPushButton1()
 {
     if (debug)
