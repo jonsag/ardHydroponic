@@ -78,6 +78,7 @@ void resetSystem() {
   if (debug) Serial.println("Resetting system...");
   delay(500);
   digitalWrite(resetPin, LOW);
+  printToLCD(0, 2, "Reset failed        ");
 }
 
 /*

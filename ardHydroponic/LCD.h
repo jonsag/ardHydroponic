@@ -43,7 +43,7 @@ void printMode()
     break;
   case 5:
     if (debug)
-      Serial.println("Serial cmd");
+      Serial.println("Special");
     printToLCD(6, 0, "Special       ");
     break;
   }
@@ -204,6 +204,10 @@ void printSpecialMaintMode()
   {
   case 0:
     Serial.println("Communicate with ESP module");
+    Serial.println("----------");
+    Serial.println("Send test data: Temp:12.34,pH:5.67,TDS:890.12");
+    Serial.println("Print IP: i");
+    Serial.println("----------");
     printToLCD(0, 1, "Communicate with ESP");
     printToLCD(0, 2, "Use serial monitor  ");
     break;

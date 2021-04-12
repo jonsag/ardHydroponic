@@ -45,8 +45,7 @@ int Year;
 /**********
    Message
  **********/
-//int incomingByte = 0;
-String message = "";
+String message;
 
 /**********
    Values
@@ -93,36 +92,12 @@ BLYNK_WRITE(V3)
 boolean uploadSuccess = 0;
 
 unsigned long uploadedEpoch;
-//String uploadedTime;
 
 void setup(void)
 {
 
   Serial.setTimeout(10);
   Serial.begin(9600);
-
-  /*
-    WiFi.mode(WIFI_STA);
-    WiFi.begin(ssid, password);
-    if (debug) Serial.println("");
-
-    // Wait for connection
-    while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    if (debug) Serial.print(".");
-    }
-
-    if (debug) Serial.println(WiFi.status());
-    if (debug) Serial.println("");
-    if (debug) Serial.print("Connected to ");
-    if (debug) Serial.println(ssid);
-    if (debug) Serial.print("IP address: ");
-    if (debug) Serial.println(WiFi.localIP());
-  */
-
-  /*MDNS
-    }
-  */
 
   WiFi.mode(WIFI_STA);
   ThingSpeak.begin(client); // Initialize ThingSpeak
@@ -140,7 +115,23 @@ void setup(void)
   pinMode(relay, OUTPUT);
   digitalWrite(relay, relayState);
 
+  Serial.print("Starting blynk and attempting to connect to SSID: ");
+  Serial.print(STASSID);
+  Serial.println("...");
+
   Blynk.begin(blynkAuth, ssid, password);
+
+  while (WiFi.status() != WL_CONNECTED)
+  {
+
+    Serial.print(".");
+    delay(500);
+  }
+
+  Serial.println("\nConnected");
+  Serial.print("IP: ");
+  Serial.println(WiFi.localIP());
+  Serial.println();
 }
 
 void loop(void)
@@ -348,21 +339,28 @@ String SendHTML(float temperatureSum, float pHValue, float tdsValueString, Strin
 
 void decodeMessage(String message)
 {
+  message.trim();
+
   if (debug)
     Serial.println();
   if (debug)
     Serial.print("Message as String: ");
   if (debug)
     Serial.print(message);
+  if (debug)
+    Serial.println();
+  if (debug)
+    Serial.print("String length: ");
+  if (debug)
+    Serial.println(message.length());
 
-  boolean valid = 1;
+  boolean validData = 1;
 
   if (message.indexOf("Temp:") >= 0 && message.indexOf("pH:") >= 0 && message.indexOf("TDS:") >= 0)
   {
 
     if (debug)
       Serial.println("Message has data");
-
     int str_len = message.length() + 1; // length (with one extra character for the null terminator)
     char char_array[str_len];           // prepare the character array (the buffer)
 
@@ -372,6 +370,8 @@ void decodeMessage(String message)
       Serial.print("Message as char array: ");
     if (debug)
       Serial.print(char_array);
+    if (debug)
+      Serial.println();
 
     int i;
     char delimiter[] = ",";
@@ -404,7 +404,7 @@ void decodeMessage(String message)
         }
         else
         {
-          valid = 0;
+          validData = 0;
           if (debug)
             Serial.println("NA");
         }
@@ -424,7 +424,7 @@ void decodeMessage(String message)
         }
         else
         {
-          valid = 0;
+          validData = 0;
           if (debug)
             Serial.println("NA");
         }
@@ -444,14 +444,14 @@ void decodeMessage(String message)
         }
         else
         {
-          valid = 0;
+          validData = 0;
           if (debug)
             Serial.println("NA");
         }
       }
     }
 
-    if (valid)
+    if (validData)
     {
       if (debug)
         Serial.println("Uploading data...");
@@ -488,10 +488,15 @@ void decodeMessage(String message)
         Serial.println("Did not contain valid data");
     }
   }
+  else if (message == "i")
+  {
+    Serial.print("IP: ");
+    Serial.println(WiFi.localIP());
+  }
   else
   {
     if (debug)
-      Serial.println("Message does not have valid data");
+      Serial.println("Message is not valid");
   }
 
   if (debug)
