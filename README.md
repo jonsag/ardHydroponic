@@ -41,7 +41,8 @@ Connect everything according to the schematics in KiCAD.
 ## Usage
 
 Your setup will have five push buttons and one LCD display.  
-Everything is monitored and adjusted from the LCD. However, a lot of output is also provided on the serial output from the Mega.  
+Everything is monitored and adjusted from the LCD.  
+A lot of output is also provided on the serial output from the Mega.  
 
 ### Modes
 
@@ -121,7 +122,7 @@ However, the last seven of these will be further explained in the calibration se
 
 The second line on the LCD will show the variable name.  
 Line three will show the value stored in EEPROM.  
-Line four will show the new value you step upp and down.  
+Line four will show the new value you step up and down.  
 
 Also lines three and four will show pH and TDS when applicable.  
 
@@ -197,7 +198,7 @@ The most interesting variables are:
 ### varNames
 
 If you want it in your own language, change it here.  
-Other LCD output is found in 'LCD.h'  
+Other LCD output is mostly found in 'LCD.h', but also in some other places. Sorry...  
 
 ### vars
 
@@ -207,7 +208,7 @@ If you change these after having having uploaded the sketch once, it will not be
 ### incs
 
 The increments/decrements of the variables above.  
-How big should the jumps be when using buttons 'Button 4' and 'Button5'.  
+(How big should the jumps be when using buttons 'Button 4' and 'Button5'.)  
 
 ## Libraries
 
@@ -216,10 +217,6 @@ Don't use the LiquidCrystal_I2C library from Arduino IDE's library manager.
 Instead use the one from [https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library](https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library).  
 
 ## Install and configuration
-
-### Arduino Mega
-
-Compile and upload ardHydroponic/ardHydroponic.ino with, for example, Arduino IDE.  
 
 ### thingspeak
 
@@ -247,6 +244,10 @@ Add widget boxes:
 * Button, Enabled, Mode: Switch, Output: Virtual V3
 
 In your mail you will have received the authorization token.  
+
+### Arduino Mega
+
+Compile and upload ardHydroponic/ardHydroponic.ino with, for example, Arduino IDE.  
 
 ### ESP-01
 
@@ -290,7 +291,7 @@ Get serial output
 
 Exit with Ctrl+a Ctrl+x  
 
-## Links
+#### Links
 
 EC sensor:  
 [https://wiki.dfrobot.com/Gravity__Analog_TDS_Sensor___Meter_For_Arduino_SKU__SEN0244](https://wiki.dfrobot.com/Gravity__Analog_TDS_Sensor___Meter_For_Arduino_SKU__SEN0244)  
