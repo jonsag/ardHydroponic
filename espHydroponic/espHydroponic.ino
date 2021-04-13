@@ -213,7 +213,17 @@ void handle_OnConnect()
   int currentMonth = ptm->tm_mon + 1;
   int currentYear = ptm->tm_year + 1900;
 
-  Date = String(currentYear) + "-" + String(currentMonth) + "-" + String(monthDay);
+  Date = String(currentYear);
+  if (currentMonth < 10)
+  {
+    Date += "0";
+  }
+  Date += String(currentMonth);
+  if (monthDay < 10)
+  {
+    Date += "0";
+  }
+  Date += String(monthDay);
 
   server.send(200, "text/html", SendHTML(temperatureSum, pHValue, tdsValue, formattedTime, Date, epochTime, uploadedEpoch, uploadSuccess, relayState));
 }
@@ -333,7 +343,7 @@ String SendHTML(float temperatureSum, float pHValue, float tdsValueString, Strin
     mainPage += "</p>\n";
   }
 
-  mainPage += "<p>Upload "; // uploaded
+  mainPage += "<p>Thingspeak upload "; // uploaded
   if (uploadSuccess)
   {
     mainPage += "successful";
