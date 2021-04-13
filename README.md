@@ -21,7 +21,7 @@ Monitored on a webpage
 
 4 x pump, [AliExpress](https://www.aliexpress.com/wholesale?SearchText=peristaltic+pump)  
 
-1 x magnetic stirrer [DIY suggestion](https://www.instructables.com/How-to-Make-a-Cheap-Portable-Magnetic-Stirrer/)  
+1 x magnetic stirrer, [DIY suggestion](https://www.instructables.com/How-to-Make-a-Cheap-Portable-Magnetic-Stirrer/)  
 
 1 x EC/TDS sensor, [AliExpress](https://www.aliexpress.com/wholesale?SearchText=dfrobot+gravity+tds)  
 
@@ -41,9 +41,9 @@ Monitored on a webpage
 
 1 x DC power source, same voltage as your pumps. If this will also feed the Arduino board, not higher than 12V  
 
-Some pin and socket headers (optional)  
+Some pin and socket headers, 100mil legs pace (optional)  
 
-Some screw terminals (optional)  
+Some screw terminals, 5.0mm leg space (optional)  
 
 A PCB like the one in [this gerber zip](KiCAD/ardHydroponic/Gerber/ardHydroponic.zip) (optional)  
 
