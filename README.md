@@ -147,6 +147,7 @@ Actions:
 * Reset the ESP module
 * Reset system
 * Toggle the serial debugging output. Will go back to the setting in config.h after a restart.
+* Print the IP of the ESP module
 
 #### Actions
 

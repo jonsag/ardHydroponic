@@ -273,7 +273,7 @@ void onPinActivated(int pinNumber)
             specialMaintMode--;
             if (specialMaintMode < 0 || specialMaintMode == 255)
             {
-                specialMaintMode = 4;
+                specialMaintMode = 5;
             }
             printSpecialMaintMode();
             break;
@@ -304,7 +304,7 @@ void onPinActivated(int pinNumber)
             break;
         case 5:
             specialMaintMode++;
-            if (specialMaintMode > 4)
+            if (specialMaintMode > 5)
             {
                 specialMaintMode = 0;
             }
@@ -414,6 +414,9 @@ void onPinDeactivated(int pinNumber)
                     break;
                 case 4:
                     toggleDebug();
+                    break;
+                case 5:
+                    getIP();
                     break;
                 }
                 break;

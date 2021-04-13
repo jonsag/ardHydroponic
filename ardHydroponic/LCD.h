@@ -297,8 +297,15 @@ void printSpecialMaintMode()
       printToLCD(0, 2, "Debug disabled      ");
     }
     break;
+    case 5:
+    if (debug)
+      Serial.println("Print ESP IP");
+    printToLCD(0, 1, "Get IP              ");
+    printToLCD(0, 2, "                    ");
+    break;
   }
 }
+
 void printSpecialMaint()
 {
   clearLCD();

@@ -10,8 +10,8 @@
 #include "read.h"
 #include "misc.h"
 #include "eeprom.h"
-#include "buttons.h"
 #include "specialMaint.h"
+#include "buttons.h"
 
 void setup()
 {
