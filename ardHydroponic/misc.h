@@ -95,6 +95,20 @@ void resetSystem()
   printToLCD(0, 2, "Reset failed        ");
 }
 
+void toggleDebug()
+{
+  if (debug)
+  {
+    debug = 0;
+    printToLCD(0, 2, "Debug disabled      ");
+  }
+  else
+  {
+    debug = 1;
+    printToLCD(0, 2, "Debug enabled       ");
+  }
+}
+
 /*
 dtostrf(floatvar, StringLengthIncDecimalPoint, numVarsAfterDecimal, charbuf);
 where

@@ -207,7 +207,12 @@ void printSpecialMaintMode()
     Serial.println("----------");
     Serial.println("Send test data: Temp:12.34,pH:5.67,TDS:890.12");
     Serial.println("Print IP: i");
+    Serial.println("Print MAC: m");
     Serial.println("----------");
+    while (Serial1.available())
+    {
+      Serial1.read(); // clears buffer
+    }
     printToLCD(0, 1, "Communicate with ESP");
     printToLCD(0, 2, "Use serial monitor  ");
     break;
@@ -228,6 +233,20 @@ void printSpecialMaintMode()
       Serial.println("Reset system");
     printToLCD(0, 1, "Reset system        ");
     printToLCD(0, 2, "                    ");
+    break;
+  case 4:
+    if (debug)
+      Serial.println("Toggle serial debug");
+    printToLCD(0, 1, "Toggle serial debug ");
+    if (debug)
+    {
+      printToLCD(0, 2, "Debug enabled       ");
+    }
+    else
+    {
+      printToLCD(0, 2, "Debug disabled      ");
+    }
+    break;
   }
 }
 void printSpecialMaint()

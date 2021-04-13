@@ -273,7 +273,7 @@ void onPinActivated(int pinNumber)
             specialMaintMode--;
             if (specialMaintMode < 0 || specialMaintMode == 255)
             {
-                specialMaintMode = 3;
+                specialMaintMode = 4;
             }
             printSpecialMaintMode();
             break;
@@ -304,7 +304,7 @@ void onPinActivated(int pinNumber)
             break;
         case 5:
             specialMaintMode++;
-            if (specialMaintMode > 3)
+            if (specialMaintMode > 4)
             {
                 specialMaintMode = 0;
             }
@@ -411,7 +411,10 @@ void onPinDeactivated(int pinNumber)
                 case 3:
                     printToLCD(0, 2, "Resetting...        ");
                     resetSystem();
-                    printToLCD(0, 2, "Reset               ");
+                    break;
+                case 4:
+                    toggleDebug();
+                    break;
                 }
                 break;
             }

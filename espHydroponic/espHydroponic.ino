@@ -1,5 +1,5 @@
 /**********
- * Includes
+   Includes
  **********/
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
@@ -13,30 +13,30 @@
 
 #include "ThingSpeak.h"
 
-boolean debug = 1;
+boolean debug = 0;
 
 /**********
- * WiFi
+   WiFi
  **********/
 const char *ssid = STASSID;
 const char *password = STAPSK;
 WiFiClient client;
 
 /**********
- * ThingSpeak
+   ThingSpeak
  **********/
 unsigned long myChannelNumber = channelID;
 const char *myWriteAPIKey = apiKey;
 
 /**********
- * UDP for ntp
+   UDP for ntp
  **********/
 WiFiUDP ntpUDP;
 const long utcOffsetInSeconds = 0; //28800;
 NTPClient timeClient(ntpUDP, "pool.ntp.org", utcOffsetInSeconds);
 
 /**********
- * Times
+   Times
  **********/
 String formattedTime;
 String Date;
@@ -45,30 +45,30 @@ int Month;
 int Year;
 
 /**********
-* Messages from serial
+  Messages from serial
 **********/
 String message;
 
 /**********
- * Values
+   Values
  **********/
 float temperatureSum = 0.0;
 float pHValue = 0.0;
 float tdsValue = 0.0;
 
 /**********
-* Web server
+  Web server
 **********/
 ESP8266WebServer server(80);
 
 /**********
- * Outputs
+   Outputs
  **********/
 const byte relay = 2;
 boolean relayState = HIGH;
 
 /**********
- * Blynk
+   Blynk
  **********/
 char *blynkAuth = blynkToken;
 int valueV3;
@@ -89,7 +89,7 @@ BLYNK_WRITE(V3)
 }
 
 /**********
- * Misc
+   Misc
  **********/
 boolean uploadSuccess = 0;
 
@@ -98,19 +98,19 @@ unsigned long uploadedEpoch;
 void setup(void)
 {
   /**********
-   * Serial
+     Serial
    **********/
   Serial.setTimeout(10);
   Serial.begin(9600);
 
   /**********
-   * WiFi
+     WiFi
    **********/
   WiFi.mode(WIFI_STA);
   ThingSpeak.begin(client); // Initialize ThingSpeak
 
   /**********
-   * Webserver
+     Webserver
    **********/
   server.on("/", handle_OnConnect);
   server.onNotFound(handle_NotFound);
@@ -120,52 +120,64 @@ void setup(void)
   if (debug)
     Serial.println("HTTP server started");
   /**********
-   * ntp
+     ntp
    **********/
   timeClient.begin();
 
   /**********
-   * Outputs
+     Outputs
    **********/
   pinMode(relay, OUTPUT);
   digitalWrite(relay, relayState);
 
   /**********
-   * Blynk and connect
+     Blynk and connect
    **********/
-  Serial.print("Starting blynk and attempting to connect to SSID: ");
-  Serial.print(STASSID);
-  Serial.println("...");
+  if (debug)
+    Serial.print("Starting blynk and attempting to connect to SSID: ");
+  if (debug)
+    Serial.print(STASSID);
+  if (debug)
+    Serial.println("...");
 
   Blynk.begin(blynkAuth, ssid, password);
 
   while (WiFi.status() != WL_CONNECTED)
   {
 
-    Serial.print(".");
+    if (debug)
+      Serial.print(".");
     delay(500);
   }
 
-  Serial.println("\nConnected");
-  Serial.print("IP: ");
-  Serial.println(WiFi.localIP());
-  Serial.println();
+  if (debug)
+    Serial.println("\nConnected");
+  if (debug)
+    Serial.print("IP: ");
+  if (debug)
+    Serial.println(WiFi.localIP());
+  if (debug)
+    Serial.println();
 }
 
 void loop(void)
 {
   if (WiFi.status() != WL_CONNECTED)
   { // connect or reconnect to WiFi
-    Serial.print("Attempting to connect to SSID: ");
-    Serial.println(STASSID);
+    if (debug)
+      Serial.print("Attempting to connect to SSID: ");
+    if (debug)
+      Serial.println(STASSID);
     WiFi.begin(ssid, password); // connect to WPA/WPA2 network
     while (WiFi.status() != WL_CONNECTED)
     {
 
-      Serial.print(".");
+      if (debug)
+        Serial.print(".");
       delay(500);
     }
-    Serial.println("\nConnected.");
+    if (debug)
+      Serial.println("\nConnected.");
   }
 
   Blynk.run();
@@ -378,7 +390,8 @@ void decodeMessage(String message)
   {
 
     if (debug)
-      Serial.println("Message has data");
+      if (debug)
+        Serial.println("Message has data");
     int str_len = message.length() + 1; // length (with one extra character for the null terminator)
     char char_array[str_len];           // prepare the character array (the buffer)
 
@@ -413,18 +426,15 @@ void decodeMessage(String message)
           Serial.println("Found temperature");
         words[i].remove(0, 5);
         temperatureSum = words[i].toFloat();
-        if (debug)
-          Serial.print("Temp: ");
+        Serial.print("Temp: ");
         if (temperatureSum)
         {
-          if (debug)
-            Serial.println(temperatureSum);
+          Serial.println(temperatureSum);
         }
         else
         {
           validData = 0;
-          if (debug)
-            Serial.println("NA");
+          Serial.println("NA");
         }
       }
       else if (words[i].indexOf("pH:") >= 0)
@@ -433,18 +443,15 @@ void decodeMessage(String message)
           Serial.println("Found pH");
         words[i].remove(0, 3);
         pHValue = words[i].toFloat();
-        if (debug)
-          Serial.print("pH: ");
+        Serial.print("pH: ");
         if (pHValue)
         {
-          if (debug)
-            Serial.println(pHValue);
+          Serial.println(pHValue);
         }
         else
         {
           validData = 0;
-          if (debug)
-            Serial.println("NA");
+          Serial.println("NA");
         }
       }
       else if (words[i].indexOf("TDS:") >= 0)
@@ -453,18 +460,15 @@ void decodeMessage(String message)
           Serial.println("Found TDS");
         words[i].remove(0, 4);
         tdsValue = words[i].toFloat();
-        if (debug)
-          Serial.print("TDS: ");
+        Serial.print("TDS: ");
         if (tdsValue)
         {
-          if (debug)
-            Serial.println(tdsValue);
+          Serial.println(tdsValue);
         }
         else
         {
           validData = 0;
-          if (debug)
-            Serial.println("NA");
+          Serial.println("NA");
         }
       }
     }
@@ -473,6 +477,7 @@ void decodeMessage(String message)
     {
       if (debug)
         Serial.println("Uploading data...");
+
       ThingSpeak.setField(1, temperatureSum);
       ThingSpeak.setField(2, pHValue);
       ThingSpeak.setField(3, tdsValue);
@@ -481,19 +486,17 @@ void decodeMessage(String message)
 
       if (x == 200)
       {
-        if (debug)
-          Serial.println("Channel update successful.");
+        Serial.println("Thingspeak channel update successful.");
         uploadSuccess = 1;
       }
       else
       {
-        if (debug)
-          Serial.println("Problem updating channel. HTTP error code " + String(x));
+        Serial.println("Problem updating thingspeak channel. HTTP error code " + String(x));
         uploadSuccess = 0;
       }
 
       timeClient.update();
-      //uploadedTime = timeClient.getFormattedTime();
+
       uploadedEpoch = timeClient.getEpochTime();
 
       Blynk.virtualWrite(V0, temperatureSum);
@@ -502,8 +505,7 @@ void decodeMessage(String message)
     }
     else
     {
-      if (debug)
-        Serial.println("Did not contain valid data");
+      Serial.println("Message did not contain valid data");
     }
   }
   else if (message == "i")
@@ -511,10 +513,14 @@ void decodeMessage(String message)
     Serial.print("IP: ");
     Serial.println(WiFi.localIP());
   }
+  else if (message == "m")
+  {
+    Serial.print("MAC: ");
+    Serial.println(WiFi.macAddress());
+  }
   else
   {
-    if (debug)
-      Serial.println("Message is not valid");
+    Serial.println("Message is not valid");
   }
 
   if (debug)

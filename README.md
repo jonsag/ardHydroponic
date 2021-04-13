@@ -140,6 +140,14 @@ Button number:
 
 LCD shows selected action and action result  
 
+Actions:  
+
+* Communicate with the ESP module via the serial monitor. Available commands is printed to the monitor.
+* Clear EEPROM. On next restart the values in config.h will be written to the EEPROM.
+* Reset the ESP module
+* Reset system
+* Toggle the serial debugging output. Will go back to the setting in config.h after a restart.
+
 #### Actions
 
 * Interact with ESP module in serial monitor

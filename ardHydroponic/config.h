@@ -6,7 +6,7 @@ String email = "jonsagebrand@gmail.com";
 /**********
  * Debug and info
  **********/
-const boolean debug = 1; // output all debugging info
+boolean debug = 0; // output all debugging info
 const byte info = 0;     // 0: no info; 1: plotting, all values with headers on one line; 2: header and value on separate lines
 
 /**********
