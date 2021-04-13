@@ -1,5 +1,17 @@
+//#define DEBUG // uncomment this for debugging output
+
 /**********
-   Includes
+ * Debug
+ **********/
+#ifdef DEBUG
+#define BLYNK_PRINT Serial
+boolean debug = 1;
+#else
+boolean debug = 0;
+#endif
+
+/**********
+ * Includes
  **********/
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
@@ -13,30 +25,28 @@
 
 #include "ThingSpeak.h"
 
-boolean debug = 0;
-
 /**********
-   WiFi
+ * WiFi
  **********/
 const char *ssid = STASSID;
 const char *password = STAPSK;
 WiFiClient client;
 
 /**********
-   ThingSpeak
+ * ThingSpeak
  **********/
 unsigned long myChannelNumber = channelID;
 const char *myWriteAPIKey = apiKey;
 
 /**********
-   UDP for ntp
+ * UDP for ntp
  **********/
 WiFiUDP ntpUDP;
 const long utcOffsetInSeconds = 0; //28800;
 NTPClient timeClient(ntpUDP, "pool.ntp.org", utcOffsetInSeconds);
 
 /**********
-   Times
+ * Times
  **********/
 String formattedTime;
 String Date;
@@ -45,30 +55,30 @@ int Month;
 int Year;
 
 /**********
-  Messages from serial
-**********/
+ * Messages from serial
+ **********/
 String message;
 
 /**********
-   Values
+ * Values
  **********/
 float temperatureSum = 0.0;
 float pHValue = 0.0;
 float tdsValue = 0.0;
 
 /**********
-  Web server
-**********/
+ * Web server
+ **********/
 ESP8266WebServer server(80);
 
 /**********
-   Outputs
+ * Outputs
  **********/
 const byte relay = 2;
 boolean relayState = HIGH;
 
 /**********
-   Blynk
+ * Blynk
  **********/
 char *blynkAuth = blynkToken;
 int valueV3;
@@ -89,7 +99,7 @@ BLYNK_WRITE(V3)
 }
 
 /**********
-   Misc
+ * Misc
  **********/
 boolean uploadSuccess = 0;
 
@@ -98,19 +108,19 @@ unsigned long uploadedEpoch;
 void setup(void)
 {
   /**********
-     Serial
+   * Serial
    **********/
   Serial.setTimeout(10);
   Serial.begin(9600);
 
   /**********
-     WiFi
+   * WiFi
    **********/
   WiFi.mode(WIFI_STA);
   ThingSpeak.begin(client); // Initialize ThingSpeak
 
   /**********
-     Webserver
+   * Webserver
    **********/
   server.on("/", handle_OnConnect);
   server.onNotFound(handle_NotFound);
@@ -120,18 +130,18 @@ void setup(void)
   if (debug)
     Serial.println("HTTP server started");
   /**********
-     ntp
+   * ntp
    **********/
   timeClient.begin();
 
   /**********
-     Outputs
+   * Outputs
    **********/
   pinMode(relay, OUTPUT);
   digitalWrite(relay, relayState);
 
   /**********
-     Blynk and connect
+   * Blynk and connect
    **********/
   if (debug)
     Serial.print("Starting blynk and attempting to connect to SSID: ");
