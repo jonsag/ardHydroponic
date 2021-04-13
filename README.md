@@ -45,7 +45,9 @@ Some pin and socket headers (optional)
 
 Some screw terminals (optional)  
 
-A PCB like the one in [this gerber zip](raw/main/KiCAD/ardHydroponic/Gerber/ardHydroponic.zip) (optional)  
+A PCB like the one in [this gerber zip](KiCAD/ardHydroponic/Gerber/ardHydroponic.zip) (optional)  
+
+Connect everything according to the [schematics](KiCAD/ardHydroponic/ardHydroponic.pdf) in KiCAD.  
 
 Calibration fluids:  
 pH: two solutions with known values, for example 4.00 and 7.00  (other values will also work)  
