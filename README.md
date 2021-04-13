@@ -13,7 +13,7 @@ Monitored on a webpage
 
 1 x LCD display, 4x20 with I2C communication, [https://www.aliexpress.com/item/4001135515638.html](https://www.aliexpress.com/item/4001135515638.html)  
 
-1 x ESP-01 module, [https://www.aliexpress.com/item/32693314450.html](https://www.aliexpress.com/item/32693314450.html)  
+1 x ESP-01 module, [https://www.aliexpress.com/item/32693314450.html](https://www.aliexpress.com/item/32693314450.html) (optional)  
 
 5 x Momentary push button  
 
@@ -29,19 +29,27 @@ Monitored on a webpage
 
 1 x DS18B20 temperature sensor, [https://www.aliexpress.com/item/1783091649.html](https://www.aliexpress.com/item/1783091649.html)  
 
-1 x KY-019 relay module, [https://www.aliexpress.com/item/4000430707028.html](https://www.aliexpress.com/item/4000430707028.html)  
+1 x KY-019 relay module, [https://www.aliexpress.com/item/4000430707028.html](https://www.aliexpress.com/item/4000430707028.html) (optional)  
 
-5 x 10 kohm resistor
+5 x 10 kohm resistor  
 
-1 x 4.7 kohm resistor
+1 x 4.7 kohm resistor  
+
+1 x 1 kohm resistor  
+
+1 x 2.2 kohm resistor  
 
 1 x DC power source, same voltage as your pumps. If this will also feed the Arduino board, not higher than 12V  
+
+Some pin and socket headers (optional)  
+
+Some screw terminals (optional)  
+
+A PCB like the one in [this gerber zip](raw/main/KiCAD/ardHydroponic/Gerber/ardHydroponic.zip) (optional)  
 
 Calibration fluids:  
 pH: two solutions with known values, for example 4.00 and 7.00  (other values will also work)  
 TDS: solution with known TDS value  
-
-Connect everything according to the [schematics](KiCAD/ardHydroponic/ardHydroponic.pdf) in KiCAD.  
 
 ## Usage
 
