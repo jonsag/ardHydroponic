@@ -346,3 +346,9 @@ EC sensor:
 
 pH sensor:  
 [https://wiki.dfrobot.com/Gravity__Analog_pH_Sensor_Meter_Kit_V2_SKU_SEN0161-V2](https://wiki.dfrobot.com/Gravity__Analog_pH_Sensor_Meter_Kit_V2_SKU_SEN0161-V2)  
+
+### Screen shots
+
+![ThingSpeak](Documents/SSThingSpeak.jpg)  
+![Blynk](Documents/SSBlynk.png)  
+![Web interface](Documents/SSWebPage.jpg)  
