@@ -273,7 +273,7 @@ void onPinActivated(int pinNumber)
             specialMaintMode--;
             if (specialMaintMode < 0 || specialMaintMode == 255)
             {
-                specialMaintMode = 5;
+                specialMaintMode = 6;
             }
             printSpecialMaintMode();
             break;
@@ -304,7 +304,7 @@ void onPinActivated(int pinNumber)
             break;
         case 5:
             specialMaintMode++;
-            if (specialMaintMode > 5)
+            if (specialMaintMode > 6)
             {
                 specialMaintMode = 0;
             }
@@ -342,7 +342,7 @@ void onPinActivated(int pinNumber)
 }
 
 /**********
- * Button 1 acts on buttn release
+ * Button 1 acts on button release
  **********/
 void onPinDeactivated(int pinNumber)
 {
@@ -417,6 +417,9 @@ void onPinDeactivated(int pinNumber)
                     break;
                 case 5:
                     getIP();
+                    break;
+                case 6:
+                    getMAC();
                     break;
                 }
                 break;

@@ -7,7 +7,7 @@ void clearLCD()
 void printToLCD(int col, int row, String text)
 {
   lcd.setCursor(col, row);
-  lcd.print(text);
+  lcd.print((String)text);
 }
 
 void printMode()
@@ -265,11 +265,13 @@ void printSpecialMaintMode()
     }
     printToLCD(0, 1, "Communicate with ESP");
     printToLCD(0, 2, "Use serial monitor  ");
+    printToLCD(0, 3, "                    ");
     break;
   case 1:
     if (debug)
       Serial.println("Clear EEPROM");
     printToLCD(0, 1, "Clear EEPROM        ");
+    printToLCD(0, 3, "                    ");
     printToLCD(0, 2, "                    ");
     break;
   case 2:
@@ -277,12 +279,14 @@ void printSpecialMaintMode()
       Serial.println("Reset ESP module");
     printToLCD(0, 1, "Reset ESP module    ");
     printToLCD(0, 2, "                    ");
+    printToLCD(0, 3, "                    ");
     break;
   case 3:
     if (debug)
       Serial.println("Reset system");
     printToLCD(0, 1, "Reset system        ");
     printToLCD(0, 2, "                    ");
+    printToLCD(0, 3, "                    ");
     break;
   case 4:
     if (debug)
@@ -296,12 +300,21 @@ void printSpecialMaintMode()
     {
       printToLCD(0, 2, "Debug disabled      ");
     }
+    printToLCD(0, 3, "                    ");
     break;
-    case 5:
+  case 5:
     if (debug)
       Serial.println("Print ESP IP");
     printToLCD(0, 1, "Get IP              ");
     printToLCD(0, 2, "                    ");
+    printToLCD(0, 3, "                    ");
+    break;
+  case 6:
+    if (debug)
+      Serial.println("Print ESP MAC");
+    printToLCD(0, 1, "Get MAC             ");
+    printToLCD(0, 2, "                    ");
+    printToLCD(0, 3, "                    ");
     break;
   }
 }

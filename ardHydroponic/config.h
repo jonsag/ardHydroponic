@@ -232,3 +232,6 @@ String bootScreenLine3;
 byte specialMaintMode = 0; // 0: communicate with esp module, 1: clear EEPROM, 2: reset esp module, 3: reset system
 
 boolean newData = 0; // we have new readings which wasn't uploaded
+
+const byte maxTries = 10;
+const byte ESPDelay = 10;
