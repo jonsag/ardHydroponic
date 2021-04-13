@@ -445,12 +445,12 @@ Wire Wire Line
 $Comp
 L power:+5V #PWR0109
 U 1 1 607528B2
-P 2250 4500
-F 0 "#PWR0109" H 2250 4350 50  0001 C CNN
-F 1 "+5V" H 2265 4673 50  0000 C CNN
-F 2 "" H 2250 4500 50  0001 C CNN
-F 3 "" H 2250 4500 50  0001 C CNN
-	1    2250 4500
+P 2250 4600
+F 0 "#PWR0109" H 2250 4450 50  0001 C CNN
+F 1 "+5V" H 2265 4773 50  0000 C CNN
+F 2 "" H 2250 4600 50  0001 C CNN
+F 3 "" H 2250 4600 50  0001 C CNN
+	1    2250 4600
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -467,7 +467,7 @@ $EndComp
 Wire Wire Line
 	2900 5200 2250 5200
 Wire Wire Line
-	2250 5200 2250 4500
+	2250 5200 2250 4600
 $Comp
 L My_Parts:2-pole_power_in_screw_terminal U4
 U 1 1 607870A4
@@ -797,18 +797,18 @@ Wire Wire Line
 $Comp
 L power:+3.3V #PWR0106
 U 1 1 6066632F
-P 2500 4500
-F 0 "#PWR0106" H 2500 4350 50  0001 C CNN
-F 1 "+3.3V" H 2515 4673 50  0000 C CNN
-F 2 "" H 2500 4500 50  0001 C CNN
-F 3 "" H 2500 4500 50  0001 C CNN
-	1    2500 4500
+P 2500 4600
+F 0 "#PWR0106" H 2500 4450 50  0001 C CNN
+F 1 "+3.3V" H 2515 4773 50  0000 C CNN
+F 2 "" H 2500 4600 50  0001 C CNN
+F 3 "" H 2500 4600 50  0001 C CNN
+	1    2500 4600
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
 	2900 5100 2500 5100
 Wire Wire Line
-	2500 5100 2500 4500
+	2500 5100 2500 4600
 $Comp
 L power:+3.3V #PWR0115
 U 1 1 6066FC4A
@@ -893,8 +893,6 @@ F 3 "http://l0l.org.uk/2014/12/esp8266-modules-hardware-guide-gotta-catch-em-all
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2900 1900 2800 1900
-Wire Wire Line
 	2900 1400 2800 1400
 Wire Wire Line
 	2900 1500 2800 1500
@@ -902,10 +900,6 @@ Text GLabel 5600 2200 2    50   Input ~ 0
 espReset
 Wire Wire Line
 	5600 2200 5500 2200
-Wire Wire Line
-	2900 4300 2800 4300
-Wire Wire Line
-	2800 4300 2800 1900
 Wire Wire Line
 	2000 5500 2900 5500
 $Comp
@@ -957,4 +951,23 @@ Text GLabel 5950 6600 2    50   Input ~ 0
 Relay
 Wire Wire Line
 	5950 6600 5850 6600
+$Comp
+L Device:Jumper JP1
+U 1 1 60771DF8
+P 2400 3200
+F 0 "JP1" V 2446 3113 50  0000 R CNN
+F 1 "Flash" V 2355 3113 50  0000 R CNN
+F 2 "My_Parts:Jumper_1x02_P2.54mm_large" H 2400 3200 50  0001 C CNN
+F 3 "~" H 2400 3200 50  0001 C CNN
+	1    2400 3200
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2400 2900 2400 1900
+Wire Wire Line
+	2400 1900 2900 1900
+Wire Wire Line
+	2400 4300 2400 3500
+Wire Wire Line
+	2400 4300 2900 4300
 $EndSCHEMATC
