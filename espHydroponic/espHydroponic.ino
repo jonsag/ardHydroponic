@@ -496,7 +496,7 @@ void decodeMessage(String message)
     if (validData)
     {
       if (debug)
-        Serial.println("Uploading data...");
+        Serial.println("Uploading data to thingspeak...");
 
       ThingSpeak.setField(1, temperatureSum);
       ThingSpeak.setField(2, pHValue);
@@ -519,6 +519,9 @@ void decodeMessage(String message)
 
       uploadedEpoch = timeClient.getEpochTime();
 
+      if (debug)
+        Serial.println("Uploading data to thingspeak...");
+
       Blynk.virtualWrite(V0, temperatureSum);
       Blynk.virtualWrite(V1, pHValue);
       Blynk.virtualWrite(V2, tdsValue);
@@ -537,6 +540,19 @@ void decodeMessage(String message)
   {
     Serial.print("MAC: ");
     Serial.println(WiFi.macAddress());
+  }
+  else if (message == "d")
+  {
+    if (debug)
+    {
+      debug = 0;
+      Serial.println("Debug disabled");
+    }
+    else
+    {
+      debug = 1;
+      Serial.println("Debug endabled");
+    }
   }
   else
   {

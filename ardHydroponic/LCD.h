@@ -257,6 +257,7 @@ void printSpecialMaintMode()
     Serial.println("Send test data: Temp:12.34,pH:5.67,TDS:890.12");
     Serial.println("Print IP: i");
     Serial.println("Print MAC: m");
+    Serial.println("Toggle debug: d");
     Serial.println("----------");
     while (Serial1.available())
     {
