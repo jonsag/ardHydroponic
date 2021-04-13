@@ -174,7 +174,7 @@ float intercept;
 float pHValue; // calculated pH reading
 float oldpHValue = 0;
 
-/**********
+/**********>
  * Readings
  **********/
 unsigned long int avgValue; // average value of the sensor feedback

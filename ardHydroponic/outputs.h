@@ -3,8 +3,9 @@ void startpHPlus()
 {
     if (debug)
         Serial.println("Dosingpump PH+ ON");
-    //printToLCD(8, 2, "PH+");
     digitalWrite(pHPlusPump, HIGH); // dosing PH+
+    if (mode == 3)
+        maintPrintOutputStatus();
 }
 
 void stoppHPlus()
@@ -12,15 +13,17 @@ void stoppHPlus()
     digitalWrite(pHPlusPump, LOW); // cutting power to pump
     if (debug)
         Serial.println("Dosingpump PH+ OFF");
-    //printToLCD(8, 2, "   ");
+    if (mode == 3)
+        maintPrintOutputStatus(); //printToLCD(14, 2, "PH-");
 }
 
 void startpHMinus()
 {
     if (debug)
         Serial.println("Dosingpump PH- ON");
-    //printToLCD(14, 2, "PH-");
     digitalWrite(pHMinusPump, HIGH); // dosing PH-
+    if (mode == 3)
+        maintPrintOutputStatus();
 }
 
 void stoppHMinus()
@@ -28,15 +31,17 @@ void stoppHMinus()
     digitalWrite(pHMinusPump, LOW); // cutting power to pump
     if (debug)
         Serial.println("Dosingpump PH- OFF");
-    //printToLCD(14, 2, "   ");
+    if (mode == 3)
+        maintPrintOutputStatus();
 }
 
 void startNutrA()
 {
     if (debug)
         Serial.println("Nutrientpump A ON");
-    //printToLCD(8, 3, "NutrA");
     digitalWrite(nutrAPump, HIGH); // dosing nutrition A
+    if (mode == 3)
+        maintPrintOutputStatus();
 }
 
 void stopNutrA()
@@ -44,15 +49,17 @@ void stopNutrA()
     digitalWrite(nutrAPump, LOW); // cutting power to pump
     if (debug)
         Serial.println("Nutrient A OFF");
-    //printToLCD(8, 3, "     ");
+    if (mode == 3)
+        maintPrintOutputStatus();
 }
 
 void startNutrB()
 {
     if (debug)
         Serial.println("Nutrientpump B ON");
-    //printToLCD(14, 3, "NutrB");
     digitalWrite(nutrBPump, HIGH); // dosing nutrition B
+    if (mode == 3)
+        maintPrintOutputStatus();
 }
 
 void stopNutrB()
@@ -60,15 +67,19 @@ void stopNutrB()
     digitalWrite(nutrBPump, LOW); // cutting power to pump
     if (debug)
         Serial.println("Nutrient B OFF");
-    //printToLCD(14, 3, "     ");
+    if (mode == 3)
+        maintPrintOutputStatus();
 }
 
 void startStirrer()
 {
     if (debug)
         Serial.println("Stirrer ON");
-    //printToLCD(14, 3, "NutrB");
-    digitalWrite(stirrer, HIGH); // dosing nutrition B
+    digitalWrite(stirrer, HIGH); // dosing nutrition BmaintPrintOutputStatus()mp
+    if (debug)
+        Serial.println("Stirrer OFF");
+    if (mode == 3)
+        maintPrintOutputStatus();
 }
 
 void stopStirrer()
@@ -76,7 +87,8 @@ void stopStirrer()
     digitalWrite(stirrer, LOW); // cutting power to pump
     if (debug)
         Serial.println("Stirrer OFF");
-    //printToLCD(14, 3, "     ");
+    if (mode == 3)
+        maintPrintOutputStatus();
 }
 
 void stopOutputs()

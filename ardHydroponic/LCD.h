@@ -35,6 +35,7 @@ void printMode()
     if (debug)
       Serial.println("Maintenance");
     printToLCD(6, 0, "Maintenance   ");
+    printToLCD(0, 1, "Start/Stop devices  ");
     break;
   case 4:
     if (debug)
@@ -108,6 +109,54 @@ void printNormal()
   printTDSValue();
 }
 
+void maintPrintOutputStatus()
+{
+  boolean status = 0;
+
+  switch (outputNumber)
+  {
+  case 0:
+    if (digitalRead(pHPlusPump))
+    {
+      status = 1;
+    }
+    break;
+  case 1:
+    if (digitalRead(pHMinusPump))
+    {
+      status = 1;
+    }
+    break;
+  case 2:
+    if (digitalRead(nutrAPump))
+    {
+      status = 1;
+    }
+    break;
+  case 3:
+    if (digitalRead(nutrBPump))
+    {
+      status = 1;
+    }
+    break;
+  case 4:
+    if (digitalRead(stirrer))
+    {
+      status = 1;
+    }
+    break;
+  }
+
+  if (status)
+  {
+    printToLCD(0, 3, "Running");
+  }
+  else
+  {
+    printToLCD(0, 3, "Stopped");
+  }
+}
+
 void printSelectedOutput()
 {
   if (debug)
@@ -121,8 +170,8 @@ void printSelectedOutput()
   if (debug)
     Serial.println(" selected");
 
-  printToLCD(0, 2, String(outputNumber));
-  printToLCD(0, 3, outputNames[outputNumber]);
+  printToLCD(0, 2, outputNames[outputNumber]);
+  maintPrintOutputStatus();
 }
 
 void printSelectedVar()
