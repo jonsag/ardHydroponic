@@ -9,6 +9,8 @@ Monitored on a webpage
 
 ## Hardware
 
+Things marked as optional are used when you make a PCB and/or an ESP-01 module.  
+
 1 x Arduino Mega 2560, [AliExpress](https://www.aliexpress.com/wholesale?SearchText=arduino+mega+2560)  
 
 1 x LCD display, 4x20 with I2C communication, [AliExpress](https://www.aliexpress.com/wholesale?SearchText=lcd+4x20+i2c)  
@@ -35,19 +37,27 @@ Monitored on a webpage
 
 1 x 4.7 kohm resistor  
 
-1 x 1 kohm resistor  
+1 x 1 kohm resistor (optional)  
 
-1 x 2.2 kohm resistor  
+1 x 2.2 kohm resistor (optional)  
+
+1 x 2 pole screw terminal block, 5.0mm leg space [AliExpress](https://www.aliexpress.com/wholesale?SearchText=screw+terminal+block+5.0+mm) (optional)  
+
+1 x 3 pole screw terminal block, 5.0mm leg space [AliExpress](https://www.aliexpress.com/wholesale?SearchText=screw+terminal+block+5.0+mm) (optional)  
+
+1 x 5 pole screw terminal block, 5.0mm leg space [AliExpress](https://www.aliexpress.com/wholesale?SearchText=screw+terminal+block+5.0+mm) (optional)  
+
+1 x 6 pole screw terminal block, 5.0mm leg space [AliExpress](https://www.aliexpress.com/wholesale?SearchText=screw+terminal+block+5.0+mm) (optional)  
+
+1 x 4x2 pin socket header (optional)  
+
+Some single row pin and socket headers, 100mil legs pace (optional)  
 
 1 x DC power source, same voltage as your pumps. If this will also feed the Arduino board, not higher than 12V  
 
-Some pin and socket headers, 100mil legs pace (optional)  
-
-Some screw terminals, 5.0mm leg space (optional)  
-
 A PCB like the one in [this gerber zip](KiCAD/ardHydroponic/Gerber/ardHydroponic.zip) (optional)  
 
-Connect everything according to the [schematics](KiCAD/ardHydroponic/ardHydroponic.pdf) in KiCAD.  
+Connect anf build everything according to the [schematics](KiCAD/ardHydroponic/ardHydroponic.pdf) in KiCAD.  
 
 Calibration fluids:  
 pH: two solutions with known values, for example 4.00 and 7.00  (other values will also work)  
