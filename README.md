@@ -9,27 +9,27 @@ Monitored on a webpage
 
 ## Hardware
 
-1 x Arduino Mega 2560, [https://www.aliexpress.com/item/32850843888.html](https://www.aliexpress.com/item/32850843888.html)  
+1 x Arduino Mega 2560, [AliExpress](https://www.aliexpress.com/wholesale?SearchText=arduino+mega+2560)  
 
-1 x LCD display, 4x20 with I2C communication, [https://www.aliexpress.com/item/4001135515638.html](https://www.aliexpress.com/item/4001135515638.html)  
+1 x LCD display, 4x20 with I2C communication, [AliExpress](https://www.aliexpress.com/wholesale?SearchText=lcd+4x20+i2c)  
 
-1 x ESP-01 module, [https://www.aliexpress.com/item/32693314450.html](https://www.aliexpress.com/item/32693314450.html) (optional)  
+1 x ESP-01 module, [AliExpress](https://www.aliexpress.com/wholesale?SearchText=esp-01) (optional)  
 
-5 x Momentary push button  
+5 x Momentary push button [AliExpress](https://www.aliexpress.com/wholesale?SearchText=switch+dip+6mm)  
 
-5 x MOSFET module, [https://www.aliexpress.com/item/32839197645.html](https://www.aliexpress.com/item/32839197645.html)  
+5 x MOSFET module, [AliExpress](https://www.aliexpress.com/wholesale?SearchText=mosfet+module+irf520)  
 
-4 x pump, [https://www.aliexpress.com/item/1005002253125218.html](https://www.aliexpress.com/item/1005002253125218.html)  
+4 x pump, [AliExpress](https://www.aliexpress.com/wholesale?SearchText=peristaltic+pump)  
 
-1 x magnetic stirrer  
+1 x magnetic stirrer [DIY suggestion](https://www.instructables.com/How-to-Make-a-Cheap-Portable-Magnetic-Stirrer/)  
 
-1 x EC/TDS sensor, [https://www.aliexpress.com/item/32844394039.html](https://www.aliexpress.com/item/32844394039.html)  
+1 x EC/TDS sensor, [AliExpress](https://www.aliexpress.com/wholesale?SearchText=dfrobot+gravity+tds)  
 
-1 x pH sensor, [https://www.aliexpress.com/item/32486002798.html](https://www.aliexpress.com/item/32486002798.html)  
+1 x pH sensor, [AliExpress](https://www.aliexpress.com/wholesale?SearchText=dfrobot+gravity+ph)  
 
-1 x DS18B20 temperature sensor, [https://www.aliexpress.com/item/1783091649.html](https://www.aliexpress.com/item/1783091649.html)  
+1 x DS18B20 temperature sensor, [AliExpress](https://www.aliexpress.com/wholesale?SearchText=ds18b20)  
 
-1 x KY-019 relay module, [https://www.aliexpress.com/item/4000430707028.html](https://www.aliexpress.com/item/4000430707028.html) (optional)  
+1 x KY-019 relay module, [AliExpress](https://www.aliexpress.com/wholesale?SearchText=ky-019) (optional)  
 
 5 x 10 kohm resistor  
 
