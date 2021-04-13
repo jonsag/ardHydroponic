@@ -1,6 +1,11 @@
 # ardHydroponic
 
-An Arduino Mega managing a hydroponic plant bed.
+An Arduino Mega managing a hydroponic plant bed.  
+
+Visualization on an LCD screen  
+Managed and configured with push buttons  
+Data uploaded to Blynk app and ThingSpeak  
+Monitored on a webpage
 
 ## Hardware
 
@@ -36,7 +41,7 @@ Calibration fluids:
 pH: two solutions with known values, for example 4.00 and 7.00  (other values will also work)  
 TDS: solution with known TDS value  
 
-Connect everything according to the schematics in KiCAD.  
+Connect everything according to the [schematics](KiCAD/ardHydroponic/ardHydroponic.pdf) in KiCAD.  
 
 ## Usage
 
@@ -117,7 +122,7 @@ There are seventeen variables available:
 * Acid voltage,     mV
 * pH voltage offs., mV
 
-This is pretty self explanatory.  
+The names are pretty self explanatory.  
 However, the last seven of these will be further explained in the calibration section below.  
 
 The second line on the LCD will show the variable name.  
@@ -126,6 +131,7 @@ Line four will show the new value you step up and down.
 
 Also lines three and four will show pH and TDS when applicable.  
 
+There is some sanity checking done of these variables when changing them via the LCD, but beware of what you tap in.  
 ### 'Special' mode
 
 Button number:  
@@ -140,21 +146,15 @@ Button number:
 
 LCD shows selected action and action result  
 
-Actions:  
-
-* Communicate with the ESP module via the serial monitor. Available commands is printed to the monitor.
-* Clear EEPROM. On next restart the values in config.h will be written to the EEPROM.
-* Reset the ESP module
-* Reset system
-* Toggle the serial debugging output. Will go back to the setting in config.h after a restart.
-* Print the IP of the ESP module
-
 #### Actions
 
 * Interact with ESP module in serial monitor
 * Clear EEPROM. On next restart the EEPROM will be rewritten with the default values from config
 * Reset ESP module
-* Reset system
+* Reset whole system
+* Toggle the serial debugging output. Will go back to the setting in config.h after a restart.
+* Print the IP of the ESP module
+* Print MAC address of the ESP module
 
 ## Calibration
 
@@ -198,6 +198,20 @@ When you get a solid reading, save the value with a short press on 'Button 1'.
 
 There is also a 'pH voltage offset' for further trimming.  
 
+## Web interface
+
+A simple web page shows last data read and ThingSpeak upload status.  
+
+You can also disable an enable the outputs relay from the page.
+
+You can find the IP address of the web server using the 'Special' mode.  
+
+## Blynk app
+
+The app shows latest values of the sensors.  
+
+Also you can control the outputs relay from it.  
+
 ## Software configuration
 
 All configuration is made in 'config.h'
@@ -219,15 +233,40 @@ If you change these after having having uploaded the sketch once, it will not be
 The increments/decrements of the variables above.  
 (How big should the jumps be when using buttons 'Button 4' and 'Button5'.)  
 
-## Libraries
+## Libraries and boards in Arduino IDE
 
-Don't use the LiquidCrystal_I2C library from Arduino IDE's library manager.  
+Most can be installed from within the Arduino IDE, but look out for the liquid crystal library so you don't install the wrong one.  
+Read below!  
+
+### ESP8266 board library
+
+Add [http://arduino.esp8266.com/stable/package_esp8266com_index.json](http://arduino.esp8266.com/stable/package_esp8266com_index.json) (as a text line), in Files->Preferences->Additional Boards Manager URLs:  
+
+Then go to Tools->Board:...->Boards Manager...,search for esp8266 and install it.  
+
+### LiquidCrystal_I2C
+
+Don't install the LiquidCrystal_I2C library with Arduino IDE's library manager.  
 
 Instead use the one from [https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library](https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library).  
 
-## Install and configuration
+### FTDebouncer
 
-### thingspeak
+[https://github.com/ubidefeo/FTDebouncer](https://github.com/ubidefeo/FTDebouncer)  
+
+### Blynk
+
+[https://github.com/blynkkk/blynk-library](https://github.com/blynkkk/blynk-library)  
+
+### ThingSpeak
+
+[https://github.com/iobridge/thingspeak](https://github.com/iobridge/thingspeak)  
+
+## Install and configure
+
+### Create accounts for online visualizations
+
+#### thingspeak
 
 Get an account at [thingspeak.com](https://thingspeak.com).
 
@@ -239,7 +278,7 @@ Create a new channel with the fields:
 
 Take note of your channel ID and write API key.  
 
-### blynk
+#### blynk
 
 Download [Blynk](https://play.google.com/store/apps/details?id=cc.blynk) to your phone.  
 
@@ -258,6 +297,8 @@ In your mail you will have received the authorization token.
 
 Compile and upload ardHydroponic/ardHydroponic.ino with, for example, Arduino IDE.  
 
+When uploading over USB you must open up the connection between D14 and RESET, ie remove the jumper JP1.
+
 ### ESP-01
 
 Rename/copy espHydroponic/secrets.h.template to espHydroponic/secrets.h, and edit it with your own values/keys.  
@@ -275,8 +316,6 @@ Uncomment the line
     //clearEEPROM();
 
 and upload sketch.  
-
-Comment the line and upload again.  
 
 ## Misc
 
@@ -300,7 +339,7 @@ Get serial output
 
 Exit with Ctrl+a Ctrl+x  
 
-#### Links
+### Links
 
 EC sensor:  
 [https://wiki.dfrobot.com/Gravity__Analog_TDS_Sensor___Meter_For_Arduino_SKU__SEN0244](https://wiki.dfrobot.com/Gravity__Analog_TDS_Sensor___Meter_For_Arduino_SKU__SEN0244)  
