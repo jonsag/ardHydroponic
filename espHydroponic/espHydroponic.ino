@@ -112,16 +112,28 @@ void setup(void)
    **********/
   Serial.setTimeout(10);
   Serial.begin(9600);
+  if (debug)
+    Serial.println("Serial started");
 
   /**********
-   * WiFi
+   * WiFi mode
    **********/
+  if (debug)
+    Serial.println("Setting WiFi mode...");
   WiFi.mode(WIFI_STA);
+
+  /**********
+   * ThingSpeak
+   **********/
+  if (debug)
+    Serial.println("Starting ThingSpeak client...");
   ThingSpeak.begin(client); // Initialize ThingSpeak
 
   /**********
    * Webserver
    **********/
+  if (debug)
+    Serial.println("Configuring web server...");
   server.on("/", handle_OnConnect);
   server.onNotFound(handle_NotFound);
   server.on("/toggleRelay", handle_toggleRelay);
@@ -132,62 +144,66 @@ void setup(void)
   /**********
    * ntp
    **********/
+  if (debug)
+    Serial.println("Starting ntp client...");
   timeClient.begin();
 
   /**********
    * Outputs
    **********/
+  if (debug)
+    Serial.println("Starting outputs...");
   pinMode(relay, OUTPUT);
   digitalWrite(relay, relayState);
 
   /**********
-   * Blynk and connect
+   * WiFi connect
    **********/
-  if (debug)
-    Serial.print("Starting blynk and attempting to connect to SSID: ");
-  if (debug)
-    Serial.print(STASSID);
-  if (debug)
-    Serial.println("...");
-
-  Blynk.begin(blynkAuth, ssid, password);
-
-  while (WiFi.status() != WL_CONNECTED)
-  {
-
-    if (debug)
+  if (WiFi.status() != WL_CONNECTED)
+  { // connect or reconnect to WiFi
+    Serial.print("Attempting to connect to SSID: ");
+    Serial.println(STASSID);
+    WiFi.begin(ssid, password); // connect to WPA/WPA2 network
+    while (WiFi.status() != WL_CONNECTED)
+    {
       Serial.print(".");
-    delay(500);
+      delay(500);
+    }
+    Serial.println("\nConnected.");
   }
 
-  if (debug)
-    Serial.println("\nConnected");
-  if (debug)
-    Serial.print("IP: ");
-  if (debug)
-    Serial.println(WiFi.localIP());
+  Serial.print("Connected with IP: ");
+  Serial.println(WiFi.localIP());
   if (debug)
     Serial.println();
+
+  /**********
+   * Blynk
+   **********/
+  if (debug)
+    Serial.println("Starting blynk...");
+
+  Blynk.begin(blynkAuth, ssid, password);
+  
+  if (debug)
+    Serial.println("All started");
 }
 
 void loop(void)
 {
   if (WiFi.status() != WL_CONNECTED)
   { // connect or reconnect to WiFi
-    if (debug)
-      Serial.print("Attempting to connect to SSID: ");
-    if (debug)
-      Serial.println(STASSID);
+    Serial.println("Lost WiFi");
+    Serial.print("Attempting to reconnect to SSID: ");
+    Serial.println(STASSID);
     WiFi.begin(ssid, password); // connect to WPA/WPA2 network
     while (WiFi.status() != WL_CONNECTED)
     {
 
-      if (debug)
-        Serial.print(".");
+      Serial.print(".");
       delay(500);
     }
-    if (debug)
-      Serial.println("\nConnected.");
+    Serial.println("\nConnected.");
   }
 
   Blynk.run();
@@ -551,7 +567,7 @@ void decodeMessage(String message)
     else
     {
       debug = 1;
-      Serial.println("Debug endabled");
+      Serial.println("Debug enabled");
     }
   }
   else
