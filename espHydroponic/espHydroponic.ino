@@ -6,6 +6,15 @@
 #ifdef DEBUG
 #define BLYNK_PRINT Serial
 boolean debug = 1;
+#include "user_interface.h"
+/*
+wifi_station_get_connect_status() returns one of:
+5 -> STATION_GOT_IP
+3 -> STATION_NO_AP_FOUND
+4 -> STATION_CONNECT_FAIL
+STATION_WRONG_PASSWORD
+STATION_IDLE
+ */
 #else
 boolean debug = 0;
 #endif
@@ -166,13 +175,43 @@ void setup(void)
     WiFi.begin(ssid, password); // connect to WPA/WPA2 network
     while (WiFi.status() != WL_CONNECTED)
     {
-      Serial.print(".");
+      if (debug)
+      {
+        Serial.print("WiFi status=");
+        Serial.print(WiFi.status());
+        Serial.print(": ");
+        Serial.print(wl_status_to_string(WiFi.status()));
+
+#ifdef DEBUG
+        Serial.print("\t\tWiFi station connect status: ");
+        Serial.println(wifi_station_get_connect_status());
+#else
+        Serial.print("\n");
+#endif
+      }
+      else
+      {
+        Serial.print(".");
+      }
       delay(500);
     }
-    Serial.println("\nConnected.");
+    if (debug)
+    {
+      Serial.print("WiFi status=");
+      Serial.print(WiFi.status());
+      Serial.print(": ");
+      Serial.print(wl_status_to_string(WiFi.status()));
+
+#ifdef DEBUG
+      Serial.print("\t\tWiFi station connect status: ");
+      Serial.println(wifi_station_get_connect_status());
+#else
+      Serial.print("\n");
+#endif
+    }
   }
 
-  Serial.print("Connected with IP: ");
+  Serial.print("\nConnected with IP: ");
   Serial.println(WiFi.localIP());
   if (debug)
     Serial.println();
@@ -184,7 +223,7 @@ void setup(void)
     Serial.println("Starting blynk...");
 
   Blynk.begin(blynkAuth, ssid, password);
-  
+
   if (debug)
     Serial.println("All started");
 }
@@ -577,4 +616,27 @@ void decodeMessage(String message)
 
   if (debug)
     Serial.println();
+}
+
+const char *wl_status_to_string(wl_status_t status)
+{
+  switch (status)
+  {
+  case WL_NO_SHIELD:
+    return "WL_NO_SHIELD";
+  case WL_IDLE_STATUS:
+    return "WL_IDLE_STATUS";
+  case WL_NO_SSID_AVAIL:
+    return "WL_NO_SSID_AVAIL";
+  case WL_SCAN_COMPLETED:
+    return "WL_SCAN_COMPLETED";
+  case WL_CONNECTED:
+    return "WL_CONNECTED";
+  case WL_CONNECT_FAILED:
+    return "WL_CONNECT_FAILED";
+  case WL_CONNECTION_LOST:
+    return "WL_CONNECTION_LOST";
+  case WL_DISCONNECTED:
+    return "WL_DISCONNECTED";
+  }
 }
