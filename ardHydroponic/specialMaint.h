@@ -57,7 +57,7 @@ void getIP()
         }
 
         i++;
-        if (i > 10)
+        if (i > maxTries)
         {
             break;
         }
@@ -141,7 +141,7 @@ void getMAC()
         }
 
         i++;
-        if (i > 10)
+        if (i > maxTries)
         {
             break;
         }
