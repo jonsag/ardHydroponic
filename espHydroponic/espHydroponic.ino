@@ -132,6 +132,51 @@ void setup(void)
   WiFi.mode(WIFI_STA);
 
   /**********
+   * Scan for available networks
+   **********/
+  if (debug)
+  { // https://arduino-esp8266.readthedocs.io/en/latest/esp8266wifi/scan-examples.html
+    while (true)
+    {
+      WiFi.disconnect();
+      Serial.println("Scanning for available networks...");
+      delay(100);
+      int n = WiFi.scanNetworks();
+      if (n > 0)
+      {
+        Serial.print("Found ");
+        Serial.print(n);
+        if (n > 1)
+        {
+          Serial.println(" networks: ");
+        }
+        else
+        {
+          Serial.println(" network: ")
+        }
+        for (int i = 0; i < n; i++)
+        {
+          //Serial.println(WiFi.SSID(i));
+          Serial.printf("%d: %s, Ch:%d (%ddBm) %s\n",
+                        i + 1,
+                        WiFi.SSID(i).c_str(),
+                        WiFi.channel(i),
+                        WiFi.RSSI(i),
+                        WiFi.encryptionType(i) == ENC_TYPE_NONE ? "open" : "");
+        }
+      }
+      break;
+    }
+    else
+    {
+      Serial.println("Didn't find any networks");
+      Serial.println("You've got a problem!");
+      Serial.println("Trying again in five seconds...");
+      delay(5000);
+    }
+  }
+
+  /**********
    * ThingSpeak
    **********/
   if (debug)
