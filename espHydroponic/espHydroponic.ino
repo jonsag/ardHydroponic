@@ -4,6 +4,7 @@
  * Debug
  **********/
 #ifdef DEBUG
+#define BLYNK_DEBUG
 #define BLYNK_PRINT Serial
 boolean debug = 1;
 #include "user_interface.h"
@@ -136,9 +137,9 @@ void setup(void)
    **********/
   if (debug)
   { // https://arduino-esp8266.readthedocs.io/en/latest/esp8266wifi/scan-examples.html
+    WiFi.disconnect();
     while (true)
     {
-      WiFi.disconnect();
       Serial.println("Scanning for available networks...");
       delay(100);
       int n = WiFi.scanNetworks();
@@ -152,27 +153,22 @@ void setup(void)
         }
         else
         {
-          Serial.println(" network: ")
+          Serial.println(" network: ");
         }
         for (int i = 0; i < n; i++)
         {
           //Serial.println(WiFi.SSID(i));
-          Serial.printf("%d: %s, Ch:%d (%ddBm) %s\n",
-                        i + 1,
-                        WiFi.SSID(i).c_str(),
-                        WiFi.channel(i),
-                        WiFi.RSSI(i),
-                        WiFi.encryptionType(i) == ENC_TYPE_NONE ? "open" : "");
+          Serial.printf("%d: %s, Ch:%d (%ddBm) %s\n", i + 1, WiFi.SSID(i).c_str(), WiFi.channel(i), WiFi.RSSI(i), WiFi.encryptionType(i) == ENC_TYPE_NONE ? "open" : "");
         }
+        break;
       }
-      break;
-    }
-    else
-    {
-      Serial.println("Didn't find any networks");
-      Serial.println("You've got a problem!");
-      Serial.println("Trying again in five seconds...");
-      delay(5000);
+      else
+      {
+        Serial.println("Didn't find any networks");
+        Serial.println("You've got a problem!");
+        Serial.println("Trying again in five seconds...");
+        delay(5000);
+      }
     }
   }
 
@@ -222,9 +218,9 @@ void setup(void)
     {
       if (debug)
       {
-        Serial.print("WiFi status=");
+        Serial.print("WiFi status: ");
         Serial.print(WiFi.status());
-        Serial.print(": ");
+        Serial.print(", ");
         Serial.print(wl_status_to_string(WiFi.status()));
 
 #ifdef DEBUG
