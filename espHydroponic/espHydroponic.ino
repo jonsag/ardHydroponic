@@ -1,4 +1,4 @@
-//#define DEBUG // uncomment this for debugging output
+#define DEBUG // uncomment this for debugging output
 
 /**********
  * Debug
@@ -243,7 +243,7 @@ void setup(void)
       Serial.print("WiFi status=");
       Serial.print(WiFi.status());
       Serial.print(": ");
-      Serial.print(wl_status_to_string(WiFi.status()));
+      Serial.print(wifi_status_to_string(WiFi.status()));
 
 #ifdef DEBUG
       Serial.print("\t\tWiFi station connect status: ");
@@ -695,7 +695,9 @@ const char *wifi_station_connect_status_to_string(station_status_t status)
   case STATION_NO_AP_FOUND:
     return "STATION_NO_AP_FOUND";
   case STATION_CONNECT_FAIL:
-    return "STATION_CONNECT_FAIL" case STATION_WRONG_PASSWORD : return "STATION_WRONG_PASSWORD";
+    return "STATION_CONNECT_FAIL";
+  case STATION_WRONG_PASSWORD:
+    return "STATION_WRONG_PASSWORD";
   case STATION_IDLE:
     return "STATION_IDLE";
   case WL_DISCONNECTED:

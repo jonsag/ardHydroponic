@@ -282,6 +282,10 @@ Instead use the one from [https://github.com/fdebrabander/Arduino-LiquidCrystal-
 
 [https://github.com/iobridge/thingspeak](https://github.com/iobridge/thingspeak)  
 
+### NTPClient
+
+[https://github.com/arduino-libraries/NTPClient](https://github.com/arduino-libraries/NTPClient)  
+
 ## Install and configure
 
 ### Create accounts for online visualizations
