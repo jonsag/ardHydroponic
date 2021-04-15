@@ -1,4 +1,4 @@
-#define DEBUG // uncomment this for debugging output
+//#define DEBUG // uncomment this for debugging output
 
 /**********
  * Debug
@@ -216,41 +216,20 @@ void setup(void)
     WiFi.begin(ssid, password); // connect to WPA/WPA2 network
     while (WiFi.status() != WL_CONNECTED)
     {
-      if (debug)
-      {
-        Serial.print("WiFi status: ");
-        Serial.print(WiFi.status());
-        Serial.print(", ");
-        Serial.print(wifi_status_to_string(WiFi.status()));
-
 #ifdef DEBUG
-        Serial.print("\t\tWiFi station connect status: ");
-        Serial.print(wifi_station_get_connect_status());
-        Serial.print(", ");
-        Serial.print(wifi_station_connect_status_to_string(wifi_station_get_connect_status()));
-#else
-        Serial.print("\n");
-#endif
-      }
-      else
-      {
-        Serial.print(".");
-      }
-      delay(500);
-    }
-    if (debug)
-    {
-      Serial.print("WiFi status=");
+      Serial.print("WiFi status: ");
       Serial.print(WiFi.status());
-      Serial.print(": ");
+      Serial.print(", ");
       Serial.print(wifi_status_to_string(WiFi.status()));
 
-#ifdef DEBUG
       Serial.print("\t\tWiFi station connect status: ");
-      Serial.println(wifi_station_get_connect_status());
+      Serial.print(wifi_station_get_connect_status());
+      Serial.print(", ");
+      Serial.println(wifi_station_get_connect_status_to_string(wifi_station_get_connect_status()));
 #else
-      Serial.print("\n");
+      Serial.print(".");
 #endif
+      delay(500);
     }
   }
 
@@ -686,7 +665,7 @@ const char *wifi_status_to_string(wl_status_t status)
   }
 }
 
-const char *wifi_station_connect_status_to_string(station_status_t status)
+const char *wifi_station_get_connect_status_to_string(station_status_t status)
 {
   switch (status)
   {
