@@ -211,8 +211,16 @@ void setup(void)
    **********/
   if (WiFi.status() != WL_CONNECTED)
   { // connect or reconnect to WiFi
-    Serial.print("Attempting to connect to SSID: ");
-    Serial.println(STASSID);
+    Serial.print("Attempting to connect to SSID: '");
+    Serial.print(STASSID);
+    Serial.println("'");
+    if (debug)
+      Serial.print("Password: '");
+    if (debug)
+      Serial.print(password);
+    if (debug)
+      Serial.println("'");
+
     WiFi.begin(ssid, password); // connect to WPA/WPA2 network
     while (WiFi.status() != WL_CONNECTED)
     {
@@ -232,6 +240,18 @@ void setup(void)
       delay(500);
     }
   }
+
+#ifdef DEBUG
+  Serial.print("WiFi status: ");
+  Serial.print(WiFi.status());
+  Serial.print(", ");
+  Serial.print(wifi_status_to_string(WiFi.status()));
+
+  Serial.print("\t\tWiFi station connect status: ");
+  Serial.print(wifi_station_get_connect_status());
+  Serial.print(", ");
+  Serial.println(wifi_station_get_connect_status_to_string(wifi_station_get_connect_status()));
+#endif
 
   Serial.print("\nConnected with IP: ");
   Serial.println(WiFi.localIP());
@@ -640,8 +660,22 @@ void decodeMessage(String message)
     Serial.println();
 }
 
+#ifdef DEBUG
 const char *wifi_status_to_string(wl_status_t status)
 {
+  /*
+    typedef enum {
+    WL_NO_SHIELD        = 255,   // for compatibility with WiFi Shield library
+    WL_IDLE_STATUS      = 0,
+    WL_NO_SSID_AVAIL    = 1,
+    WL_SCAN_COMPLETED   = 2,
+    WL_CONNECTED        = 3,
+    WL_CONNECT_FAILED   = 4,
+    WL_CONNECTION_LOST  = 5,
+    WL_DISCONNECTED     = 6
+} wl_status_t;
+*/
+
   switch (status)
   {
   case WL_NO_SHIELD:
@@ -665,8 +699,21 @@ const char *wifi_status_to_string(wl_status_t status)
   }
 }
 
-const char *wifi_station_get_connect_status_to_string(station_status_t status)
+//const char *wifi_station_get_connect_status_to_string(station_status_t status)
+const char *wifi_station_get_connect_status_to_string(int status)
 {
+  /*
+    typedef enum {
+    STATION_IDLE = 0,
+    STATION_CONNECTING,
+    STATION_WRONG_PASSWORD,
+    STATION_NO_AP_FOUND,
+    STATION_CONNECT_FAIL,
+    STATION_GOT_IP
+} station_status_t;
+*/
+
+  /*
   switch (status)
   {
   case STATION_GOT_IP:
@@ -684,4 +731,25 @@ const char *wifi_station_get_connect_status_to_string(station_status_t status)
   default:
     return "NA";
   }
+*/
+
+  switch (status)
+  {
+
+  case 0:
+    return "STATION_IDLE";
+  case 1:
+    return "STATION_CONNECTING";
+  case 2:
+    return "STATION_WRONG_PASSWORD";
+  case 3:
+    return "STATION_NO_AP_FOUND";
+  case 4:
+    return "STATION_CONNECT_FAIL";
+  case 5:
+    return "STATION_GOT_IP";
+  default:
+    return "NA";
+  }
 }
+#endif
