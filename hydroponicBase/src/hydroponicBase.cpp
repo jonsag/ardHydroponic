@@ -2,7 +2,7 @@
 /**********
 * Include files
 **********/
-
+#include <Arduino.h>
 #include "config.h"
 #include "logging.h"
 #include "LCD.h"
@@ -91,13 +91,13 @@ void setup()
     Serial.println("Setting up buttons...");
   bootScreen("Setting up buttons..");
 
-  pinDebouncer.addPin(button1, LOW); // pin has external pull-down resistor
-  pinDebouncer.addPin(button2, LOW);
-  pinDebouncer.addPin(button3, LOW);
-  pinDebouncer.addPin(button4, LOW);
-  pinDebouncer.addPin(button5, LOW);
+  pinDebouncer.addPin(button1, LOW, onPinActivated, onPinDeactivated); // pin has external pull-down resistor
+  pinDebouncer.addPin(button2, LOW, onPinActivated, onPinDeactivated);
+  pinDebouncer.addPin(button3, LOW, onPinActivated, onPinDeactivated);
+  pinDebouncer.addPin(button4, LOW, onPinActivated, onPinDeactivated);
+  pinDebouncer.addPin(button5, LOW, onPinActivated, onPinDeactivated);
 
-  pinDebouncer.init(); // initiate debounce
+  pinDebouncer.begin(); // initiate debounce
 
   if (debug)
     Serial.println();

@@ -8,21 +8,14 @@
 #define BLYNK_PRINT Serial
 boolean debug = 1;
 #include "user_interface.h"
-/*
-wifi_station_get_connect_status() returns one of:
-5 -> STATION_GOT_IP
-3 -> STATION_NO_AP_FOUND
-4 -> STATION_CONNECT_FAIL
-STATION_WRONG_PASSWORD
-STATION_IDLE
- */
 #else
-boolean debug = 0;
+bool debug = 0;
 #endif
 
 /**********
  * Includes
  **********/
+#include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
@@ -107,6 +100,15 @@ BLYNK_WRITE(V3)
   }
   digitalWrite(relay, relayState);
 }
+
+/**********
+ * Functions
+ **********/
+void handle_OnConnect();
+void handle_NotFound();
+void handle_toggleRelay();
+void decodeMessage(String message);
+String SendHTML(float temperatureSum, float pHValue, float tdsValueString, String TimeWeb, String DateWeb, unsigned long epochTime, unsigned long uploadedEpoch, boolean uploadSuccess, boolean relayState);
 
 /**********
  * Misc
@@ -212,7 +214,7 @@ void setup(void)
   if (WiFi.status() != WL_CONNECTED)
   { // connect or reconnect to WiFi
     Serial.print("Attempting to connect to SSID: '");
-    Serial.print(STASSID);
+    Serial.print(ssid);
     Serial.println("'");
     if (debug)
       Serial.print("Password: '");
@@ -276,7 +278,7 @@ void loop(void)
   { // connect or reconnect to WiFi
     Serial.println("Lost WiFi");
     Serial.print("Attempting to reconnect to SSID: ");
-    Serial.println(STASSID);
+    Serial.println(ssid);
     WiFi.begin(ssid, password); // connect to WPA/WPA2 network
     while (WiFi.status() != WL_CONNECTED)
     {

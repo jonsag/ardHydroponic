@@ -12,7 +12,8 @@ float readWaterTemp()
   ds.reset();        // reset the 1-wire bus
   ds.select(addr);   // selecting the address of the device to operate
   ds.write(0x44, 1); // write a byte, and leave power applied to the 1 wire bus.
-  byte present = ds.reset();
+  //byte present = ds.reset();
+  ds.reset();
   ds.select(addr); // selecting the address of the device to operate
   ds.write(0xBE);  // write to the temperature sensors RAM at this address
 

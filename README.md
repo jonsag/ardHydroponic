@@ -319,15 +319,15 @@ In your mail you will have received the authorization token.
 
 ### Arduino Mega
 
-Compile and upload ardHydroponic/ardHydroponic.ino with, for example, Arduino IDE.  
+Compile and upload hydroponicBase/src/* with, for example, Platform IO.  
 
 When uploading over USB you must open up the connection between D14 and RESET, ie remove the jumper JP1.
 
 ### ESP-01
 
-Rename/copy espHydroponic/secrets.h.template to espHydroponic/secrets.h, and edit it with your own values/keys.  
+Rename/copy hydroponicConnect/src/secrets.h.template to hydroponicConnect/src/secrets.h, and edit it with your own values/keys.  
 
-Compile and upload espHydroponic/espHydroponic.ino with, for example, Arduino IDE.  
+Compile and upload hydroponicConnect/src/* with, for example, Platform IO.  
 
 ## Trouble shooting
 

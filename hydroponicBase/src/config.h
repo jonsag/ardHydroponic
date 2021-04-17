@@ -1,12 +1,12 @@
 String programName = "ardHydroponic";
-String date = "20210412";
+String date = "20210417";
 String author = "Jon Sagebrand";
 String email = "jonsagebrand@gmail.com";
 
 /**********
  * Debug and info
  **********/
-boolean debug = 0; // output all debugging info
+bool debug = 0; // output all debugging info
 const byte info = 0;     // 0: no info; 1: plotting, all values with headers on one line; 2: header and value on separate lines
 
 /**********
@@ -219,9 +219,9 @@ char *outputNames[] = {"pH+    ",
 unsigned long stirStartMillis = 0; // when was the stirrer started
 unsigned long stirStopMillis = 0;  // when did the stirrer stop
 
-int i; // just a counter used sometimes
-int j;
-float tempValue; // holds different bvtes
+unsigned int i; // just a counter used sometimes
+unsigned int j; // another counter
+float tempValue; // holds different bytes
 
 byte bootScreenLineNo = 0;
 String bootScreenLine0; // holds boot screen messages
