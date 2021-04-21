@@ -75,7 +75,7 @@ void startStirrer()
 {
     if (debug)
         Serial.println("Stirrer ON");
-    digitalWrite(stirrer, HIGH); // dosing nutrition BmaintPrintOutputStatus()mp
+    digitalWrite(stirrer, HIGH); // dosing nutrition B
     if (debug)
         Serial.println("Stirrer OFF");
     if (mode == 3)
