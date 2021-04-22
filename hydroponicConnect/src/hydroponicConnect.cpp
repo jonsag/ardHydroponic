@@ -1,12 +1,12 @@
-//#define DEBUG // uncomment this for debugging output
+//#define DODEBUG // uncomment this for debugging output
 
 /**********
  * Debug
  **********/
-#ifdef DEBUG
+#ifdef DODEBUG
 #define BLYNK_DEBUG
 #define BLYNK_PRINT Serial
-boolean debug = 1;
+bool debug = 1;
 #include "user_interface.h"
 #else
 bool debug = 0;
@@ -109,6 +109,8 @@ void handle_NotFound();
 void handle_toggleRelay();
 void decodeMessage(String message);
 String SendHTML(float temperatureSum, float pHValue, float tdsValueString, String TimeWeb, String DateWeb, unsigned long epochTime, unsigned long uploadedEpoch, boolean uploadSuccess, boolean relayState);
+const char *wifi_status_to_string(wl_status_t status);
+const char *wifi_station_get_connect_status_to_string(int status);
 
 /**********
  * Misc
@@ -223,10 +225,12 @@ void setup(void)
     if (debug)
       Serial.println("'");
 
+    //WiFi.begin(ssid, password); // connect to WPA/WPA2 network
     WiFi.begin(ssid, password); // connect to WPA/WPA2 network
+    
     while (WiFi.status() != WL_CONNECTED)
     {
-#ifdef DEBUG
+#ifdef DODEBUG
       Serial.print("WiFi status: ");
       Serial.print(WiFi.status());
       Serial.print(", ");
@@ -662,7 +666,7 @@ void decodeMessage(String message)
     Serial.println();
 }
 
-#ifdef DEBUG
+#ifdef DODEBUG
 const char *wifi_status_to_string(wl_status_t status)
 {
   /*
