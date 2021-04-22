@@ -247,7 +247,7 @@ void setup(void)
     }
   }
 
-#ifdef DEBUG
+#ifdef DODEBUG
   Serial.print("WiFi status: ");
   Serial.print(WiFi.status());
   Serial.print(", ");
