@@ -152,6 +152,7 @@ Line four will show the new value you step up and down.
 Also lines three and four will show pH and TDS when applicable.  
 
 There is some sanity checking done of these variables when changing them via the LCD, but beware of what you tap in.  
+
 ### 'Special' mode
 
 Button number:  

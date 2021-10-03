@@ -14,7 +14,7 @@ Hook up your FTDI device to the ESP module.
     5 Rx    ->      1   Tx
     6 DTR   ->
 
-Check connection with cu  
+Check connection with picocom  
 >$ picocom -b 115200 /dev/ttyUSB0 --omap crcrlf  
 
     picocom v2.2
@@ -61,7 +61,7 @@ Exit program
 ## Update firmware
 
 Install tool  
->$ pip install esptool.py
+>$ pip install esptool
 
 Pull GPIO0 to ground and start the ESP via the FTDI.  
 Also make sure you got a solid 3.3V source as the chip will not boot properly otherwise.  
@@ -69,7 +69,7 @@ Also make sure you got a solid 3.3V source as the chip will not boot properly ot
 ### Source from aprbrother  
 
 Download firmware from [http://wiki.aprbrother.com/wiki/Firmware_For_ESP8266](http://wiki.aprbrother.com/wiki/Firmware_For_ESP8266).  
->$ wget [https://i1.aprbrother.com/ai-thinker-v1.1.1.bin](https://i1.aprbrother.com/ai-thinker-v1.1.1.bin)    
+>$ wget https://i1.aprbrother.com/ai-thinker-v1.1.1.bin  
 
 Flash firmware  
 >$ esptool.py -p /dev/ttyUSB0 -b 115000 write_flash 0x000000 ai-thinker-v1.1.1.bin  
@@ -113,6 +113,9 @@ Find out how to upload it
 
 Flash chip  
 >$ esptool.py -p /dev/ttyUSB0 -b 74880 write_flash --flash_size 1MB --flash_freq 26m 0x00000 boot_v1.7.bin 0x01000 at/512+512/user1.1024.new.2.bin 0xFC000 esp_init_data_default_v08.bin 0x7E000 blank.bin 0xFE000 blank.bin
+
+Or with fewer options  
+>$ esptool.py -p /dev/ttyUSB0 write_flash 0x00000 boot_v1.7.bin 0x01000 at/512+512/user1.1024.new.2.bin 0xFC000 esp_init_data_default_v08.bin 0x7E000 blank.bin 0xFE000 blank.bin  
 
     esptool.py v3.0
     Serial port /dev/ttyUSB0
@@ -436,6 +439,15 @@ Verify upload
 Allowed baud rates:  
 300, 600, 1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200  
 
+Connect
+>$ picocom -b 115200 /dev/ttyUSB0 --omap crcrlf 
+
+View help  
+> [Ctrl+a][Ctrl+h]  
+
+Quit  
+> [Ctrl+a][Ctrl+q]  
+> 
 ## Links
 
 Espressif AT firmware:  
