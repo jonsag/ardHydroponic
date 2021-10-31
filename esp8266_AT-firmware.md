@@ -93,12 +93,17 @@ Flash firmware
     Leaving...
     Hard resetting via RTS pin...
 
-### Source from espressif, ESP8266 NonOS AT Bin v1.7.4  
+### Get AT sources from EspressIF
+
+[https://www.espressif.com/en/support/download/at?keys=&field_type_tid%5B%5D=799](https://www.espressif.com/en/support/download/at?keys=&field_type_tid%5B%5D=799)  
 
 Look for ESP8266 NonOS AT Bin, download and extract it  
->$ wget https://www.espressif.com/sites/default/files/ap/ESP8266_NonOS_AT_Bin_V1.7.4.zip
->$ unzip ESP8266_NonOS_AT_Bin_V1.7.4.zip
->$ cd ESP8266_NonOS_AT_Bin_V1.7.4/bin/
+
+### Source from espressif, ESP8266 NonOS AT Bin v1.7.4  
+  
+>$ wget https://www.espressif.com/sites/default/files/ap/ESP8266_NonOS_AT_Bin_V1.7.4.zip  
+>$ unzip ESP8266_NonOS_AT_Bin_V1.7.4.zip  
+>$ cd ESP8266_NonOS_AT_Bin_V1.7.4/bin/  
 
 Find out how to upload it  
 >$ cat at/README.md
@@ -160,9 +165,9 @@ Firmware check in serial monitor
 ### Source from espressif, ESP8266 NonOS AT Bin v1.6.2  
 
 Get source  
->$ wget wget https://www.espressif.com/sites/default/files/ap/ESP8266_AT_Bin_V1.6.2_0.zip
->$ unzip ESP8266_AT_Bin_V1.6.2_0.zip
->$ cd ESP8266_AT_Bin_V1.6.2/bin/
+>$ wget wget https://www.espressif.com/sites/default/files/ap/ESP8266_AT_Bin_V1.6.2_0.zip  
+>$ unzip ESP8266_AT_Bin_V1.6.2_0.zip  
+>$ cd ESP8266_AT_Bin_V1.6.2/bin/  
 
 Find out how to upload it  
 >$ cat at/README.md
@@ -221,9 +226,9 @@ Firmware check in serial monitor
 ### Source from espressif, ESP8266 NonOS AT Bin v1.5.1  
 
 Get source  
->$ wget wget https://www.espressif.com/sites/default/files/ap/esp8266_at_bin_v1.5.1.zip
->$ unzip esp8266_at_bin_v1.5.1.zip
->$ cd ESP8266_AT_Bin_V1.5.1/bin
+>$ wget wget https://www.espressif.com/sites/default/files/ap/esp8266_at_bin_v1.5.1.zip  
+>$ unzip esp8266_at_bin_v1.5.1.zip  
+>$ cd ESP8266_AT_Bin_V1.5.1/bin  
 
 Find out how to upload it  
 >$ cat at/README.md
