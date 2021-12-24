@@ -17,7 +17,7 @@ void useValue(byte varNo, float value)
     if (debug)
         Serial.print(" = ");
     vars[varNo] = value;
-    //nutrientsPumpTimeNew = vars[address / addressMultiplicator];
+    // nutrientsPumpTimeNew = vars[address / addressMultiplicator];
     if (debug)
         Serial.println(vars[varNo]);
 }
@@ -30,7 +30,7 @@ void writeValue(byte varNo)
         Serial.print(" = ");
     if (debug)
         Serial.println(vars[varNo]);
-    //EEPROM_write(address, vars[address / addressMultiplicator]);
+    // EEPROM_write(address, vars[address / addressMultiplicator]);
     putEEPROM(varNo * addressMultiplicator, vars[varNo]);
 }
 
@@ -49,7 +49,7 @@ void initEEPROMCheck()
         if (debug)
             Serial.println("...");
 
-        //EEPROM_read(i * addressMultiplicator, tempValue);
+        // EEPROM_read(i * addressMultiplicator, tempValue);
         tempValue = getEEPROM(i * addressMultiplicator, tempValue);
 
         if (tempValue != 0 && tempValue != 32000.00 && !isnan(tempValue))

@@ -14,7 +14,7 @@ void stoppHPlus()
     if (debug)
         Serial.println("Dosingpump PH+ OFF");
     if (mode == 3)
-        maintPrintOutputStatus(); //printToLCD(14, 2, "PH-");
+        maintPrintOutputStatus(); // printToLCD(14, 2, "PH-");
 }
 
 void startpHMinus()
@@ -137,24 +137,24 @@ void checkOutputStop()
 void checkMaintStop()
 {
     /**********
-    * Nutrient pump A
-    **********/
+     * Nutrient pump A
+     **********/
     if ((digitalRead(nutrAPump)) && (currentMillis - nutrAStartMillis >= vars[3]))
     { // time to stop the pump
         stopNutrA();
     }
 
     /**********
-    * Nutrient pump B
-    **********/
+     * Nutrient pump B
+     **********/
     if ((digitalRead(nutrBPump)) && (currentMillis - nutrBStartMillis >= vars[3]))
     { // time to stop the pump
         stopNutrB();
     }
 
     /**********
-    * PH pumps
-    **********/
+     * PH pumps
+     **********/
     if ((digitalRead(pHPlusPump)) && (currentMillis - pHPlusStartMillis >= vars[3]))
     { // time to stop the pump
         stoppHPlus();

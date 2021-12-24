@@ -1,7 +1,7 @@
 
 /**********
-* Include files
-**********/
+ * Include files
+ **********/
 #include <Arduino.h>
 #include "config.h"
 #include "logging.h"
@@ -16,13 +16,13 @@
 void setup()
 {
   /***********
-  * Serial
-  ***********/
+   * Serial
+   ***********/
   Serial.begin(serialBaudRate); // serial baudrate
 
   /*******************************
-  * Print start information
-  *******************************/
+   * Print start information
+   *******************************/
   if (debug)
     Serial.println();
   if (debug)
@@ -39,8 +39,8 @@ void setup()
     Serial.println();
 
   /**********
-  * LCD
-  **********/
+   * LCD
+   **********/
   if (debug)
     Serial.println("Starting LCD...");
 
@@ -52,9 +52,9 @@ void setup()
   bootScreen(date);
 
   /**********
-  * EEPROM
-  **********/
-  //clearEEPROM();
+   * EEPROM
+   **********/
+  // clearEEPROM();
   if (debug)
     Serial.println("Reading EEPROM...");
   bootScreen("Reading EEPROM...   ");
@@ -64,8 +64,8 @@ void setup()
     Serial.println();
 
   /**********
-  * In/Outputs
-  **********/
+   * In/Outputs
+   **********/
   if (debug)
     Serial.println("Starting In/Outputs...");
   bootScreen("Starting In/Outputs.");
@@ -85,8 +85,8 @@ void setup()
     Serial.println();
 
   /**********
-  * Setup FTDebouncer pins
-  **********/
+   * Setup FTDebouncer pins
+   **********/
   if (debug)
     Serial.println("Setting up buttons...");
   bootScreen("Setting up buttons..");
@@ -130,8 +130,8 @@ void setup()
     Serial.println();
 
   /**********
-  * Initiate screen
-  **********/
+   * Initiate screen
+   **********/
   clearLCD();
   printNormal();
   readSensors();
@@ -142,8 +142,8 @@ void loop()
   currentMillis = millis();
 
   /**********
-  * Read buttons
-  **********/
+   * Read buttons
+   **********/
   pinDebouncer.update();
 
   checkMode(); // check if mode has changed
@@ -182,15 +182,15 @@ void loop()
       if (debug)
         Serial.println("Writing to Serial1...");
       writeToSerial1();
-      //writeThingSpeak();
+      // writeThingSpeak();
       mode = 0;
       checkMode();
       newData = 0;
     }
 
     /**********
-    * Read loop
-    **********/
+     * Read loop
+     **********/
     if (currentMillis - readMillis >= vars[4])
     { // read mode
       mode = 1;
@@ -205,8 +205,8 @@ void loop()
     }
 
     /**********
-    * Stirrer
-    **********/
+     * Stirrer
+     **********/
     if (currentMillis - stirStopMillis >= vars[6] && !digitalRead(stirrer))
     { // time to stir
       startStirrer();

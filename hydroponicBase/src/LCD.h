@@ -94,7 +94,7 @@ void printNormal()
   if (debug)
     Serial.println("LCD -> Normal mode");
 
-  //lcd.clear();
+  // lcd.clear();
 
   printToLCD(0, 0, "Mode:");
   printMode();

@@ -445,14 +445,14 @@ Allowed baud rates:
 300, 600, 1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200  
 
 Connect
->$ picocom -b 115200 /dev/ttyUSB0 --omap crcrlf 
+>$ picocom -b 115200 /dev/ttyUSB0 --omap crcrlf  
 
 View help  
 > [Ctrl+a][Ctrl+h]  
 
 Quit  
 > [Ctrl+a][Ctrl+q]  
-> 
+
 ## Links
 
 Espressif AT firmware:  

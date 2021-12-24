@@ -6,12 +6,12 @@ String email = "jonsagebrand@gmail.com";
 /**********
  * Debug and info
  **********/
-bool debug = 0; // output all debugging info
-const byte info = 0;     // 0: no info; 1: plotting, all values with headers on one line; 2: header and value on separate lines
+bool debug = 0;      // output all debugging info
+const byte info = 0; // 0: no info; 1: plotting, all values with headers on one line; 2: header and value on separate lines
 
 /**********
-* Configurable variables
-**********/
+ * Configurable variables
+ **********/
 char *varNames[] = {
     // This is the text printed on the LCD in 'Settings' mode
     "Nutr pump time,   ms", /* 0 */
@@ -107,8 +107,8 @@ const int espHardwareReset = 12;
 const int resetPin = 14; // resets the Mega itself
 
 /**********
-* EEPROM
-**********/
+ * EEPROM
+ **********/
 #include <EEPROM.h>
 
 byte varNumber = 0;
@@ -117,19 +117,19 @@ byte oldVarNumber = 0;
 const byte addressMultiplicator = 4; // we store all variables as floats which uses 4 bytes
 
 /***********
-* Serial
-***********/
+ * Serial
+ ***********/
 const int serialBaudRate = 9600;
 
 /**********
-* Debouncing
-**********/
+ * Debouncing
+ **********/
 #include <FTDebouncer.h> // load library for debouncing buttons
 FTDebouncer pinDebouncer(30);
 
 /***********
-* One Wire, DS18B20
-***********/
+ * One Wire, DS18B20
+ ***********/
 #include <OneWire.h>
 OneWire ds(DS18S20Pin); // creating a OneWire object
 
@@ -140,22 +140,22 @@ byte data[12]; // variable to temporary hold readings
 byte addr[8];  // variable to temporary hold the memory address of the readings
 
 /**********
-* STD
-**********/
+ * STD
+ **********/
 #include <stdlib.h>
 
 /**********
-* LCD
-**********/
+ * LCD
+ **********/
 #include <LiquidCrystal_I2C.h>                          // Library for LCD
 LiquidCrystal_I2C lcd = LiquidCrystal_I2C(0x27, 20, 4); // change to (0x27, 20, 4) for 20x4 LCD
 
 /**********
-* EC/TDS sensor
-**********/
+ * EC/TDS sensor
+ **********/
 float voltage;
-//float ecValue;   //before temperature compensation
-float ecValue25; //after temperature compensation
+// float ecValue;   //before temperature compensation
+float ecValue25; // after temperature compensation
 float tdsValue;
 
 const float aref = 5.0;
@@ -165,8 +165,8 @@ float TDSValue;
 float oldTDSValue = 0;
 
 /**********
-* pH sensor
-**********/
+ * pH sensor
+ **********/
 float pHVoltage; // the voltage reading from analog pin
 float slope;
 float intercept;
@@ -184,8 +184,8 @@ int buf[noOfReadings];
 int temp; // reading samples
 
 /**********
-* Misc
-*********/
+ * Misc
+ *********/
 int mode = 0; // 0: normal, 1: reading, 2: uploading, 3: maintenance, 4: settings, 5: special
 int oldMode = -1;
 
@@ -219,8 +219,8 @@ char *outputNames[] = {"pH+    ",
 unsigned long stirStartMillis = 0; // when was the stirrer started
 unsigned long stirStopMillis = 0;  // when did the stirrer stop
 
-unsigned int i; // just a counter used sometimes
-unsigned int j; // another counter
+unsigned int i;  // just a counter used sometimes
+unsigned int j;  // another counter
 float tempValue; // holds different bytes
 
 byte bootScreenLineNo = 0;

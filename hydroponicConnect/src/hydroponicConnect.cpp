@@ -45,7 +45,7 @@ const char *myWriteAPIKey = apiKey;
  * UDP for ntp
  **********/
 WiFiUDP ntpUDP;
-const long utcOffsetInSeconds = 0; //28800;
+const long utcOffsetInSeconds = 0; // 28800;
 NTPClient timeClient(ntpUDP, "pool.ntp.org", utcOffsetInSeconds);
 
 /**********
@@ -161,7 +161,7 @@ void setup(void)
         }
         for (int i = 0; i < n; i++)
         {
-          //Serial.println(WiFi.SSID(i));
+          // Serial.println(WiFi.SSID(i));
           Serial.printf("%d: %s, Ch:%d (%ddBm) %s\n", i + 1, WiFi.SSID(i).c_str(), WiFi.channel(i), WiFi.RSSI(i), WiFi.encryptionType(i) == ENC_TYPE_NONE ? "open" : "");
         }
         break;
@@ -225,9 +225,9 @@ void setup(void)
     if (debug)
       Serial.println("'");
 
-    //WiFi.begin(ssid, password); // connect to WPA/WPA2 network
+    // WiFi.begin(ssid, password); // connect to WPA/WPA2 network
     WiFi.begin(ssid, password); // connect to WPA/WPA2 network
-    
+
     while (WiFi.status() != WL_CONNECTED)
     {
 #ifdef DODEBUG
@@ -296,7 +296,7 @@ void loop(void)
   Blynk.run();
 
   server.handleClient();
-  //MDNS.update();
+  // MDNS.update();
 
   message = "";
 
@@ -405,7 +405,7 @@ void handle_toggleRelay()
   togglePage += "</html>\n";
 
   server.send(200, "text / html", togglePage);
-  //handle_OnConnect();
+  // handle_OnConnect();
 }
 
 String SendHTML(float temperatureSum, float pHValue, float tdsValueString, String TimeWeb, String DateWeb, unsigned long epochTime, unsigned long uploadedEpoch, boolean uploadSuccess, boolean relayState)
@@ -705,7 +705,7 @@ const char *wifi_status_to_string(wl_status_t status)
   }
 }
 
-//const char *wifi_station_get_connect_status_to_string(station_status_t status)
+// const char *wifi_station_get_connect_status_to_string(station_status_t status)
 const char *wifi_station_get_connect_status_to_string(int status)
 {
   /*

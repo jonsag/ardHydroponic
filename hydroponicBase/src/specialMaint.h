@@ -95,7 +95,7 @@ void getIP()
             Serial.print(maxTries);
         if (debug)
             Serial.println(" tries");
-                printToLCD(0, 2, "Couldn't get IP     ");
+        printToLCD(0, 2, "Couldn't get IP     ");
     }
 }
 
@@ -133,7 +133,7 @@ void getMAC()
             Serial.print("Got: ");
         if (debug)
             Serial.println(messageMAC);
-        
+
         messageMAC.trim();
         if (messageMAC.length() > 0)
         {
@@ -173,6 +173,6 @@ void getMAC()
             Serial.print(maxTries);
         if (debug)
             Serial.println(" tries");
-                printToLCD(0, 2, "Couldn't get MAC    ");
+        printToLCD(0, 2, "Couldn't get MAC    ");
     }
 }

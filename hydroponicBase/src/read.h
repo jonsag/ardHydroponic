@@ -12,7 +12,7 @@ float readWaterTemp()
   ds.reset();        // reset the 1-wire bus
   ds.select(addr);   // selecting the address of the device to operate
   ds.write(0x44, 1); // write a byte, and leave power applied to the 1 wire bus.
-  //byte present = ds.reset();
+  // byte present = ds.reset();
   ds.reset();
   ds.select(addr); // selecting the address of the device to operate
   ds.write(0xBE);  // write to the temperature sensors RAM at this address
@@ -107,13 +107,13 @@ float readpHValue(float neutralPH, float acidPH, float neutralVoltage, float aci
   pHVoltage = getAvgValue(pHSensorPin) / adcRange * aref * 1000;
 
   slope = (neutralPH - acidPH) / ((neutralVoltage - voltageOffset) / 3.0 - (acidVoltage - voltageOffset) / 3.0);
-  //slope = (7.0     - 4.0   ) / ((this->_neutralVoltage - 1500.0) / 3.0 - (this->_acidVoltage - 1500.0) / 3.0);
+  // slope = (7.0     - 4.0   ) / ((this->_neutralVoltage - 1500.0) / 3.0 - (this->_acidVoltage - 1500.0) / 3.0);
 
   intercept = neutralPH - slope * (neutralVoltage - voltageOffset) / 3.0;
-  //intercept = 7.0     - slope * (this->_neutralVoltage - 1500.0) / 3.0;
+  // intercept = 7.0     - slope * (this->_neutralVoltage - 1500.0) / 3.0;
 
-  pHValue = slope * (pHVoltage - voltageOffset) / 3.0 + intercept; //y = k*x + b
-  //pHValue = slope * (voltage - 1500.0       ) / 3.0 + intercept;
+  pHValue = slope * (pHVoltage - voltageOffset) / 3.0 + intercept; // y = k*x + b
+  // pHValue = slope * (voltage - 1500.0       ) / 3.0 + intercept;
 
   if (debug)
     Serial.print("Neutral pH: ");
@@ -169,8 +169,8 @@ float readTDSValue(float tmpKValue, float tmpTdsFactor)
     Serial.println("Reading TDS value...");
 
   voltage = getAvgValue(ECSensorPin) / adcRange * aref;
-  //ecValue = (133.42 *  voltage * voltage * voltage - 255.86 * voltage * voltage + 857.39 * voltage) * vars[10];
-  ecValue25 = ((133.42 * voltage * voltage * voltage - 255.86 * voltage * voltage + 857.39 * voltage) * tmpKValue) / (1.0 + 0.02 * (temperatureSum - 25.0)); //temperature compensation
+  // ecValue = (133.42 *  voltage * voltage * voltage - 255.86 * voltage * voltage + 857.39 * voltage) * vars[10];
+  ecValue25 = ((133.42 * voltage * voltage * voltage - 255.86 * voltage * voltage + 857.39 * voltage) * tmpKValue) / (1.0 + 0.02 * (temperatureSum - 25.0)); // temperature compensation
   TDSValue = ecValue25 * tmpTdsFactor;
 
   if (debug)
@@ -215,8 +215,8 @@ void readSensors()
     Serial.println();
 
   /**********
-  * Read PH value
-  **********/
+   * Read PH value
+   **********/
   pHValue = readpHValue(vars[12], vars[13], vars[14], vars[15], vars[16]);
 
   if (debug)
@@ -251,8 +251,8 @@ void readSensors()
     Serial.println();
 
   /**********
-  * Read EC/TDS level
-  **********/
+   * Read EC/TDS level
+   **********/
   TDSValue = readTDSValue(vars[10], vars[11]);
 
   if (debug)
