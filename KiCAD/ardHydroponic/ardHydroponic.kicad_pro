@@ -367,7 +367,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "specctra_dsn": "",
+      "specctra_dsn": "ardHydroponic.dsn",
       "step": "",
       "vrml": ""
     },
