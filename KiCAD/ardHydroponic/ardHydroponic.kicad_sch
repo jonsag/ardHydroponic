@@ -4,6 +4,12 @@
 
   (paper "A4")
 
+  (title_block
+    (title "ardHydroponic")
+    (date "2022-09-10")
+    (rev "0.2")
+  )
+
   (lib_symbols
     (symbol "4-pin_I2C_LCD_header_1" (pin_names (offset 1.016)) (in_bom yes) (on_board yes)
       (property "Reference" "J" (id 0) (at 0 5.715 0)

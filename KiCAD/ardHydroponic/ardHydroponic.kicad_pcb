@@ -5,6 +5,12 @@
   )
 
   (paper "A4")
+  (title_block
+    (title "ardHydroponic")
+    (date "2022-09-10")
+    (rev "0.2")
+  )
+
   (layers
     (0 "F.Cu" signal)
     (31 "B.Cu" signal)
@@ -2089,7 +2095,7 @@
   (gr_text "2" (at 124.46 81.915) (layer "F.SilkS") (tstamp 709e84ca-5ccd-47cb-898a-0688ee45ab7c)
     (effects (font (size 1 1) (thickness 0.15)))
   )
-  (gr_text "ardHydroponic\nDesign: Jon Sagebrand\ngithub.com/jonsag" (at 102.235 114.3) (layer "F.SilkS") (tstamp 7d46b124-b0f8-445d-b6e9-dcafbbb27f0f)
+  (gr_text "${TITLE}-${REVISION}\nDesign: Jon Sagebrand\ngithub.com/jonsag" (at 102.235 114.3) (layer "F.SilkS") (tstamp 7d46b124-b0f8-445d-b6e9-dcafbbb27f0f)
     (effects (font (size 1 1) (thickness 0.15)) (justify left))
   )
   (gr_text "3" (at 121.92 81.915) (layer "F.SilkS") (tstamp 81036962-d8d7-4c64-b299-abe75f12b300)
