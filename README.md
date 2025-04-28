@@ -51,13 +51,13 @@ Things marked as optional are used when you make a PCB and/or an ESP-01 module.
 
 1 x 4x2 pin socket header (optional)  
 
-Some single row pin and socket headers, 100mil legs pace (optional)  
+Some single row pin and socket headers, 100mil legs space (optional)  
 
 1 x DC power source, same voltage as your pumps. If this will also feed the Arduino board, not higher than 12V  
 
 A PCB like the one in [this gerber zip](KiCAD/ardHydroponic/Gerber/ardHydroponic.zip) (optional)  
 
-Connect anf build everything according to the [schematics](KiCAD/ardHydroponic/ardHydroponic.pdf) in KiCAD.  
+Connect and build everything according to the [schematics](KiCAD/ardHydroponic/ardHydroponic.pdf) in KiCAD.  
 
 Calibration fluids:  
 pH: two solutions with known values, for example 4.00 and 7.00  (other values will also work)  
